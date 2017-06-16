@@ -1,0 +1,42 @@
+topic: ~qmatic()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+
+
+concept:(teller) [Teller " * Bill" "* Withdraw Money" Exchange "Deposit Money"]
+concept:(custrep) ["Customer Representative" Application Credit]
+concept:(exitting) ["Ok. See you in another life brother."]
+
+
+
+
+dynamic: your_ticket_is_ready
+dynamic: intro
+
+u:(e:QueueMatic/ReadyToGo)  ~intro
+
+u:(e:Dialog/NoOneSpeak10) $QueueMatic/CheckForAction=10
+
+u:(e:Dialog/NoOneSpeak20) $QueueMatic/CheckForAction=20
+
+u:(e:QueueMatic/NoAction) ~exitting $QueueMatic/ExitApp=1
+
+
+
+u:(~teller) Ok $QueueMatic/NumpadInputTeller=1
+
+u:(~custrep) Ok $QueueMatic/NumpadInputCust=1
+
+
+
+u:(e:QueueMatic/ShowTicketNumber) ~your_ticket_is_ready $QueueMatic/CheckForCoffee=1
+
