@@ -100,3 +100,18 @@ $(document).ready(function () {
     
 
 });
+
+var checked = 1;
+
+var checkForInput = function () {
+
+    
+    if (checked == 1)
+        session.raiseEvent("QueueMatic/CheckForAction", "10")
+    else if (checked == 2)
+        session.raiseEvent("QueueMatic/CheckForAction", "20")
+   
+    checked++;
+}
+
+setInterval(checkForInput, 15000);

@@ -1,0 +1,29 @@
+topic: ~keyboard()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+
+
+
+concept:(intro) ["Can you enter your customer number or your citizen id?"]
+concept:(reminder) ["Hey, you haven't entered your information yet. Can you please do that for me?"]
+concept:(exitting) ["Ok. See you in another life brother."]
+
+
+u:(e:Keyboard/ReadyToGo)  ~intro
+
+u:(e:Keyboard/Reminder) ~reminder
+
+u:(e:Keyboard/NoAction) ~exitting $Keyboard/ExitApp=1
+
+
+
+

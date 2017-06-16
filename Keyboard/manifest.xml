@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package uuid="keyboard-1406" version="0.0.0">
+ <names>
+  <name lang="en_US">Keyboard</name>
+ </names>
+ <supportedLanguages>
+  <language>en_US</language>
+ </supportedLanguages>
+ <descriptionLanguages>
+  <language>en_US</language>
+ </descriptionLanguages>
+ <contents>
+  <behaviorContent path="behavior_1">
+   <nature>interactive</nature>
+   <permissions/>
+  </behaviorContent>
+  <dialogContent typeVersion="1.0" topicName="keyboard">
+   <topic path="keyboard/keyboard_enu.top" language="en_US"/>
+  </dialogContent>
+ </contents>
+ <services>
+  <service name="Keyboard" autorun="false" execStart="main.py"/>
+ </services>
+ <executableFiles>
+  <file path="main.py"/>
+ </executableFiles>
+</package>
