@@ -38,7 +38,7 @@ class QueueMatic(object):
         self.customerInfo = CustomerQuery()
         self.ticketInfo = Qmatic()
 
-        self.customer_number = "169858813"#self.memory.getData("Global/CurrentCustomerNumber")
+        self.customer_number = self.memory.getData("Global/CurrentCustomerNumber")
         self.logger.info("Customer Number exists in memory: " + self.customer_number)
 
         if self.customer_number != "":

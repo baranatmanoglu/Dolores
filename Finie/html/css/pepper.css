@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 71%/1.5 Verdana, Sans-Serif;
+    background: #eee;
+}
+
+#numpad_container {
+    position: absolute;
+    margin-top: 35px;
+    margin-left: 205px;
+    width: 500px;
+    top: 170;
+    left: 0;
+}
+
+#ticket_container {
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 800px;
+    visibility: hidden;
+    position: absolute;
+    background: rgba(0, 0, 0, .5);
+}
+
+#loading_container {
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 800px;
+    visibility: hidden;
+    position: absolute;
+    background: rgba(0, 0, 0, .5);
+}
+
+#candidate_container {
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 800px;
+    visibility: hidden;
+    position: absolute;
+    background: rgba(0, 0, 0, .5);
+}
+
+#value_container {
+    position: absolute;
+    top: 150;
+    left: 0;
+    width: 500px;
+    text-align: center;
+}
+
+.wrapper {
+    position: absolute;
+    margin-top: 35px;
+    margin-left: 100px;
+    width: 640;
+    top: 170;
+    left: 500;
+}
+
+.wrapper canvas {
+    position: absolute;
+    width: 640;
+    height: 480;
+}
+
+.logo_container {
+    top: 0px;
+    left: 0px;
+}
+
+#keyboard {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#numpadOut {
+    align-self: center;
+    font-size: 24px;
+    line-height: 60px;
+}
+
+#donutchart {
+    width: 900px;
+    height: 500px;
+    visibility: hidden;
+}
+
+#keyboard li {
+    float: left;
+    margin: 0 5px 5px 0;
+    width: 100px;
+    height: 100px;
+    font-size: 24px;
+    line-height: 100px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #f9f9f9;
+    border-radius: 5px;
+}
+
+#ticket {
+    margin: 160px 0px 0px 400px;
+    width: 480px;
+    height: 480px;
+    font-size: 96px;
+    line-height: 480px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #f9f9f9;
+    border-radius: 5px;
+}
+
+#candidate {
+    margin: 160px 0px 0px 140px;
+    width: 1000px;
+    height: 480px;
+    font-size: 80px;
+    line-height: 480px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #f9f9f9;
+    border-radius: 5px;
+}
+
+.capslock,
+.tab,
+.left-shift,
+.clearl,
+.switch {
+    clear: left;
+}
+
+#keyboard .tab,
+#keyboard .delete {
+    width: 205px;
+}
+
+#keyboard .teller {
+    width: 250px;
+    height: 200px;
+    background-color: #ff0066;
+    line-height: 200px;
+}
+
+#keyboard .custrep {
+    width: 250px;
+    height: 200px;
+    background-color: #0033cc;
+    line-height: 200px;
+}
+
+#keyboard .exit {
+    width: 250px;
+    background-color: #ff0066;
+    margin: 20px 0px 0px 520px;
+}
+
+#keyboard .scan {
+    margin: 160px 0px 0px 300px;
+    width: 300px;
+    height: 200px;
+    line-height: 200px;
+}
+
+#keyboard .teller_ocr {
+    width: 250px;
+    background-color: #ff0066;
+    margin: 10px 0px 0px 100px;
+    border: 0px;
+}
+
+#keyboard .custrep_ocr {
+    width: 250px;
+    background-color: #0033cc;
+    margin: 10px 0px 0px 100px;
+    border: 0px;
+}
+
+#keyboard .cancel_number {
+    width: 250px;
+    background-color: #d30c0c;
+    margin: 10px 0px 0px 160px;
+    border: 0px;
+}
+
+#keyboard .capslock {
+    width: 80px;
+}
+
+#keyboard .return {
+    width: 90px;
+}
+
+#keyboard .left-shift {
+    width: 70px;
+}
+
+#keyboard .switch {
+    width: 90px;
+}
+
+#keyboard .rightright-shift {
+    width: 109px;
+}
+
+.lastitem {
+    margin-right: 0;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+#keyboard .space {
+    float: left;
+    width: 556px;
+}
+
+#keyboard .switch,
+#keyboard .space,
+#keyboard .return {
+    font-size: 16px;
+}
+
+.on {
+    display: none;
+}
+
+#keyboard li:hover {
+    position: relative;
+    top: 1px;
+    left: 1px;
+    border-color: #e5e5e5;
+    cursor: pointer;
+}
+
+.loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+.loaderpepper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -50px 0 0 -50px;
+    width: 100px;
+    height: 100px;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+00% {
+    transform: rotate(360deg);
+}
+
+
+}

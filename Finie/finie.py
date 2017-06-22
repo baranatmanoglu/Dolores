@@ -4,7 +4,7 @@ import qi
 import finie_settings
 from time import gmtime, strftime
 
-class Finie(object):
+class FinieHelper(object):
 
     _customer_number = ""
     _access_token = ""

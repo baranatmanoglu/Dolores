@@ -1,0 +1,40 @@
+topic: ~finie()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+
+concept:(finieStartProposal) You can ask me about your balance, income, transactions, spending history, spend advice, locations of ATMs and pay day.
+concept:(finieThinking) ["ok, thinking."]
+concept:(noOneSpeak) ["I couldn't get you."]
+concept:(stillThere) ["Great."]
+concept:(nextTime) ["Ok. Hope to see you again."]
+concept:(finieAskAgain) ["Would you like to ask more question?"]
+concept:(finieContinue) ["Good. What else do you want to know?"]
+
+
+u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieAskAgain)
+
+proposal:%finieAskAgain ~finieAskAgain
+    u1:(~yes) ^gotoReactivate(finieContinue)
+    u1:(~no) ~nextTime
+
+proposal:%finieContinue ~finieContinue
+    u1:(_*)  ~finieThinking Finie/StartSpeak=$1
+    u1:(e:Dialog/NoOneSpeak20) ~noOneSpeak ^stayInScope
+        u2:(~yes) ~stillThere ^gotoReactivate(finieStart) ^stayInScope
+        u2:(~no) ~nextTime
+
+
+proposal:%finieStart ~finieStartProposal
+    u1:(_*)  ~finieThinking Finie/StartSpeak=$1
+    u1:(e:Dialog/NoOneSpeak20) ~noOneSpeak ^stayInScope
+        u2:(~yes) ~stillThere ^gotoReactivate(finieStart) ^stayInScope
+        u2:(~no) ~nextTime
