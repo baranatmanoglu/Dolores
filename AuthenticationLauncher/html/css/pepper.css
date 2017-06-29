@@ -1,0 +1,47 @@
+body {
+    width: 1280px;
+    height: 800px;
+    font: 71%/1.5 Verdana, Sans-Serif;
+    background: #eee;
+}
+
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.logo_container {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+.item_container {
+    top: 150px;
+    left: 0px;
+    position: absolute;
+}
+
+.item {
+    float: left;
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border: 1px solid #f9f9f9;
+    border-radius: 5px;
+    margin: 65px 110px 65px 110px;
+    font-size:96px;
+    text-align:center;
+    line-height: 200px;
+    color:black;
+}
+
+.rotate{
+    transform: rotate(90deg);
+}
+
+.clearl{
+    clear: left;
+}
+

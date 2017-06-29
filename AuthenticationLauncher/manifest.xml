@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="keyboard-14b06b">
+<package uuid="authenticationlauncher-95364" version="0.0.0">
  <names>
-  <name lang="en_US">Keyboard</name>
+  <name lang="en_US">AuthenticationLauncher</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>
@@ -14,12 +14,9 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="keyboard">
-   <topic language="en_US" path="keyboard/keyboard_enu.top"/>
-  </dialogContent>
  </contents>
  <services>
-  <service execStart="main.py" autorun="false" name="Keyboard"/>
+  <service autorun="false" name="AuthenticationLauncher" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>
