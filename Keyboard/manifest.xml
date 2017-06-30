@@ -14,12 +14,12 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="keyboard">
-   <topic language="en_US" path="keyboard/keyboard_enu.top"/>
+  <dialogContent topicName="keyboard" typeVersion="1.0">
+   <topic path="keyboard/keyboard_enu.top" language="en_US"/>
   </dialogContent>
  </contents>
  <services>
-  <service execStart="main.py" autorun="false" name="Keyboard"/>
+  <service name="Keyboard" execStart="main.py" autorun="false"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

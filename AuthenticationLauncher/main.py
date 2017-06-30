@@ -28,6 +28,14 @@ class AuthenticationLauncher(object):
 
         self.life = self.session.service("ALAutonomousLife")
 
+        self.pm = self.session.service("ALPreferenceManager")
+        self.pm.update()
+
+        self.amoves = self.session.service("ALAutonomousMoves")
+        self.bawareness = self.session.service("ALBasicAwareness")
+        self.aspeech = self.session.service("ALAnimatedSpeech")
+        self.posture = self.session.service("ALRobotPosture")
+
 
     # Signal related methods starts
 
@@ -60,9 +68,23 @@ class AuthenticationLauncher(object):
         event_connection = event_subscriber.signal.connect(self.on_go_keyboard)
         self.subscriber_list.append([event_subscriber, event_connection])
 
+        event_name = "Authentication/EnableBasics"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.enable_after_first_animation)
+        self.subscriber_list.append([event_subscriber, event_connection])
 
+        event_name = "Authentication/CheckForAction"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_check_for_action)
+        self.subscriber_list.append([event_subscriber, event_connection])
 
-
+        event_name = "Authentication/ExitApp"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_self_exit)
+        self.subscriber_list.append([event_subscriber, event_connection])
 
 
 
@@ -82,24 +104,68 @@ class AuthenticationLauncher(object):
 
     # Event CallBacks Starts
 
+    @qi.bind(methodName="on_check_for_action", paramsType=(qi.String,), returnType=qi.Void)
+    def on_check_for_action(self, value):
+        self.logger.info(str(value))
+        if not self.in_action:
+            if value == "reminder":
+                self.memory.raiseEvent("Authentication/Reminder", 1)
+            elif value == "endit":
+                self.memory.raiseEvent("Authentication/NoAction", 1)
 
     @qi.bind(methodName="on_go_nfc", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_nfc(self, value):
-        self.life.switchFocus("nfcauth-c9f71b")
+        self.logger.info("NFC selected.")
+        to_app = str(self.pm.getValue("authentication_launcher", "nfc_app"))
+        self.logger.info(to_app)
+        self.cleanup()
+        self.life.switchFocus(to_app)
 
     @qi.bind(methodName="on_go_qr", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_qr(self, value):
-        self.life.switchFocus("qr_reader-14c9ab")
+        self.logger.info("QR selected.")
+        to_app = str(self.pm.getValue("authentication_launcher", "qr_app"))
+        self.logger.info(to_app)
+        self.cleanup()
+        self.life.switchFocus(to_app)
 
     @qi.bind(methodName="on_go_listener", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_listener(self, value):
-        self.life.switchFocus("")
+        self.logger.info("Listener selected.")
+        to_app = str(self.pm.getValue("authentication_launcher", "listener_app"))
+        self.logger.info(to_app)
+        self.cleanup()
+        self.life.switchFocus(to_app)
 
     @qi.bind(methodName="on_go_keyboard", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_keyboard(self, value):
-        self.life.switchFocus("keyboard-14b06b")
+        self.logger.info("Keyboard selected.")
+        to_app = str(self.pm.getValue("authentication_launcher", "keyboard_app"))
+        self.logger.info(to_app)
+        self.cleanup()
+        self.life.switchFocus(to_app)
 
+    @qi.nobind  # Disables the awareness and animation language for intro part
+    def enable_after_first_animation(self, value):
+        self.posture.goToPosture("Stand", 0.8)
+        try:
+            self.amoves.setBackgroundStrategy("backToNeutral")
+        except Exception, e:
+            self.logger.info("Exception while disabling autonomus moves: {}".format(e))
 
+        try:
+            self.bawareness.startAwareness()
+        except Exception, e:
+            self.logger.info("Exception while disabling basic awareness: {}".format(e))
+
+        try:
+            self.aspeech.setBodyLanguageModeFromStr("contextual")
+        except Exception, e:
+            self.logger.info("Exception while disabling animated speech: {}".format(e))
+
+    @qi.nobind
+    def on_self_exit(self, value):
+        self.on_exit()
 
 
     # Event CallBacks Ends
@@ -146,7 +212,7 @@ class AuthenticationLauncher(object):
             self.logger.info("Dialog loaded!")
         except Exception, e:
             self.logger.info("Error while loading dialog: {}".format(e))
-
+        
 
 
     @qi.nobind
@@ -193,8 +259,25 @@ class AuthenticationLauncher(object):
     @qi.nobind  # Starting the app  # @TODO: insert whatever the app should do to start
     def start_app(self):
         self.logger.info("Starting App.")
+        self.disable_for_first_animation()
         self.show_screen()
         self.start_dialog()
+
+    @qi.nobind #Disables the awareness and animation language for intro part
+    def disable_for_first_animation(self):
+        try:
+            self.amoves.setBackgroundStrategy("none")
+        except Exception, e:
+            self.logger.info("Exception while disabling autonomus moves: {}".format(e))
+        try:
+            self.bawareness.stopAwareness()
+        except Exception, e:
+            self.logger.info("Exception while disabling basic awareness: {}".format(e))
+        try:
+            self.aspeech.setBodyLanguageModeFromStr("disabled")
+        except Exception,e:
+            self.logger.info("Exception while disabling animated speech: {}".format(e))
+        self.posture.goToPosture("Stand", 0.8)
 
 
     # App Start/End Methods Ends

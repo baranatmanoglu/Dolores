@@ -25,16 +25,24 @@ li {
 
 .item {
     float: left;
-    width: 200px;
-    height: 200px;
+    width: 198px;
+    height: 198px;
     background: #fff;
     border: 1px solid #f9f9f9;
     border-radius: 5px;
-    margin: 65px 110px 65px 110px;
-    font-size:96px;
+    margin: 45px 0px 45px 250px;
+    font-size:80px;
     text-align:center;
-    line-height: 200px;
     color:black;
+}
+
+
+
+
+.glowing-item { 
+    outline: none;
+    border-color: #ed9e9e;
+    box-shadow: 0 0 100px #ed9e9e;
 }
 
 .rotate{
