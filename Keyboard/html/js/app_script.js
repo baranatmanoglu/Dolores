@@ -66,6 +66,10 @@ function showNumPad() {
     $("#numpad_container").css("visibility", "visible");
 }
 
+function clearScreen() {
+   $('#numpadOut').text(""); 
+}
+
 
 $(document).ready(function () {
 
@@ -75,7 +79,7 @@ $(document).ready(function () {
     session.subscribeToEvent("Keyboard/NumpadInput", pressKey);
     session.subscribeToEvent("Keyboard/ShowLoading", showLoading);
     session.subscribeToEvent("Keyboard/HideLoading", hideLoading);
-
+    session.subscribeToEvent("Keyboard/CleanScreen", clearScreen);
 
 
 

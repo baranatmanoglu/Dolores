@@ -7,6 +7,7 @@ import sys
 import qi
 
 import time
+from customerquery import CustomerQuery
 
 
 class Keyboard(object):
@@ -30,7 +31,7 @@ class Keyboard(object):
         self.create_signals()
 
         self.life = self.session.service("ALAutonomousLife")
-
+        self.customerInfo = CustomerQuery()
 
 
 
@@ -97,9 +98,19 @@ class Keyboard(object):
     def on_number_entered(self, value):
         try:
             self.logger.info(str(value))
-            self.memory.insertData("Global/CurrentCustomerNumber",value)
-            next_app = self.memory.getData("Global/RedirectingApp")
-            self.life.switchFocus(next_app)
+            found = False
+            if len(value) == 11:
+                found = self.customerInfo.query_customer(value, "I")
+            else:
+                found = self.customerInfo.query_customer(value, "U")
+            if found:
+                self.memory.insertData("Global/CurrentCustomer", self.customerInfo.jsonify())
+                next_app = self.memory.getData("Global/RedirectingApp")
+                self.cleanup()
+                self.life.switchFocus(next_app)
+            else:
+                self.memory.raiseEvent("Keyboard/NoCustomer", 1)
+
         except Exception, e:
             self.logger.info("Error while setting customer number: {}".format(e))
 

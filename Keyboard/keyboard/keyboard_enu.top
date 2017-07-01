@@ -16,6 +16,7 @@ language: enu
 concept:(intro) ["Can you enter your customer number or your citizen id?"]
 concept:(reminder) ["Hey, you haven't entered your information yet. Can you please do that for me?"]
 concept:(exitting) ["Ok. See you in another life brother."]
+concept:(nocustomer) ["I couldn't find any record related to the information you entered. Do you want to type again?"]
 
 
 u:(e:Keyboard/ReadyToGo)  ~intro
@@ -23,6 +24,13 @@ u:(e:Keyboard/ReadyToGo)  ~intro
 u:(e:Keyboard/Reminder) ~reminder
 
 u:(e:Keyboard/NoAction) ~exitting $Keyboard/ExitApp=1
+
+u:(e:Keyboard/NoCustomer) ^gotoReactivate(noCustomerFound)
+
+proposal:%noCustomerFound ~nocustomer
+    u1:(yes) ~intro $Keyboard/CleanScreen=1
+    u1:(no) ~exitting $Keyboard/ExitApp=1
+
 
 
 
