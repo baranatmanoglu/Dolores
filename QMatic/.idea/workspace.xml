@@ -27,7 +27,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="customerquery.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="customerquery.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/customerquery.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1596">
@@ -37,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../AuthenticationLauncher/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="31" selection-end-column="24" />
+            <state relative-caret-position="386">
+              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -159,10 +159,10 @@
         <option value="$PROJECT_DIR$/../Keyboard/keyboard/keyboard_enu.top" />
         <option value="$PROJECT_DIR$/../Keyboard/customerquery.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_7.py" />
-        <option value="$PROJECT_DIR$/../AuthenticationLauncher/main.py" />
         <option value="$PROJECT_DIR$/../Keyboard/main.py" />
         <option value="$PROJECT_DIR$/qmatic/qmatic_enu.top" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/../AuthenticationLauncher/main.py" />
       </list>
     </option>
   </component>
@@ -608,14 +608,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../AuthenticationLauncher/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="31" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Keyboard/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
@@ -648,6 +640,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1596">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../AuthenticationLauncher/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding />
         </state>
       </provider>
