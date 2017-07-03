@@ -105,14 +105,18 @@ class Keyboard(object):
                 found = self.customerInfo.query_customer(value, "U")
             if found:
                 self.memory.insertData("Global/CurrentCustomer", self.customerInfo.jsonify())
-                next_app = self.memory.getData("Global/RedirectingApp")
-                self.cleanup()
-                self.life.switchFocus(next_app)
             else:
                 self.memory.raiseEvent("Keyboard/NoCustomer", 1)
 
         except Exception, e:
             self.logger.info("Error while setting customer number: {}".format(e))
+
+        try:
+            next_app = str(self.memory.getData("Global/RedirectingApp"))
+            self.logger.info("Switching to {}".format(next_app))
+            self.life.switchFocus(next_app)
+        except Exception, e:
+            self.logger.info("Error while switching to next app: {} {}".format(next_app,e))
 
     @qi.nobind
     def on_self_exit(self, value):

@@ -17,6 +17,7 @@
         <File name="numpad" src="html/js/numpad.js" />
         <File name="qimessaging_helper" src="html/js/qimessaging_helper.js" />
         <File name="main" src="main.py" />
+        <File name="customerquery" src="customerquery.py" />
     </Resources>
     <Topics>
         <Topic name="keyboard_enu" src="keyboard/keyboard_enu.top" topicName="keyboard" language="en_US" />

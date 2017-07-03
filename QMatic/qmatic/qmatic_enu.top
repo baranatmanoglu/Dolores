@@ -20,9 +20,9 @@ concept:(exitting) ["Ok. See you in another life brother."]
 
 
 dynamic: your_ticket_is_ready
-dynamic: intro
+dynamic: introQ
 
-u:(e:QueueMatic/ReadyToGo)  ~intro
+u:(e:QueueMatic/ReadyToGo)  ~introQ
 
 u:(e:Dialog/NoOneSpeak10) $QueueMatic/CheckForAction=10
 

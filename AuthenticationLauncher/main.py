@@ -36,6 +36,9 @@ class AuthenticationLauncher(object):
         self.aspeech = self.session.service("ALAnimatedSpeech")
         self.posture = self.session.service("ALRobotPosture")
 
+        #debug code- will be deleted
+        self.memory.insertData("Global/RedirectingApp", "queuematic-3181f8/behavior_1")
+
 
     # Signal related methods starts
 
