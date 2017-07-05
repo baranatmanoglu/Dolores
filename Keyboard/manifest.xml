@@ -12,6 +12,9 @@
  <contents>
   <behaviorContent path="behavior_1">
    <nature>interactive</nature>
+   <triggerSentences/>
+   <loadingResponses/>
+   <autonomous/>
    <permissions/>
   </behaviorContent>
   <dialogContent topicName="keyboard" typeVersion="1.0">

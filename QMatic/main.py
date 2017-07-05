@@ -41,9 +41,13 @@ class QueueMatic(object):
         self.pm = self.session.service("ALPreferenceManager")
         self.pm.update()
 
-        customer_json = self.memory.getData("Global/CurrentCustomer")
+        try:
+            customer_json = self.memory.getData("Global/CurrentCustomer")
+            self.logger.info("Customer exists in memory: " + self.customerInfo.customer_number)
+        except Exception,e:
+            self.logger.info("QMatic for anonymous user")
         self.customerInfo.fromjson(customer_json)
-        self.logger.info("Customer exists in memory: " + self.customerInfo.customer_number)
+
 
 
 

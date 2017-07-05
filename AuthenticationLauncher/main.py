@@ -9,7 +9,7 @@ import json
 
 class AuthenticationLauncher(object):
     subscriber_list = []
-
+    in_action = False
 
 
 
@@ -37,7 +37,7 @@ class AuthenticationLauncher(object):
         self.posture = self.session.service("ALRobotPosture")
 
         #debug code- will be deleted
-        #self.memory.insertData("Global/RedirectingApp", "queuematic-3181f8/behavior_1")
+        self.memory.insertData("Global/RedirectingApp", "queuematic-3181f8/behavior_1")
 
 
     # Signal related methods starts
@@ -118,6 +118,7 @@ class AuthenticationLauncher(object):
 
     @qi.bind(methodName="on_go_nfc", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_nfc(self, value):
+        self.in_action = True
         self.logger.info("NFC selected.")
         to_app = str(self.pm.getValue("authentication_launcher", "nfc_app"))
         self.logger.info(to_app)
@@ -126,6 +127,7 @@ class AuthenticationLauncher(object):
 
     @qi.bind(methodName="on_go_qr", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_qr(self, value):
+        self.in_action = True
         self.logger.info("QR selected.")
         to_app = str(self.pm.getValue("authentication_launcher", "qr_app"))
         self.logger.info(to_app)
@@ -134,6 +136,7 @@ class AuthenticationLauncher(object):
 
     @qi.bind(methodName="on_go_listener", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_listener(self, value):
+        self.in_action = True
         self.logger.info("Listener selected.")
         to_app = str(self.pm.getValue("authentication_launcher", "listener_app"))
         self.logger.info(to_app)
@@ -142,30 +145,32 @@ class AuthenticationLauncher(object):
 
     @qi.bind(methodName="on_go_keyboard", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_keyboard(self, value):
+        self.in_action = True
         self.logger.info("Keyboard selected.")
         to_app = str(self.pm.getValue("authentication_launcher", "keyboard_app"))
         self.logger.info(to_app)
         self.cleanup()
         self.life.switchFocus(to_app)
 
-    @qi.nobind  # Disables the awareness and animation language for intro part
+    @qi.nobind  # Enables the awareness and animation language for intro part
     def enable_after_first_animation(self, value):
         self.posture.goToPosture("Stand", 0.8)
         try:
             self.amoves.setBackgroundStrategy("backToNeutral")
         except Exception, e:
-            self.logger.info("Exception while disabling autonomus moves: {}".format(e))
+            self.logger.info("Exception while enabling autonomus moves: {}".format(e))
 
         try:
             self.bawareness.startAwareness()
         except Exception, e:
-            self.logger.info("Exception while disabling basic awareness: {}".format(e))
+            self.logger.info("Exception while enabling basic awareness: {}".format(e))
 
         try:
             self.aspeech.setBodyLanguageModeFromStr("contextual")
         except Exception, e:
-            self.logger.info("Exception while disabling animated speech: {}".format(e))
-
+            self.logger.info("Exception while enabling animated speech: {}".format(e))
+        self.logger.info("All enabled")
+        
     @qi.nobind
     def on_self_exit(self, value):
         self.on_exit()
