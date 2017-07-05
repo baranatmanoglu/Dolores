@@ -892,6 +892,7 @@
         <File name="__init__" src="twilio/twiml/__init__.py" />
         <File name="messaging_response" src="twilio/twiml/messaging_response.py" />
         <File name="voice_response" src="twilio/twiml/voice_response.py" />
+        <File name="switch" src="html/default/switch.jpg" />
     </Resources>
     <Topics>
         <Topic name="qmatic_enu" src="qmatic/qmatic_enu.top" topicName="qmatic" language="en_US" />

@@ -6,14 +6,14 @@ import os
 import sys
 import qi
 
-import time
+from datetime import datetime
 from customerquery import CustomerQuery
-
+from kairos_face import enroll
 
 class Keyboard(object):
     subscriber_list = []
     in_action = False
-
+    face_detected = False
 
 
 
@@ -33,7 +33,36 @@ class Keyboard(object):
         self.life = self.session.service("ALAutonomousLife")
         self.customerInfo = CustomerQuery()
 
+        self.camera = self.session.service("ALPhotoCapture")
 
+        self.preferences = self.session.service("ALPreferenceManager")
+        self.preferences.update()
+        self.connect_to_preferences()
+
+        self.face_detection = self.session.service("ALFaceDetection")
+        self.face_detection.subscribe(self.service_name)
+
+    @qi.nobind
+    def connect_to_preferences(self):
+        # connects to cloud preferences library and gets the initial prefs
+        try:
+
+            self.gallery_name = self.preferences.getValue('my_friend', "gallery_name")
+            self.folder_path = self.preferences.getValue('my_friend', "folder_path")
+            self.logger.info(self.folder_path)
+            self.threshold = float(str(self.preferences.getValue('my_friend', "threshold")))
+
+            self.logger.info(self.threshold)
+            self.record_folder = self.preferences.getValue('my_friend', "record_folder")
+            self.photo_count = int(self.preferences.getValue('my_friend', "photo_count"))
+            self.resolution = int(self.preferences.getValue('my_friend', "resolution"))
+            print(self.resolution)
+            self.camera_id = int(self.preferences.getValue('my_friend', "camera_id"))
+            self.picture_format = self.preferences.getValue('my_friend', "picture_format")
+            self.file_name = self.preferences.getValue('my_friend', "file_name")
+        except Exception, e:
+            self.logger.info("failed to get preferences".format(e))
+        self.logger.info("Successfully connected to preferences system")
 
     # Signal related methods starts
 
@@ -61,7 +90,9 @@ class Keyboard(object):
         event_connection = event_subscriber.signal.connect(self.on_check_for_action)
         self.subscriber_list.append([event_subscriber, event_connection])
 
-
+        event_name = "FaceDetected"
+        event_subscriber = self.memory.subscriber(event_name)
+        event_subscriber.signal.connect(self.on_face_detected)
 
 
     @qi.nobind
@@ -80,6 +111,13 @@ class Keyboard(object):
 
     # Event CallBacks Starts
 
+    @qi.nobind
+    def on_face_detected(self,value):
+        if not self.face_detected:
+            self.logger.info("Face detected. Take photo at {}".format(str(datetime.now())))
+            self.face_detected = True
+            self.take_picture()
+            self.face_detection.unsubscribe(self.service_name)
 
 
     @qi.nobind
@@ -96,6 +134,7 @@ class Keyboard(object):
 
     @qi.nobind
     def on_number_entered(self, value):
+        self.memory.raiseEvent("Keyboard/ShowLoading",1)
         try:
             self.logger.info(str(value))
             found = False
@@ -106,13 +145,17 @@ class Keyboard(object):
             if found:
                 self.memory.insertData("Global/CurrentCustomer", self.customerInfo.jsonify())
             else:
+                self.memory.raiseEvent("Keyboard/HideLoading", 1)
                 self.memory.raiseEvent("Keyboard/NoCustomer", 1)
 
         except Exception, e:
             self.logger.info("Error while setting customer number: {}".format(e))
 
+
+        self.register_face(self.customerInfo.customer_number,self.file_name)
+
+        next_app = "queuematic-3181f8/behavior_1"  # str(self.memory.getData("Global/RedirectingApp"))
         try:
-            next_app = str(self.memory.getData("Global/RedirectingApp"))
             self.logger.info("Switching to {}".format(next_app))
             self.life.switchFocus(next_app)
         except Exception, e:
@@ -223,6 +266,38 @@ class Keyboard(object):
 
     # App Start/End Methods Ends
 
+
+    # kairos started
+    @qi.nobind
+    def take_picture(self):
+        self.life.setAutonomousAbilityEnabled("BasicAwareness", False)
+
+        self.camera.setResolution(self.resolution)
+        self.camera.setCameraID(self.camera_id)
+        self.camera.setPictureFormat(self.picture_format)
+        self.camera.setHalfPressEnabled(True)
+        self.camera.takePictures(self.photo_count, self.record_folder, self.file_name)
+
+        self.life.setAutonomousAbilityEnabled("BasicAwareness", True)
+
+    @qi.bind(methodName="registerFace", paramsType=(qi.String, qi.String,), returnType=qi.Bool)
+    def register_face(self, customer_id, picture_name):
+        try:
+            file_path = self.get_picture_path(picture_name)
+            self.logger.info("Photo send with file name: {} at {}".format(file_path, str(datetime.now())))
+            response = enroll.enroll_face(subject_id=customer_id, gallery_name=self.gallery_name, file=file_path)
+            self.logger.info(response)
+            return True
+        except Exception, e:
+            self.logger.error(e)
+            return False
+
+    @qi.nobind
+    def get_picture_path(self, picture_name):
+        image_path = self.folder_path + picture_name
+        return image_path
+
+    # kairos ended
 
 
 if __name__ == "__main__":
