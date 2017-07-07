@@ -1,0 +1,31 @@
+topic: ~pair_game()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+concept:(intro) Hey, This game is one of my favorites. Lets play and learn about animals together.
+
+concept:(normalPlayer) ^rand[Good "You found a pair" Bravo Cool Yes]
+
+concept:(goodPlayer) ^rand["You are doing great." Excellent Fabolous Wow]
+
+concept:(noPairFound) ["Try another one" Oops "Never mind" ]
+
+dynamic:finalStatement
+
+proposal: %game_start ~intro $PairGame/ShuffleCards=1
+
+proposal: %say_normal ~normalPlayer
+
+proposal: %say_good ~goodPlayer
+
+proposal: %say_no_pair ~noPairFound
+
+proposal: %game_end ~finalStatement

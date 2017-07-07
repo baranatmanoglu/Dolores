@@ -1,0 +1,81 @@
+/* 
+    Document   : style
+    Created on : 07-Mar-2013, 15:08:57
+    Author     : Ray Hammond
+    Description:
+        CSS styles for a matching game written using HTML5.
+*/
+
+root {
+    display: block;
+}
+
+body {
+    background-color: #fff;
+    margin: 0px 0px 0px 0px;
+}
+
+body article#game {
+    width: 1280px;
+    height: 800px;
+}
+
+#board {
+    padding-top: 10px;
+    width: 1280px;
+    height: 800px;
+    background-color: #eee;
+}
+
+.tile {
+    float: left;
+    width: 305px;
+    height: 185px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #cfcfcf;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tile img {
+    display: block;
+    width: 305px;
+    height: 185px;
+    border-radius: 5px;
+}
+
+.tileColor1 {
+    background-color: rgb(0, 191, 255);
+    background-image: url(../images/baloons.png);
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.tileColor2 {
+    background-color: rgb(0, 0, 205);
+    background-image: url(../images/baloons.png);
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.tileColor3 {
+    background-color: rgb(135, 206, 250);
+    background-image: url(../images/baloons.png);
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.tileColor4 {
+    background-color: rgb(30, 144, 255);
+    background-image: url(../images/baloons.png);
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.tileColor5 {
+    background-color: rgb(70, 130, 180);
+    background-image: url(../images/baloons.png);
+    background-repeat: no-repeat;
+    background-position: center; 
+}
