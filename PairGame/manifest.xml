@@ -19,7 +19,7 @@
   </dialogContent>
  </contents>
  <services>
-  <service name="PairGame" execStart="main.py" autorun="false"/>
+  <service execStart="main.py" autorun="false" name="PairGame"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

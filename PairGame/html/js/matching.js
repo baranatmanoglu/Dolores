@@ -2,7 +2,6 @@ var tiles = new Array(),
     flips = new Array('tb', 'bt', 'lr', 'rl'),
     iFlippedTile = null,
     iTileBeingFlippedId = null,
-    tileImages = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
     tileAllocation = null,
     iTimer = 0,
     iInterval = 100,
@@ -11,6 +10,7 @@ var tiles = new Array(),
 var totalTiles = 16;
 var attempts = 0;
 var tilesFound = 0;
+var animalNames = new Array('bear', 'elephant', 'giraffe', 'kangroo', 'lion', 'penguin', 'racoon', 'zebra');
 
 function getRandomImageForTile() {
 
@@ -40,7 +40,8 @@ function createTile(iCounter) {
     curTile.setFrontColor("tileColor" + Math.floor((Math.random() * 5) + 1));
     curTile.setStartAt(500 * Math.floor((Math.random() * 5) + 1));
     curTile.setFlipMethod(flips[Math.floor((Math.random() * 3) + 1)]);
-    curTile.setBackContentImage("images/" + (iRandomImage + 1) + ".jpg");
+    curTile.setBackContentImage("images/" + animalNames[iRandomImage] + ".png");
+    curTile.setFileName(animalNames[iRandomImage]);
 
     return curTile;
 }
@@ -119,7 +120,20 @@ function revealTiles(callback) {
     }
 }
 
+function showMatched(tile) {
 
+    $("#bigpictureanimal").attr("src", "images/" + tile.getFileName() + ".png");
+    $("#bigpicture").css("visibility", "visible");
+
+
+}
+
+function hideMatched() {
+
+    checkFinalState();
+    $("#bigpictureanimal").attr("src", "");
+    $("#bigpicture").css("visibility", "hidden");
+}
 
 function checkMatch() {
 
@@ -144,15 +158,17 @@ function checkMatch() {
                     eventVal = "G"
                 }
             }
-            if (totalTiles != tilesFound) {
-                session.raiseEvent("PairGame/PairFound", eventVal);
-            }
+            eventVal = eventVal + ";" + tiles[iTileBeingFlippedId].getFileName();
+            setTimeout("showMatched(tiles[" + iFlippedTile + "])", 1500);
+            
+            session.raiseEvent("PairGame/PairFound", eventVal);
+            
         }
 
         iFlippedTile = null;
         iTileBeingFlippedId = null;
     }
-    checkFinalState();
+    
 }
 
 function checkFinalState() {
@@ -182,15 +198,22 @@ function onPeekStart() {
     setTimeout("hideTiles( function() { onPeekComplete(); })", iPeekTime);
 }
 
+function startGame() {
+    initTiles();
+    setTimeout("revealTiles(function() { onPeekStart(); })", iInterval);
+}
 
+function showPrize() {
+    $("#prize").css("visibility", "visible");
+}
 
 
 $(document).ready(function () {
 
-    initTiles();
-    setTimeout("revealTiles(function() { onPeekStart(); })", iInterval);
 
-    //session.subscribeToEvent("PairGame/ShuffleCards", startGame);
+    session.subscribeToEvent("PairGame/ShuffleCards", startGame);
+    session.subscribeToEvent("PairGame/ShowPrize", showPrize);
+    session.subscribeToEvent("PairGame/HideTriviaScreen", hideMatched);
 
 
 });

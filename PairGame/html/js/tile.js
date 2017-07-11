@@ -7,6 +7,7 @@ function tile(id) {
 	this.flipped = false;
 	this.backContentImage = null;
 	this.flipCompleteCallbacks = new Array();
+    this.picFileName = null;
 	
 	this.flip = function() {
 
@@ -92,4 +93,15 @@ function tile(id) {
 	this.addFlipCompleteCallback = function(callback) {
 		this.flipCompleteCallbacks.push(callback);
 	};
+    
+    this.setFileName = function(fileName)
+    {
+        this.picFileName = fileName;
+    }
+    
+    this.getFileName = function()
+    {
+        return this.picFileName;
+    }
+    
 }

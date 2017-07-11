@@ -27,6 +27,30 @@ body article#game {
     background-color: #eee;
 }
 
+#prize{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    visibility: hidden;
+}
+
+#bigpicture{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    visibility: hidden;
+}
+
+.imgprize{
+    width: 1280px;
+    height: 800px;
+}
+
+.imgbigpicture{
+    width: 1280px;
+    height: 800px;
+}
+
 .tile {
     float: left;
     width: 305px;

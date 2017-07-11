@@ -27,6 +27,15 @@
         <File name="baloons" src="html/images/baloons.png" />
         <File name="jquery-2.1.4.min" src="html/js/jquery-2.1.4.min.js" />
         <File name="qimessaging_helper" src="html/js/qimessaging_helper.js" />
+        <File name="prize" src="html/images/prize.png" />
+        <File name="bear" src="html/images/bear.png" />
+        <File name="elephant" src="html/images/elephant.png" />
+        <File name="giraffe" src="html/images/giraffe.png" />
+        <File name="kangroo" src="html/images/kangroo.png" />
+        <File name="lion" src="html/images/lion.png" />
+        <File name="penguin" src="html/images/penguin.png" />
+        <File name="racoon" src="html/images/racoon.png" />
+        <File name="zebra" src="html/images/zebra.png" />
     </Resources>
     <Topics>
         <Topic name="pair_game_enu" src="pair_game/pair_game_enu.top" topicName="pair_game" language="en_US" />

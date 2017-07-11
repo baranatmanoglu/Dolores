@@ -59,7 +59,17 @@ class PairGame(object):
         event_connection = event_subscriber.signal.connect(self.on_game_finished)
         self.subscriber_list.append([event_subscriber, event_connection])
 
-        
+        event_name = "PairGame/AbortGame"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_self_exit)
+        self.subscriber_list.append([event_subscriber, event_connection])
+
+        event_name = "PairGame/AnimalTrivia"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_animal_trivia)
+        self.subscriber_list.append([event_subscriber, event_connection])
 
 
     @qi.nobind
@@ -81,11 +91,17 @@ class PairGame(object):
    
     @qi.nobind
     def on_pair_found(self,value):
-        self.logger.info("New pair found..")
-        if(str(value) == "G"):
+        self.logger.info("New pair found {}".format(str(value)))
+        ratio,self.animal = str(value).split(";")
+        if(ratio == "G"):
             self.dialog.gotoTag("say_good", "pair_game")
         else:
             self.dialog.gotoTag("say_normal", "pair_game")
+
+    @qi.nobind
+    def on_animal_trivia(self, value):
+        self.logger.info("Animal: {}".format(self.animal))
+        self.dialog.gotoTag(self.animal, "pair_game")
 
 
     @qi.nobind
@@ -96,7 +112,6 @@ class PairGame(object):
     @qi.nobind
     def on_game_finished(self, value):
         self.logger.info("Game finished")
-        self.dialog.setConcept("finalStatement", "enu", ["You finished the game at {} attempts.".format(str(value))])
         self.dialog.gotoTag("game_end", "pair_game")
         
     @qi.nobind

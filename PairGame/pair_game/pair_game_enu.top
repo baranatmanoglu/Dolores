@@ -18,14 +18,59 @@ concept:(goodPlayer) ^rand["You are doing great." Excellent Fabolous Wow]
 
 concept:(noPairFound) ["Try another one" Oops "Never mind" ]
 
-dynamic:finalStatement
+concept:(exit) [Exit Stop Finish Leave]
+
+concept:(abortGame) Oh, ok. Let's continue another time.
+
+concept:(finalStatement) Congratulations, you have finished the game. Here is your prize.
+
+concept:(bear) This is a bear
+
+concept:(lion) This is a lion
+
+concept:(penguin) This is a penguin
+
+concept:(zebra) This is a zebra
+
+concept:(elephant) This is an elephant
+
+concept:(giraffe) This is a giraffe
+
+concept:(kangroo) This is a kangroo
+
+concept:(racoon) This is a racoon
+
 
 proposal: %game_start ~intro $PairGame/ShuffleCards=1
 
-proposal: %say_normal ~normalPlayer
+proposal: %say_normal ~normalPlayer \pau=1000\ $PairGame/AnimalTrivia=1
 
-proposal: %say_good ~goodPlayer
+proposal: %say_good ~goodPlayer \pau=1000\ $PairGame/AnimalTrivia=1
 
 proposal: %say_no_pair ~noPairFound
 
-proposal: %game_end ~finalStatement
+proposal: %game_end ^run(animations/Stand/Emotions/Positive/Winner_2)
+^nextProposal
+
+proposal: $PairGame/ShowPrize=1 ~finalStatement
+
+u:(~exit) ~abortGame
+
+proposal: %bear ~bear \pau=2000\ $PairGame/HideTriviaScreen=1
+
+proposal: %racoon ~racoon \pau=2000\ $PairGame/HideTriviaScreen=1
+
+proposal: %lion ~lion \pau=2000\ $PairGame/HideTriviaScreen=1
+
+proposal: %penguin ~penguin \pau=2000\ $PairGame/HideTriviaScreen=1
+
+proposal: %zebra ~zebra  \pau=2000\ $PairGame/HideTriviaScreen=1
+
+proposal: %elephant ~elephant \pau=2000\ $PairGame/HideTriviaScreen=1
+
+proposal: %giraffe ~giraffe \pau=2000\ $PairGame/HideTriviaScreen=1
+
+proposal: %kangroo ~kangroo \pau=2000\ $PairGame/HideTriviaScreen=1
+
+proposal: %racoon ~racoon \pau=2000\ $PairGame/HideTriviaScreen=1
+
