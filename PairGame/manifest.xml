@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="pairgame-345ds2">
+<package uuid="pairgame-345ds2" version="0.0.0">
  <names>
   <name lang="en_US">PairGame</name>
  </names>
@@ -19,7 +19,7 @@
   </dialogContent>
  </contents>
  <services>
-  <service execStart="main.py" autorun="false" name="PairGame"/>
+  <service autorun="false" name="PairGame" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

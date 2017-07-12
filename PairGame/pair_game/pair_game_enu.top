@@ -22,7 +22,7 @@ concept:(exit) [Exit Stop Finish Leave]
 
 concept:(abortGame) Oh, ok. Let's continue another time.
 
-concept:(finalStatement) Congratulations, you have finished the game. Here is your prize.
+concept:(finalStatement) Congratulations, you have finished the game. Here is your prize. \pau=4000\ $PairGame/AbortGame=1
 
 concept:(bear) This is a bear
 
@@ -34,11 +34,15 @@ concept:(zebra) This is a zebra
 
 concept:(elephant) This is an elephant
 
-concept:(giraffe) This is a giraffe
+concept:(giraffe) This is a giraffe. ^start(animations/Stand/Gestures/ShowSky_6) Giraffes are very tall.
 
 concept:(kangroo) This is a kangroo
 
 concept:(racoon) This is a racoon
+
+concept:(reminder) ["Hey, Don't you want to play with me?"]
+
+concept:(exitting) ["Ok. We can go on later."]
 
 
 proposal: %game_start ~intro $PairGame/ShuffleCards=1
@@ -54,23 +58,31 @@ proposal: %game_end ^run(animations/Stand/Emotions/Positive/Winner_2)
 
 proposal: $PairGame/ShowPrize=1 ~finalStatement
 
-u:(~exit) ~abortGame
+u:(~exit) ~abortGame $PairGame/AbortGame=1
 
-proposal: %bear ~bear \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %bear ~bear  $PairGame/PlayAnimalSound=1 \pau=2000\ $PairGame/HideTriviaScreen=1
 
-proposal: %racoon ~racoon \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %racoon ~racoon $PairGame/PlayAnimalSound=1 \pau=2000\ $PairGame/HideTriviaScreen=1
 
-proposal: %lion ~lion \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %lion ~lion $PairGame/PlayAnimalSound=1 \pau=2000\ $PairGame/HideTriviaScreen=1
 
-proposal: %penguin ~penguin \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %penguin ~penguin $PairGame/PlayAnimalSound=1 \pau=2000\ $PairGame/HideTriviaScreen=1
 
-proposal: %zebra ~zebra  \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %zebra ~zebra  $PairGame/PlayAnimalSound=1 \pau=2000\ $PairGame/HideTriviaScreen=1
 
-proposal: %elephant ~elephant \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %elephant ~elephant $PairGame/PlayAnimalSound=1 \pau=2000\ $PairGame/HideTriviaScreen=1
 
-proposal: %giraffe ~giraffe \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %giraffe ~giraffe   \pau=2000\ $PairGame/HideTriviaScreen=1
 
-proposal: %kangroo ~kangroo \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %kangroo ~kangroo $PairGame/PlayAnimalSound=1 \pau=2000\ $PairGame/HideTriviaScreen=1
 
-proposal: %racoon ~racoon \pau=2000\ $PairGame/HideTriviaScreen=1
+proposal: %racoon ~racoon $PairGame/PlayAnimalSound=1 \pau=2000\ $PairGame/HideTriviaScreen=1
+
+
+
+
+
+u:(e:PairGame/Reminder) ~reminder
+
+u:(e:PairGame/NoAction) ~exitting $PairGame/AbortGame=1
 

@@ -39,6 +39,9 @@ body article#game {
     top: 0px;
     left: 0px;
     visibility: hidden;
+    width: 1280px;
+    height: 800px;
+    background-color: white;
 }
 
 .imgprize{
@@ -47,8 +50,11 @@ body article#game {
 }
 
 .imgbigpicture{
-    width: 1280px;
-    height: 800px;
+    width: 800px;
+    height: 600px;
+    position: relative;
+    top:100px;
+    left:240px;
 }
 
 .tile {
@@ -69,37 +75,9 @@ body article#game {
     border-radius: 5px;
 }
 
-.tileColor1 {
-    background-color: rgb(0, 191, 255);
-    background-image: url(../images/baloons.png);
+.tileColor {
+    background-image: url(../images/background.jpg);
     background-repeat: no-repeat;
     background-position: center; 
 }
 
-.tileColor2 {
-    background-color: rgb(0, 0, 205);
-    background-image: url(../images/baloons.png);
-    background-repeat: no-repeat;
-    background-position: center; 
-}
-
-.tileColor3 {
-    background-color: rgb(135, 206, 250);
-    background-image: url(../images/baloons.png);
-    background-repeat: no-repeat;
-    background-position: center; 
-}
-
-.tileColor4 {
-    background-color: rgb(30, 144, 255);
-    background-image: url(../images/baloons.png);
-    background-repeat: no-repeat;
-    background-position: center; 
-}
-
-.tileColor5 {
-    background-color: rgb(70, 130, 180);
-    background-image: url(../images/baloons.png);
-    background-repeat: no-repeat;
-    background-position: center; 
-}

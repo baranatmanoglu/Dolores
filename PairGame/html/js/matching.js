@@ -11,7 +11,8 @@ var totalTiles = 16;
 var attempts = 0;
 var tilesFound = 0;
 var animalNames = new Array('bear', 'elephant', 'giraffe', 'kangroo', 'lion', 'penguin', 'racoon', 'zebra');
-
+var lastTouched = null;
+var checked =1;
 function getRandomImageForTile() {
 
     var iRandomImage = Math.floor((Math.random() * tileAllocation.length)),
@@ -37,7 +38,7 @@ function createTile(iCounter) {
 
     tileAllocation[iRandomImage] = tileAllocation[iRandomImage] + 1;
 
-    curTile.setFrontColor("tileColor" + Math.floor((Math.random() * 5) + 1));
+    curTile.setFrontColor("tileColor");
     curTile.setStartAt(500 * Math.floor((Math.random() * 5) + 1));
     curTile.setFlipMethod(flips[Math.floor((Math.random() * 3) + 1)]);
     curTile.setBackContentImage("images/" + animalNames[iRandomImage] + ".png");
@@ -122,7 +123,7 @@ function revealTiles(callback) {
 
 function showMatched(tile) {
 
-    $("#bigpictureanimal").attr("src", "images/" + tile.getFileName() + ".png");
+    $("#bigpictureanimal").attr("src", "images/" + tile.getFileName() + "B.png");
     $("#bigpicture").css("visibility", "visible");
 
 
@@ -137,6 +138,7 @@ function hideMatched() {
 
 function checkMatch() {
 
+    lastTouched = new Date().getTime();
     if (iFlippedTile === null) {
 
         iFlippedTile = iTileBeingFlippedId;
@@ -160,15 +162,15 @@ function checkMatch() {
             }
             eventVal = eventVal + ";" + tiles[iTileBeingFlippedId].getFileName();
             setTimeout("showMatched(tiles[" + iFlippedTile + "])", 1500);
-            
+
             session.raiseEvent("PairGame/PairFound", eventVal);
-            
+
         }
 
         iFlippedTile = null;
         iTileBeingFlippedId = null;
     }
-    
+
 }
 
 function checkFinalState() {
@@ -201,6 +203,31 @@ function onPeekStart() {
 function startGame() {
     initTiles();
     setTimeout("revealTiles(function() { onPeekStart(); })", iInterval);
+    lastTouched = new Date().getTime();
+    setInterval("checkTimer()", 1000);
+}
+
+function checkTimer() {
+
+    console.log("checking");
+    // Get todays date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now an the count down date
+    var distance = now - lastTouched;
+
+
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if (seconds > 30) {
+        lastTouched = new Date().getTime();
+        
+        if (checked == 1)
+            session.raiseEvent("PairGame/CheckForAction", "reminder");
+        else if (checked == 2)
+            session.raiseEvent("PairGame/CheckForAction", "endit");
+        checked++;
+    }
 }
 
 function showPrize() {
@@ -210,7 +237,7 @@ function showPrize() {
 
 $(document).ready(function () {
 
-
+    
     session.subscribeToEvent("PairGame/ShuffleCards", startGame);
     session.subscribeToEvent("PairGame/ShowPrize", showPrize);
     session.subscribeToEvent("PairGame/HideTriviaScreen", hideMatched);

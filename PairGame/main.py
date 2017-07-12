@@ -10,7 +10,7 @@ import qi
 class PairGame(object):
     subscriber_list = []
     in_action = False
-
+    audio_path = ""
 
 
 
@@ -27,8 +27,9 @@ class PairGame(object):
         self.create_signals()
 
         self.life = self.session.service("ALAutonomousLife")
-    
+        self.audio = self.session.service("ALAudioPlayer")
 
+        self.audio_path = os.path.dirname(os.path.realpath(__file__)) + "/sounds/"
         
 
     
@@ -71,6 +72,17 @@ class PairGame(object):
         event_connection = event_subscriber.signal.connect(self.on_animal_trivia)
         self.subscriber_list.append([event_subscriber, event_connection])
 
+        event_name = "PairGame/PlayAnimalSound"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_play_sound)
+        self.subscriber_list.append([event_subscriber, event_connection])
+
+        event_name = "PairGame/CheckForAction"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_check_for_action)
+        self.subscriber_list.append([event_subscriber, event_connection])
 
     @qi.nobind
     def disconnect_signals(self):
@@ -88,6 +100,14 @@ class PairGame(object):
 
     # Event CallBacks Starts
 
+    @qi.nobind
+    def on_play_sound(self, value):
+        self.logger.info("Playing sound for {}".format(self.animal))
+        try:
+            
+            self.audio.playFile(self.audio_path + "" + self.animal + ".wav", 1.0, 0.0)
+        except Exception,e:
+            self.logger.info("Exception while playing sound: {}".format(e))
    
     @qi.nobind
     def on_pair_found(self,value):
@@ -117,11 +137,10 @@ class PairGame(object):
     @qi.nobind
     def on_check_for_action(self, value):
         self.logger.info(str(value))
-        if not self.in_action:
-            if value == "reminder":
-                self.memory.raiseEvent("PairGame/Reminder",1)
-            elif value == "endit":
-                self.memory.raiseEvent("PairGame/NoAction",1)
+        if value == "reminder":
+            self.memory.raiseEvent("PairGame/Reminder",1)
+        elif value == "endit":
+            self.memory.raiseEvent("PairGame/NoAction",1)
 
 
 
