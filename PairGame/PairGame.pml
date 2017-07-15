@@ -41,6 +41,8 @@
         <File name="bear" src="sounds/bear.wav" />
         <File name="racoon" src="sounds/racoon.wav" />
         <File name="zebra" src="sounds/zebra.wav" />
+        <File name="background" src="html/images/background.jpg" />
+        <File name="penguin" src="sounds/penguin.wav" />
     </Resources>
     <Topics>
         <Topic name="pair_game_enu" src="pair_game/pair_game_enu.top" topicName="pair_game" language="en_US" />

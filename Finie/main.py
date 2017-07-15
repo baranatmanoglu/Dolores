@@ -7,11 +7,12 @@ import sys
 import qi
 from finie import FinieHelper
 import json
+from customerquery import CustomerQuery
 
 class Finie(object):
     subscriber_list = []
     in_action = False
-
+    wentTeller = False
 
 
 
@@ -29,7 +30,33 @@ class Finie(object):
         self.create_signals()
 
         self.life = self.session.service("ALAutonomousLife")
-        self.customer_number = "100000001"  # self.memory.getData("Global/CurrentCustomerNumber")
+
+        self.pm = self.session.service("ALPreferenceManager")
+        self.pm.update()
+
+        self.tts = self.session.service("ALTextToSpeech")
+
+        self.system = self.session.service("ALSystem")
+        self.system.setTimezone("7")
+
+        self.customerInfo = CustomerQuery()
+        self.customer_json = ""
+        try:
+            self.customer_json = self.memory.getData("Global/CurrentCustomer")
+            self.logger.info("Customer exists in memory: " + self.customerInfo.customer_number)
+        except Exception,e:
+            self.logger.info("Finie for anonymous user")
+        self.customerInfo.fromjson(self.customer_json)
+        self.mapCustomerNumber()
+        self.ticketData = ""
+        try:
+            self.ticketData = str(self.memory.getData("Global/QueueData"))
+            self.logger.info("Get Ticket from Memory: {}".format(self.ticketData))
+        except Exception,e:
+            self.logger.info("No ticket requested")
+
+
+
 
 
 
@@ -46,9 +73,23 @@ class Finie(object):
         event_connection = event_subscriber.signal.connect(self.on_human_asked)
         self.subscriber_list.append([event_subscriber, event_connection])
 
+        event_name = "Finie/ExitApp"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_self_exit)
+        self.subscriber_list.append([event_subscriber, event_connection])
 
+        event_name = "Finie/GoForTransaction"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_go_teller)
+        self.subscriber_list.append([event_subscriber, event_connection])
 
-
+        event_name = "Finie/ReadyToGo"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_tablet_ready)
+        self.subscriber_list.append([event_subscriber, event_connection])
 
 
     @qi.nobind
@@ -67,17 +108,34 @@ class Finie(object):
 
     # Event CallBacks Starts
 
+    @qi.bind(methodName="on_tablet_ready", paramsType=(qi.String,), returnType=qi.Void)
+    def on_tablet_ready(self, value):
+        if self.ticketData != "":
+            try:
+                self.memory.raiseEvent("Finie/ShowTicketData",self.ticketData)
+            except Exception,e:
+                self.logger.info("exception {}".format(e))
 
 
     # Human Spoke
 
+    @qi.bind(methodName="on_go_teller", paramsType=(qi.String,), returnType=qi.Void)
+    def on_go_teller(self, value):
+        self.tts.stopAll()
+        number, waiting, service_type = self.ticketData.split("|")
+        if service_type == "T":
+            self.dialog.setConcept("tellerFinie", "English", ["You are next. Please proceed to teller booth {}".format(str(value))])
+        else:
+            self.dialog.setConcept("tellerFinie", "English",["You are next. Please proceed to customer representative booth {}".format(str(value))])
+        self.dialog.gotoTag("goToTeller", "finie")
+        self.wentTeller = True
 
     @qi.bind(methodName="on_human_asked", paramsType=(qi.String,), returnType=qi.Void)
     def on_human_asked(self, value):
         if value:
             self.memory.raiseEvent("Finie/ShowLoading",1)
             self.logger.info("Get the input by event: {}".format(value))
-            finieHelper = FinieHelper(self.customer_number)
+            finieHelper = FinieHelper(self.customerInfo.customer_number)
 
             tokenGenerated = finieHelper.generate_token()
             if tokenGenerated == True:
@@ -85,11 +143,31 @@ class Finie(object):
                 answer_formatted = json.loads(answer)
                 visuals = answer_formatted["visuals"]
                 spokenAnswer =  visuals["speakableResponse"]
+                intent = str(answer_formatted["intent"])
+                strVisuals = str(json.dumps(visuals))
+                self.logger.info("Visuals: {}".format(strVisuals))
+                if not self.wentTeller:
+                    offer = False
+                    if intent == "history":
+                        self.memory.raiseEvent("Finie/ShowPieChart",strVisuals)
+                    if intent == "balance":
+                        self.memory.raiseEvent("Finie/ShowBarChartForBalance", strVisuals)
+                    if intent == "income":
+                        self.memory.raiseEvent("Finie/ShowBarChartForIncome", strVisuals)
+                    if intent == "spendadvice":
+                        recommend = str(answer_formatted["response"]["accounts"]["recommendation"])
+                        if recommend == "no":
+                            self.dialog.setConcept("offerFinie", "English", ["Would you apply for an instant loan? That would help you with your spendingsxs"])
+                            self.memory.raiseEvent("Finie/ShowLineChartForAdvice", strVisuals)
+                            offer = True
+                    if not offer:
+                        self.memory.raiseEvent("Finie/TellResponse", spokenAnswer)
+                    else:
+                        self.memory.raiseEvent("Finie/TellResponseWithOffer", spokenAnswer)
 
-            self.memory.raiseEvent("Finie/TellResponse", spokenAnswer)
-            self.memory.raiseEvent("Finie/ShowPieChart",visuals)
-
-
+    @qi.nobind
+    def on_self_exit(self, value):
+        self.on_exit()
 
 
 
@@ -112,6 +190,7 @@ class Finie(object):
             self.logger.info("Tablet loaded.")
         except Exception, e:
             self.logger.error("Error starting tablet page{}".format(e))
+
 
     @qi.nobind
     def hide_screen(self):
@@ -166,7 +245,8 @@ class Finie(object):
         # external NAOqi scripts should use ALServiceManager.stopService if they need to stop it.
         self.logger.info("Stopping service...")
         self.cleanup()
-        self.application.stop()
+        to_app = str(self.pm.getValue("global_variables", "main_app_id"))
+        self.life.switchFocus(to_app)
 
     @qi.nobind
     def cleanup(self):
@@ -191,7 +271,13 @@ class Finie(object):
 
     # App Start/End Methods Ends
 
-
+    @qi.nobind
+    def mapCustomerNumber(self):
+        mappings = {'169858813': "100000001",
+                    '155295662': "100000004",
+                    '':"100000001"}
+        self.customerInfo.customer_number = mappings[self.customerInfo.customer_number]
+        self.logger.info("Mapped customer number: {}".format(self.customerInfo.customer_number))
 
 
 if __name__ == "__main__":

@@ -11,30 +11,57 @@ language: enu
 #u:(~hello) ~hello
 
 
-concept:(finieStartProposal) You can ask me about your balance, income, transactions, spending history, spend advice, locations of ATMs and pay day.
+concept:(finieStartProposal) You can ask me about your balance, income, transactions, spending history, spend advice, locations of ATMs and pay day. 
 concept:(finieThinking) ["ok, thinking."]
 concept:(noOneSpeak) ["I couldn't get you."]
 concept:(stillThere) ["Great."]
 concept:(nextTime) ["Ok. Hope to see you again."]
-concept:(finieAskAgain) ["Would you like to ask more question?"]
+concept:(finieAskAgain) ["Would you like to ask more questions?"]
 concept:(finieContinue) ["Good. What else do you want to know?"]
+concept:(exit) [Exit Leave Abort Stop]
+concept:(yes) Yes
+concept:(no) No
+dynamic:tellerFinie
+dynamic:offerFinie
+concept:(offerYes) Great. Let me start the process.
+concept:(offerNo) Oh, Ok.
+concept:(later) * [later "another time"]
+concept:(offerLater) Ok. You can apply any time through IshCep.
 
 
 u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieAskAgain)
 
+u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offerFinie
+    u1:(~yes) ~offerYes ^gotoReactivate(finieAskAgain)
+    u1:(~no) ~offerNo ^gotoReactivate(finieAskAgain)
+    u1:(~later) ~offerLater ^gotoReactivate(finieAskAgain)
+    u1:(e:Dialog/NoOneSpeak10) ^gotoReactivate(finieAskAgain)
+
+u:(~exit) ~nextTime $Finie/ExitApp=1
+
 proposal:%finieAskAgain ~finieAskAgain
     u1:(~yes) ^gotoReactivate(finieContinue)
-    u1:(~no) ~nextTime
+    u1:(~no) ~nextTime $Finie/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak20) ~nextTime $Finie/ExitApp=1
 
 proposal:%finieContinue ~finieContinue
-    u1:(_*)  ~finieThinking Finie/StartSpeak=$1
-    u1:(e:Dialog/NoOneSpeak20) ~noOneSpeak ^stayInScope
-        u2:(~yes) ~stillThere ^gotoReactivate(finieStart) ^stayInScope
-        u2:(~no) ~nextTime
+    u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
+    u1:(~exit) ~nextTime $Finie/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak10) ~noOneSpeak^gotoReactivate(finieContinue2)
+    
+proposal:%finieContinue2 
+    u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
+    u1:(~exit) ~nextTime $Finie/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak10) ~nextTime $Finie/ExitApp=1
 
+proposal:%finieStart ~finieStartProposal $Finie/ReadyToGo=1
+    u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
+    u1:(~exit) ~nextTime $Finie/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak10) ~noOneSpeak ^gotoReactivate(finieStart2)
 
-proposal:%finieStart ~finieStartProposal
-    u1:(_*)  ~finieThinking Finie/StartSpeak=$1
-    u1:(e:Dialog/NoOneSpeak20) ~noOneSpeak ^stayInScope
-        u2:(~yes) ~stillThere ^gotoReactivate(finieStart) ^stayInScope
-        u2:(~no) ~nextTime
+proposal:%finieStart2
+    u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
+    u1:(~exit) ~nextTime $Finie/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak10) ~nextTime $Finie/ExitApp=1
+
+proposal:%goToTeller ~tellerFinie \pau=3000\ $Finie/ExitApp=1

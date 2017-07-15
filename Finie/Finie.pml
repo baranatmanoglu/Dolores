@@ -19,6 +19,8 @@
         <File name="pepper" src="html/css/pepper.css" />
         <File name="logo" src="html/img/logo.png" />
         <File name="pepper" src="html/img/pepper.png" />
+        <File name="customerquery" src="customerquery.py" />
+        <File name="creditoffer" src="html/img/creditoffer.jpg" />
     </Resources>
     <Topics>
         <Topic name="finie_enu" src="finie/finie_enu.top" topicName="finie" language="en_US" />

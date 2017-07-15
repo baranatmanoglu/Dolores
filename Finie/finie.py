@@ -61,7 +61,8 @@ class FinieHelper(object):
                 response = json.loads(r.text)
                 visuals = response["visuals"]
                 intent = response["intent"]
-                pepper_response = {'visuals' : visuals, 'intent':intent}
+                response = response["response"]
+                pepper_response = {'visuals' : visuals, 'intent':intent, 'response':response}
                 return json.dumps(pepper_response)
             except Exception, e:
                 self.logger.info("Exception parsing query response: {}".format(e))

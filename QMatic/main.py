@@ -40,7 +40,7 @@ class QueueMatic(object):
 
         self.pm = self.session.service("ALPreferenceManager")
         self.pm.update()
-
+        customer_json = ""
         try:
             customer_json = self.memory.getData("Global/CurrentCustomer")
             self.logger.info("Customer exists in memory: " + self.customerInfo.customer_number)
@@ -129,7 +129,9 @@ class QueueMatic(object):
             self.in_action = True
             # Ticket obtained from Qmatic
             self.ticketInfo.get_ticket(self.customerInfo.customer_number, self.customerInfo.segment, value)
-
+            ticketData = str(self.ticketInfo.ticket_number) + "|" + str(self.ticketInfo.waiting_time) + "|" + value
+            self.memory.insertData("Global/QueueData", ticketData)
+            self.logger.info("Ticket data inserted in memory: {}".format(ticketData))
             # Event raised for tablet to show the ticket number on the screen.
             if (value == "T"):
                 ticket_ready = "Here is your ticket for your transaction with our teller."
@@ -247,7 +249,8 @@ class QueueMatic(object):
         # external NAOqi scripts should use ALServiceManager.stopService if they need to stop it.
         self.logger.info("Stopping service...")
         self.cleanup()
-        self.application.stop()
+        to_app = str(self.pm.getValue("global_variables", "main_app_id"))
+        self.life.switchFocus(to_app)
 
     @qi.nobind
     def cleanup(self):

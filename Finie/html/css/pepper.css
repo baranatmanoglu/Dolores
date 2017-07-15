@@ -6,6 +6,8 @@
 body {
     font: 71%/1.5 Verdana, Sans-Serif;
     background: #eee;
+    width: 1280px;
+    height: 800px;
 }
 
 #numpad_container {
@@ -93,6 +95,15 @@ body {
     visibility: hidden;
 }
 
+#offer {
+    top: 150px;
+    left: 0px;
+    width: 900px;
+    height: 500px;
+    visibility: hidden;
+    position: absolute;
+}
+
 #keyboard li {
     float: left;
     margin: 0 5px 5px 0;
@@ -107,15 +118,18 @@ body {
 }
 
 #ticket {
-    margin: 160px 0px 0px 400px;
-    width: 480px;
-    height: 480px;
-    font-size: 96px;
-    line-height: 480px;
+    width: 240px;
+    height: 240px;
+    font-size: 48px;
+    line-height: 80px;
     text-align: center;
     background: #fff;
     border: 1px solid #f9f9f9;
     border-radius: 5px;
+    top: 150px;
+    left: 1000px;
+    position: absolute;
+    visibility: hidden;
 }
 
 #candidate {
@@ -282,4 +296,17 @@ body {
 }
 
 
+
+
+.blink_me {
+    -webkit-animation: blinker 1s linear infinite;
+    color: red;
+}
+
+
+
+@-webkit-keyframes blinker {  
+    0% { -webkit-opacity: 1.0; }
+    50% { -webkit-opacity: 0.0; }
+    100% { -webkit-opacity: 1.0; }
 }
