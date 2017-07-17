@@ -36,8 +36,7 @@ class Finie(object):
 
         self.tts = self.session.service("ALTextToSpeech")
 
-        self.system = self.session.service("ALSystem")
-        self.system.setTimezone("7")
+
 
         self.customerInfo = CustomerQuery()
         self.customer_json = ""
@@ -45,7 +44,9 @@ class Finie(object):
             self.customer_json = self.memory.getData("Global/CurrentCustomer")
             self.logger.info("Customer exists in memory: " + self.customerInfo.customer_number)
         except Exception,e:
-            self.logger.info("Finie for anonymous user")
+            self.logger.info("Exception getting customer. Finie for anonymous user")
+            self.on_exit()
+
         self.customerInfo.fromjson(self.customer_json)
         self.mapCustomerNumber()
         self.ticketData = ""

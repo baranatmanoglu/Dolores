@@ -12,63 +12,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../Finie/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="113" column="16" lean-forward="true" selection-start-line="113" selection-start-column="16" selection-end-line="113" selection-end-column="16" />
-              <folding>
-                <element signature="e#25#34#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="finie.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Finie/finie.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="626">
-              <caret line="64" column="92" lean-forward="false" selection-start-line="64" selection-start-column="92" selection-end-line="64" selection-end-column="92" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="finie_enu.top" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Finie/finie/finie_enu.top">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="683">
-              <caret line="66" column="33" lean-forward="false" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="qmatic_enu.top" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="authentication_enu.top" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../AuthenticationLauncher/authentication/authentication_enu.top">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="29" column="41" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../QMatic/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1054">
-              <caret line="131" column="22" lean-forward="false" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="22" />
+            <state relative-caret-position="-4702">
+              <caret line="46" column="58" lean-forward="false" selection-start-line="46" selection-start-column="58" selection-end-line="46" selection-end-column="58" />
               <folding>
                 <element signature="e#25#34#0" expanded="true" />
               </folding>
@@ -79,8 +27,40 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../AuthenticationLauncher/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5241">
-              <caret line="39" column="53" lean-forward="false" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="53" />
+            <state relative-caret-position="196">
+              <caret line="31" column="24" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="31" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../QMatic/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="488">
+              <caret line="252" column="37" lean-forward="true" selection-start-line="251" selection-start-column="8" selection-end-line="252" selection-end-column="37" />
+              <folding>
+                <element signature="e#25#34#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Keyboard/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="37" column="8" lean-forward="true" selection-start-line="37" selection-start-column="8" selection-end-line="38" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="508">
+              <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -98,26 +78,29 @@
       <find>self.pm</find>
       <find>ins</find>
       <find>conce</find>
-      <find>getdata</find>
       <find>insert</find>
       <find>gotoTag</find>
-      <find>Finie/TellResponse</find>
       <find>setC</find>
       <find>Global/QueueData</find>
+      <find>Finie/TellResponse</find>
       <find>Error while processing customer number</find>
+      <find>getdata</find>
+      <find>to_app</find>
+      <find>take</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../pair_game/pair_game_enu.top" />
-        <option value="$PROJECT_DIR$/../main.py" />
-        <option value="$PROJECT_DIR$/../../AuthenticationLauncher/main.py" />
         <option value="$PROJECT_DIR$/../../Finie/finie.py" />
         <option value="$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top" />
-        <option value="$PROJECT_DIR$/../../Finie/finie/finie_enu.top" />
         <option value="$PROJECT_DIR$/../../QMatic/main.py" />
+        <option value="$PROJECT_DIR$/../../Finie/finie/finie_enu.top" />
         <option value="$PROJECT_DIR$/../../Finie/main.py" />
+        <option value="$PROJECT_DIR$/../../AuthenticationLauncher/main.py" />
+        <option value="$PROJECT_DIR$/../../Keyboard/main.py" />
+        <option value="$PROJECT_DIR$/../main.py" />
       </list>
     </option>
   </component>
@@ -130,7 +113,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="988" />
+    <option name="height" value="985" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -360,7 +343,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="988" extended-state="6" />
+    <frame x="0" y="23" width="1920" height="985" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.059375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -430,20 +413,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Keyboard/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="90" column="73" lean-forward="true" selection-start-line="86" selection-start-column="8" selection-end-line="90" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="137" column="8" lean-forward="false" selection-start-line="137" selection-start-column="8" selection-end-line="137" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Keyboard/keyboard/keyboard_enu.top">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
@@ -455,30 +424,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../AuthenticationLauncher/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5241">
-          <caret line="39" column="53" lean-forward="false" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../AuthenticationLauncher/authentication/authentication_enu.top">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="29" column="41" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -498,23 +443,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../QMatic/main.py">
+    <entry file="file://$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1054">
-          <caret line="131" column="22" lean-forward="false" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="22" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../AuthenticationLauncher/authentication/authentication_enu.top">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="29" column="41" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Finie/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4702">
+          <caret line="46" column="58" lean-forward="false" selection-start-line="46" selection-start-column="58" selection-end-line="46" selection-end-column="58" />
           <folding>
             <element signature="e#25#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Finie/main.py">
+    <entry file="file://$PROJECT_DIR$/../../QMatic/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="113" column="16" lean-forward="true" selection-start-line="113" selection-start-column="16" selection-end-line="113" selection-end-column="16" />
+        <state relative-caret-position="488">
+          <caret line="252" column="37" lean-forward="true" selection-start-line="251" selection-start-column="8" selection-end-line="252" selection-end-column="37" />
           <folding>
             <element signature="e#25#34#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../AuthenticationLauncher/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="31" column="24" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="31" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Keyboard/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="37" column="8" lean-forward="true" selection-start-line="37" selection-start-column="8" selection-end-line="38" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="34" column="33" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>

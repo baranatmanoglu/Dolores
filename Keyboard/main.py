@@ -33,7 +33,7 @@ class Keyboard(object):
         self.life = self.session.service("ALAutonomousLife")
         self.customerInfo = CustomerQuery()
 
-        self.camera = self.session.service("ALPhotoCapture")
+
 
         self.preferences = self.session.service("ALPreferenceManager")
         self.preferences.update()
@@ -57,9 +57,7 @@ class Keyboard(object):
             self.photo_count = int(self.preferences.getValue('my_friend', "photo_count"))
             self.resolution = int(self.preferences.getValue('my_friend', "resolution"))
             print(self.resolution)
-            self.camera_id = int(self.preferences.getValue('my_friend', "camera_id"))
-            self.picture_format = self.preferences.getValue('my_friend', "picture_format")
-            self.file_name = self.preferences.getValue('my_friend', "file_name")
+
         except Exception, e:
             self.logger.info("failed to get preferences".format(e))
         self.logger.info("Successfully connected to preferences system")
@@ -90,10 +88,6 @@ class Keyboard(object):
         event_connection = event_subscriber.signal.connect(self.on_check_for_action)
         self.subscriber_list.append([event_subscriber, event_connection])
 
-        event_name = "FaceDetected"
-        event_subscriber = self.memory.subscriber(event_name)
-        event_subscriber.signal.connect(self.on_face_detected)
-
 
     @qi.nobind
     def disconnect_signals(self):
@@ -111,13 +105,6 @@ class Keyboard(object):
 
     # Event CallBacks Starts
 
-    @qi.nobind
-    def on_face_detected(self,value):
-        if not self.face_detected:
-            self.logger.info("Face detected. Take photo at {}".format(str(datetime.now())))
-            self.face_detected = True
-            self.take_picture()
-            self.face_detection.unsubscribe(self.service_name)
 
 
     @qi.nobind
@@ -241,7 +228,8 @@ class Keyboard(object):
         # external NAOqi scripts should use ALServiceManager.stopService if they need to stop it.
         self.logger.info("Stopping service...")
         self.cleanup()
-        self.application.stop()
+        to_app = str(self.preferences.getValue("global_variables", "main_app_id"))
+        self.life.switchFocus(to_app)
 
     @qi.nobind
     def cleanup(self):
@@ -268,17 +256,7 @@ class Keyboard(object):
 
 
     # kairos started
-    @qi.nobind
-    def take_picture(self):
-        self.life.setAutonomousAbilityEnabled("BasicAwareness", False)
 
-        self.camera.setResolution(self.resolution)
-        self.camera.setCameraID(self.camera_id)
-        self.camera.setPictureFormat(self.picture_format)
-        self.camera.setHalfPressEnabled(True)
-        self.camera.takePictures(self.photo_count, self.record_folder, self.file_name)
-
-        self.life.setAutonomousAbilityEnabled("BasicAwareness", True)
 
     @qi.bind(methodName="registerFace", paramsType=(qi.String, qi.String,), returnType=qi.Bool)
     def register_face(self, customer_id, picture_name):

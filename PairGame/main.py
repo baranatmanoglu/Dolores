@@ -30,8 +30,9 @@ class PairGame(object):
         self.audio = self.session.service("ALAudioPlayer")
 
         self.audio_path = os.path.dirname(os.path.realpath(__file__)) + "/sounds/"
-        
 
+        self.preferences = self.session.service("ALPreferenceManager")
+        self.preferences.update()
     
 
     # Signal related methods starts
@@ -227,7 +228,8 @@ class PairGame(object):
         # external NAOqi scripts should use ALServiceManager.stopService if they need to stop it.
         self.logger.info("Stopping service...")
         self.cleanup()
-        self.application.stop()
+        to_app = str(self.preferences.getValue("global_variables", "main_app_id"))
+        self.life.switchFocus(to_app)
 
     @qi.nobind
     def cleanup(self):
