@@ -36,7 +36,7 @@ class Finie(object):
 
         self.tts = self.session.service("ALTextToSpeech")
 
-
+        self.firstAnswer = True
 
         self.customerInfo = CustomerQuery()
         self.customer_json = ""
@@ -92,6 +92,12 @@ class Finie(object):
         event_connection = event_subscriber.signal.connect(self.on_tablet_ready)
         self.subscriber_list.append([event_subscriber, event_connection])
 
+        event_name = "Finie/SpeakWithWhisper"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_speak_with_whisper)
+        self.subscriber_list.append([event_subscriber, event_connection])
+
 
     @qi.nobind
     def disconnect_signals(self):
@@ -131,6 +137,10 @@ class Finie(object):
         self.dialog.gotoTag("goToTeller", "finie")
         self.wentTeller = True
 
+    @qi.bind(methodName="on_speak_with_whisper", paramsType=(qi.String,), returnType=qi.Void)
+    def on_speak_with_whisper(self, value):
+        self.memory.raiseEvent("Finie/TellResponse", self.spokenAnswer)
+
     @qi.bind(methodName="on_human_asked", paramsType=(qi.String,), returnType=qi.Void)
     def on_human_asked(self, value):
         if value:
@@ -143,7 +153,7 @@ class Finie(object):
                 answer = finieHelper.query(value)
                 answer_formatted = json.loads(answer)
                 visuals = answer_formatted["visuals"]
-                spokenAnswer =  visuals["speakableResponse"]
+                self.spokenAnswer =  visuals["speakableResponse"]
                 intent = str(answer_formatted["intent"])
                 strVisuals = str(json.dumps(visuals))
                 self.logger.info("Visuals: {}".format(strVisuals))
@@ -158,13 +168,17 @@ class Finie(object):
                     if intent == "spendadvice":
                         recommend = str(answer_formatted["response"]["accounts"]["recommendation"])
                         if recommend == "no":
-                            self.dialog.setConcept("offerFinie", "English", ["Would you apply for an instant loan? That would help you with your spendingsxs"])
+                            self.dialog.setConcept("offerFinie", "English", ["Would you apply for an instant loan? That would help you with your spendings."])
                             self.memory.raiseEvent("Finie/ShowLineChartForAdvice", strVisuals)
                             offer = True
                     if not offer:
-                        self.memory.raiseEvent("Finie/TellResponse", spokenAnswer)
+                        if self.firstAnswer and intent != "location":
+                            self.memory.raiseEvent("Finie/PlayWhisper", self.spokenAnswer)
+                            self.firstAnswer = False
+                        else:
+                            self.memory.raiseEvent("Finie/TellResponse", self.spokenAnswer)
                     else:
-                        self.memory.raiseEvent("Finie/TellResponseWithOffer", spokenAnswer)
+                        self.memory.raiseEvent("Finie/TellResponseWithOffer", self.spokenAnswer)
 
     @qi.nobind
     def on_self_exit(self, value):

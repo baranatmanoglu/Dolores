@@ -57,11 +57,9 @@ body {
 
 .wrapper {
     position: absolute;
-    margin-top: 35px;
-    margin-left: 100px;
-    width: 640;
+    width: 800;
     top: 170;
-    left: 500;
+    left: 100;
 }
 
 .wrapper canvas {
@@ -138,16 +136,26 @@ body {
 }
 
 #keyboard .teller {
+    float: left;
     width: 250px;
     height: 200px;
-    background-color: #ff0066;
     line-height: 200px;
+}
+
+#keyboard .teller-exp{
+    width: 400px;
+    height: 200px;
+    line-height: 40px;
+    text-align: left;
+    float: left;
+    font-size: 20px;
+    opacity:0.4;
+    margin-left: 20px;
 }
 
 #keyboard .custrep {
     width: 250px;
     height: 200px;
-    background-color: #0033cc;
     line-height: 200px;
 }
 

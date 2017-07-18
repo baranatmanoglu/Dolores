@@ -18,7 +18,7 @@ concept:(stillThere) ["Great."]
 concept:(nextTime) ["Ok. Hope to see you again."]
 concept:(finieAskAgain) ["Would you like to ask more questions?"]
 concept:(finieContinue) ["Good. What else do you want to know?"]
-concept:(exit) [Exit Leave Abort Stop]
+concept:(exit) I want to [Exit Leave Abort Stop]
 concept:(yes) Yes
 concept:(no) No
 dynamic:tellerFinie
@@ -32,10 +32,14 @@ concept:(offerLater) Ok. You can apply any time through IshCep.
 u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieAskAgain)
 
 u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offerFinie
-    u1:(~yes) ~offerYes ^gotoReactivate(finieAskAgain)
-    u1:(~no) ~offerNo ^gotoReactivate(finieAskAgain)
-    u1:(~later) ~offerLater ^gotoReactivate(finieAskAgain)
+    u1:(~yes) ~offerYes $Finie/ClearScreen=1 ^gotoReactivate(finieAskAgain)
+    u1:(~no) ~offerNo $Finie/ClearScreen=1 ^gotoReactivate(finieAskAgain)
+    u1:(~later) ~offerLater $Finie/ClearScreen=1 ^gotoReactivate(finieAskAgain)
     u1:(e:Dialog/NoOneSpeak10) ^gotoReactivate(finieAskAgain)
+
+u:(e:Finie/AcceptOffer) ~offerYes ^gotoReactivate(finieAskAgain)
+u:(e:Finie/DeclineOffer) ~offerNo ^gotoReactivate(finieAskAgain)
+u:(e:Finie/RemindOffer) ~offerLater ^gotoReactivate(finieAskAgain)
 
 u:(~exit) ~nextTime $Finie/ExitApp=1
 

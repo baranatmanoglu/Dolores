@@ -192,7 +192,6 @@ function showTicketData(input) {
     var ampm = eta.getHours() >= 12 ? "PM" : "AM";
     
     var minutes = eta.getMinutes() < 10 ? "0" +  eta.getMinutes() : eta.getMinutes();
-    alert(minutes);
     $("#waitingTime").text("You'll be served ~" + eta.getHours() + ":" + minutes + " " + ampm);
     $("#ticketNumber").text("Your number: " + data[0]);
     ticketNumber = data[0];
@@ -256,6 +255,23 @@ function hidePieChart() {
     $("#offer").css("visibility","hidden");
 }
 
+
+function accept(){
+    session.raiseEvent("Finie/AcceptOffer",1);
+    hidePieChart();
+}
+
+function decline(){
+    session.raiseEvent("Finie/DeclineOffer",1);
+    hidePieChart();
+}
+
+function remind(){
+    session.raiseEvent("Finie/RemindOffer",1);
+    hidePieChart();
+}
+
+
 $(document).ready(function () {
     
     session.subscribeToEvent("Finie/ShowPieChart", visualizePieChart);
@@ -265,6 +281,7 @@ $(document).ready(function () {
     session.subscribeToEvent("Finie/ShowTicketData", showTicketData);
     session.subscribeToEvent("Finie/ShowLoading", showLoading);
     session.subscribeToEvent("Finie/HideLoading", hideLoading);
+    session.subscribeToEvent("Finie/ClearScreen", hidePieChart);
 
 
 });

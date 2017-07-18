@@ -78,9 +78,10 @@ body {
 }
 
 #keyboard {
-    margin: 0;
+    margin: 20px 0px 0px 330px;
     padding: 0;
     list-style: none;
+    
 }
 
 #numpadOut {
@@ -92,29 +93,45 @@ body {
 #donutchart {
     width: 900px;
     height: 500px;
+    margin: 0 auto;
     visibility: hidden;
 }
 
 #offer {
     top: 150px;
     left: 0px;
-    width: 900px;
-    height: 500px;
+    width: 1250px;
+    height: 650px;
     visibility: hidden;
     position: absolute;
 }
 
+.image{
+    margin:100px 0px 0px 340px;
+}
+
 #keyboard li {
     float: left;
-    margin: 0 5px 5px 0;
-    width: 100px;
-    height: 100px;
+    margin: 0px 5px 5px 10px;
+    width: 188px;
+    height: 75px;
     font-size: 24px;
-    line-height: 100px;
+    line-height: 75px;
     text-align: center;
-    background: #fff;
-    border: 1px solid #f9f9f9;
     border-radius: 5px;
+}
+
+.greenb{
+    background: #99ff99;
+}
+
+.redb{
+    background: #ff9999;
+}
+
+.blueb
+{
+    background: #99ffff;
 }
 
 #ticket {

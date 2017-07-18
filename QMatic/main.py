@@ -276,48 +276,7 @@ class QueueMatic(object):
 
     # App Start/End Methods Ends
 
-    # ------------------------------------------
 
-    # Smart Plug Communication Starts
-
-    @qi.nobind
-    def run_tcp_command(self, cmd):
-        try:
-            sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock_tcp.connect(("10.44.110.161", 9999))
-            sock_tcp.send(self.encrypt(cmd))
-            data = sock_tcp.recv(2048)
-            sock_tcp.close()
-            self.logger.info(self.decrypt(data[4:]))
-            return True
-
-        except Exception, e:
-            self.logger.info("Error while sending message to plug: {}".format(e))
-            return False
-
-    @qi.nobind
-    def encrypt(self, string):
-        key = 171
-        result = "\0\0\0\0"
-        for i in string:
-            a = key ^ ord(i)
-            key = a
-            result += chr(a)
-        return result
-
-
-
-    @qi.nobind
-    def decrypt(self, string):
-        key = 171
-        result = ""
-        for i in string:
-            a = key ^ ord(i)
-            key = ord(i)
-            result += chr(a)
-        return result
-
-    # Smart Plug Communication Ends
 
 
 if __name__ == "__main__":
