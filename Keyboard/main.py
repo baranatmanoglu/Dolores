@@ -141,7 +141,7 @@ class Keyboard(object):
 
         self.register_face(self.customerInfo.customer_number,self.file_name)
 
-        next_app = "queuematic-3181f8/behavior_1"  # str(self.memory.getData("Global/RedirectingApp"))
+        next_app = str(self.memory.getData("Global/RedirectingApp"))
         try:
             self.logger.info("Switching to {}".format(next_app))
             self.life.switchFocus(next_app)
