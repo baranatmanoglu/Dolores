@@ -161,9 +161,11 @@ class QueueMatic(object):
     @qi.nobind
     def on_check_for_coffee(self, value):
         time.sleep(2.0)
-        if self.ticketInfo.waiting_time > 8:
+        self.logger.info("Waiting time: {}".format(self.ticketInfo.waiting_time))
+        if self.ticketInfo.waiting_time >= 0:
             self.cleanup()
             to_app = str(self.pm.getValue("queuematic", "coffee_app"))
+            self.logger.info("Switching to coffee app.")
             self.life.switchFocus(to_app)
         else:
             self.on_exit()

@@ -33,7 +33,7 @@ class Finie(object):
 
         self.pm = self.session.service("ALPreferenceManager")
         self.pm.update()
-
+        self.redirect_pref_name = "main_app_id"
         self.tts = self.session.service("ALTextToSpeech")
 
         self.firstAnswer = True
@@ -128,6 +128,7 @@ class Finie(object):
 
     @qi.bind(methodName="on_go_teller", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_teller(self, value):
+        self.redirect_pref_name = "empty_app_id"
         self.tts.stopAll()
         number, waiting, service_type = self.ticketData.split("|")
         if service_type == "T":
@@ -136,6 +137,7 @@ class Finie(object):
             self.dialog.setConcept("tellerFinie", "English",["You are next. Please proceed to customer representative booth {}".format(str(value))])
         self.dialog.gotoTag("goToTeller", "finie")
         self.wentTeller = True
+
 
     @qi.bind(methodName="on_speak_with_whisper", paramsType=(qi.String,), returnType=qi.Void)
     def on_speak_with_whisper(self, value):
@@ -260,7 +262,7 @@ class Finie(object):
         # external NAOqi scripts should use ALServiceManager.stopService if they need to stop it.
         self.logger.info("Stopping service...")
         self.cleanup()
-        to_app = str(self.pm.getValue("global_variables", "main_app_id"))
+        to_app = str(self.pm.getValue("global_variables", self.redirect_pref_name))
         self.life.switchFocus(to_app)
 
     @qi.nobind

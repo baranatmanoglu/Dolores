@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="queuematic-3181f8" version="0.0.0">
+<package uuid="qrreaderapp-256d6f" version="0.0.0">
  <names>
-  <name lang="en_US">QueueMatic</name>
+  <name lang="en_US">QRReaderApp</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>
@@ -11,15 +11,13 @@
  </descriptionLanguages>
  <contents>
   <behaviorContent path="behavior_1">
+   <userRequestable/>
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent topicName="qmatic" typeVersion="1.0">
-   <topic path="qmatic/qmatic_enu.top" language="en_US"/>
-  </dialogContent>
  </contents>
  <services>
-  <service autorun="false" name="QueueMatic" execStart="main.py"/>
+  <service autorun="false" name="QRReader" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

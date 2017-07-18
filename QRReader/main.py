@@ -1,90 +1,103 @@
 #!/usr/bin/env python
 
-
-
-import os
 import sys
 import qi
+import os
+import json
+import time
 
 from datetime import datetime
 from customerquery import CustomerQuery
 from kairos_face import enroll
 
-class Keyboard(object):
+
+
+class QRReader(object):
     subscriber_list = []
-    in_action = False
-    face_detected = False
-
-
-
-
+    loaded_topic = ""
+    barcode_detected = False
 
     def __init__(self, application):
-        # get the session to use everywhere
+        # Get session
         self.application = application
         self.session = application.session
         self.service_name = self.__class__.__name__
 
+        # Get logger -> stored in: /var/log/naoqi/servicemanager/{application id}.{service name}
         self.logger = qi.Logger(self.service_name)
-        self.logger.info("Initalizing: " + self.service_name)
-        self.memory = self.session.service("ALMemory")
-        self.create_signals()
+        # Do initialization before the service is registered to NAOqi
+        self.logger.info("Initializing...")
 
+        # Autonomous Life
         self.life = self.session.service("ALAutonomousLife")
         self.customerInfo = CustomerQuery()
 
-
-
+        # Preferences
         self.preferences = self.session.service("ALPreferenceManager")
-        self.preferences.update()
-        self.connect_to_preferences()
+        self.logger.info("Initializing - ALPreferenceManager")
 
+        # Memory
+        self.memory = self.session.service("ALMemory")
+        self.logger.info("Initializing - ALMemory")
+
+
+
+        # Barcode Reader
+        self.barcode_reader = self.session.service("ALBarcodeReader")
+        self.logger.info("Initializing - ALBarcodeReader")
+
+        # Create Signals
+        self.create_signals()
+
+        self.logger.info("Initialized!")
 
 
     @qi.nobind
     def connect_to_preferences(self):
         # connects to cloud preferences library and gets the initial prefs
         try:
-
             self.gallery_name = self.preferences.getValue('my_friend', "gallery_name")
             self.folder_path = self.preferences.getValue('my_friend', "folder_path")
             self.logger.info(self.folder_path)
             self.threshold = float(str(self.preferences.getValue('my_friend', "threshold")))
-
-            self.logger.info(self.threshold)
             self.record_folder = self.preferences.getValue('my_friend', "record_folder")
+            self.photo_count = int(self.preferences.getValue('my_friend', "photo_count"))
+            self.resolution = int(self.preferences.getValue('my_friend', "resolution"))
+            self.camera_id = int(self.preferences.getValue('my_friend', "camera_id"))
+            self.picture_format = self.preferences.getValue('my_friend', "picture_format")
             self.file_name = self.preferences.getValue('my_friend', "file_name")
-
+            self.logger.info("File name: " + self.file_name)
+            self.logger.info("Successfully connected to preferences system")
         except Exception, e:
-            self.logger.info("failed to get preferences".format(e))
-        self.logger.info("Successfully connected to preferences system")
-
-    # Signal related methods starts
+            self.logger.info(e)
 
     @qi.nobind
     def create_signals(self):
         # Create events and subscribe them here
         self.logger.info("Creating events...")
 
-        event_name = "Keyboard/NumberEntered"
+        event_name = "BarcodeReader/BarcodeDetected"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
-        event_connection = event_subscriber.signal.connect(self.on_number_entered)
+        event_connection = event_subscriber.signal.connect(self.on_barcode_detected)
         self.subscriber_list.append([event_subscriber, event_connection])
+        self.logger.info("Subscribed to event: " + event_name)
 
-        event_name = "Keyboard/ExitApp"
+        event_name = "QRReader/ExitApp"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_self_exit)
         self.subscriber_list.append([event_subscriber, event_connection])
+        self.logger.info("Subscribed to event: " + event_name)
 
-
-        event_name = "Keyboard/CheckForAction"
+        event_name = "QRReader/StartTimer"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
-        event_connection = event_subscriber.signal.connect(self.on_check_for_action)
+        event_connection = event_subscriber.signal.connect(self.on_user_ready)
         self.subscriber_list.append([event_subscriber, event_connection])
+        self.logger.info("Subscribed to event: " + event_name)
 
+        self.logger.info("Subscribed to all events.")
 
     @qi.nobind
     def disconnect_signals(self):
@@ -96,52 +109,51 @@ class Keyboard(object):
                 self.logger.info("Error unsubscribing: {}".format(e))
         self.logger.info("Unsubscribe done!")
 
-    # Signal related methods ends
+    # Signal related methods end
 
-    # -------------------------------------
+    # ---------------------------
 
-    # Event CallBacks Starts
+    # Event CallBacks Start
 
+    @qi.nobind
+    def on_user_ready(self, value):
+        seconds = 0
+        self.logger.info("User Ready")
+        while not self.barcode_detected:
+            if seconds == 10:
+                self.logger.info("Raised event: QRReader/Reminder")
+                self.memory.raiseEvent("QRReader/Reminder", 1)
+            if seconds == 20:
+                self.logger.info("Raised event: QRReader/NoAction")
+                self.memory.raiseEvent("QRReader/NoAction", 1)
+            time.sleep(1)
+            seconds += 1
 
 
     @qi.nobind
-    def on_check_for_action(self, value):
-        self.logger.info(str(value))
-        if not self.in_action:
-            if value == "reminder":
-                self.memory.raiseEvent("Keyboard/Reminder",1)
-            elif value == "endit":
-                self.memory.raiseEvent("Keyboard/NoAction",1)
+    def on_barcode_detected(self, value):
+        if not self.barcode_detected:
+            self.barcode_detected = True
+            self.logger.info("Barcode detected...")
+            try:
+                encoded_info = str(value[0][0]).replace(" ", "")
+                self.logger.info("Information in QR: " + encoded_info)
+                found = self.customerInfo.query_customer(value1=encoded_info, type1="U")
 
-
-
-
-    @qi.nobind
-    def on_number_entered(self, value):
-        self.memory.raiseEvent("Keyboard/ShowLoading",1)
-        try:
-            self.logger.info(str(value))
-            found = False
-            if len(value) == 11:
-                found = self.customerInfo.query_customer(value, "I")
-            else:
-                found = self.customerInfo.query_customer(value, "U")
-            if found:
-                self.memory.insertData("Global/CurrentCustomer", self.customerInfo.jsonify())
-                self.register_face(self.customerInfo.customer_number, self.file_name)
-
-                next_app = str(self.memory.getData("Global/RedirectingApp"))
-                try:
-                    self.logger.info("Switching to {}".format(next_app))
-                    self.life.switchFocus(next_app)
-                except Exception, e:
-                    self.logger.info("Error while switching to next app: {} {}".format(next_app, e))
-            else:
-                self.memory.raiseEvent("Keyboard/HideLoading", 1)
-                self.memory.raiseEvent("Keyboard/NoCustomer", 1)
-
-        except Exception, e:
-            self.logger.info("Error while setting customer number: {}".format(e))
+                if found:
+                    self.memory.insertData("Global/CurrentCustomer", self.customerInfo.jsonify())
+                    self.register_face(self.customerInfo.customer_number, self.file_name)
+                    # Redirect to next app
+                    next_app = str(self.memory.getData("Global/RedirectingApp"))
+                    try:
+                        self.logger.info("Switching to {}".format(next_app))
+                        self.life.switchFocus(next_app)
+                    except Exception, e:
+                        self.logger.info("Error while switching to next app: {} {}".format(next_app, e))
+                else:
+                    self.memory.raiseEvent("QRReader/NoCustomer", 1)
+            except Exception, e:
+                self.logger.info("Error while querying customer: {}".format(e))
 
 
 
@@ -150,15 +162,11 @@ class Keyboard(object):
     def on_self_exit(self, value):
         self.on_exit()
 
+    # Event CallBacks End
 
+    # -------------------
 
-
-
-    # Event CallBacks Ends
-
-    # -------------------------------------
-
-    # Initiation methods for services Starts
+    # Initiation methods for services start
 
     @qi.nobind
     def show_screen(self):
@@ -183,79 +191,78 @@ class Keyboard(object):
         except Exception, e:
             self.logger.error("Error hiding tablet page{}".format(e))
 
-
     @qi.nobind
     def start_dialog(self):
         self.logger.info("Loading dialog")
-        self.dialog = self.session.service("ALDialog")
+        dialog = self.session.service("ALDialog")
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        topic_path = os.path.realpath(os.path.join(dir_path, "keyboard", "keyboard_enu.top"))
+        topic_path = os.path.realpath(os.path.join(dir_path, "barcode_detected", "barcode_detected_enu.top"))
         self.logger.info("File is: {}".format(topic_path))
         try:
-            self.loaded_topic = self.dialog.loadTopic(topic_path)
-            self.dialog.activateTopic(self.loaded_topic)
-            self.dialog.subscribe(self.service_name)
+            self.loaded_topic = dialog.loadTopic(topic_path)
+            dialog.activateTopic(self.loaded_topic)
+            dialog.subscribe(self.service_name)
             self.logger.info("Dialog loaded!")
         except Exception, e:
             self.logger.info("Error while loading dialog: {}".format(e))
-
-       
+        dialog.gotoTag("start", "barcode_detected")
 
     @qi.nobind
     def stop_dialog(self):
         self.logger.info("Unloading dialog")
         try:
-            self.dialog = self.session.service("ALDialog")
-            self.dialog.unsubscribe(self.service_name)
-            self.dialog.deactivateTopic(self.loaded_topic)
-            self.dialog.clearConcepts()
-            self.dialog.unloadTopic(self.loaded_topic)
+            dialog = self.session.service("ALDialog")
+            dialog.unsubscribe(self.service_name)
+            dialog.deactivateTopic(self.loaded_topic)
+            dialog.unloadTopic(self.loaded_topic)
             self.logger.info("Dialog unloaded!")
         except Exception, e:
             self.logger.info("Error while unloading dialog: {}".format(e))
 
-    # Initiation methods for services Ends
+    # Initiation methods for services end
 
-    # ------------------------------------------
+    # -----------------------------------
 
-    # App Start/End Methods Starts
+    # App Start/End Methods start
+
+    @qi.nobind
+    def start_app(self):
+        # do something when the service starts
+        self.logger.info("Starting app...")
+        self.show_screen()
+        self.start_dialog()
+        self.preferences.update()
+        self.connect_to_preferences()
+        self.logger.info("Started!")
 
     @qi.nobind
     def stop_app(self):
         # To be used if internal methods need to stop the service from inside.
         # external NAOqi scripts should use ALServiceManager.stopService if they need to stop it.
         self.logger.info("Stopping service...")
-        self.cleanup()
-        to_app = str(self.preferences.getValue("global_variables", "main_app_id"))
-        self.life.switchFocus(to_app)
+        self.application.stop()
+        self.logger.info("Stopped!")
 
     @qi.nobind
     def cleanup(self):
         # called when your module is stopped
         self.logger.info("Cleaning...")
-        # @TODO: insert cleaning functions here
+
         self.disconnect_signals()
         self.stop_dialog()
         self.hide_screen()
+
         self.logger.info("Cleaned!")
+        try:
+            self.audio.stopMicrophonesRecording()
+        except Exception, e:
+            self.logger.info("Microphone already closed")
 
-    @qi.bind(methodName="on_exit", returnType=qi.Void)
-    def on_exit(self):
-        self.stop_app()
+    # App Start / End methods end
 
-    @qi.nobind  # Starting the app  # @TODO: insert whatever the app should do to start
-    def start_app(self):
-        self.logger.info("Starting App.")
-        self.show_screen()
-        self.start_dialog()
+    # ---------------------------
 
-
-    # App Start/End Methods Ends
-
-
-    # kairos started
-
-
+    # Kairos Starts
     @qi.bind(methodName="registerFace", paramsType=(qi.String, qi.String,), returnType=qi.Bool)
     def register_face(self, customer_id, picture_name):
         try:
@@ -273,17 +280,18 @@ class Keyboard(object):
         image_path = self.folder_path + picture_name
         return image_path
 
-    # kairos ended
 
+    # Kairos ends
 
 if __name__ == "__main__":
     # with this you can run the script for tests on remote robots
     # run : python main.py --qi-url 123.123.123.123
     app = qi.Application(sys.argv)
     app.start()
-    service_instance = Keyboard(app)
+    service_instance = QRReader(app)
     service_id = app.session.registerService(service_instance.service_name, service_instance)
     service_instance.start_app()
     app.run()
     service_instance.cleanup()
     app.session.unregisterService(service_id)
+
