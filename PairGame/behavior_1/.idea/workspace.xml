@@ -15,8 +15,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../Finie/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="247" column="54" lean-forward="true" selection-start-line="247" selection-start-column="54" selection-end-line="247" selection-end-column="54" />
+            <state relative-caret-position="-620">
+              <caret line="130" column="30" lean-forward="false" selection-start-line="130" selection-start-column="30" selection-end-line="130" selection-end-column="30" />
               <folding>
                 <element signature="e#25#34#0" expanded="true" />
               </folding>
@@ -47,7 +47,7 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../QMatic/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="958">
+            <state relative-caret-position="1115">
               <caret line="167" column="54" lean-forward="false" selection-start-line="167" selection-start-column="54" selection-end-line="167" selection-end-column="54" />
               <folding>
                 <element signature="e#25#34#0" expanded="true" />
@@ -69,8 +69,8 @@
       <file leaf-file-name="qmatic_enu.top" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="34" column="57" lean-forward="false" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="82" />
+            <state relative-caret-position="601">
+              <caret line="41" column="23" lean-forward="true" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -79,8 +79,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../Keyboard/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="137" column="100" lean-forward="false" selection-start-line="137" selection-start-column="100" selection-end-line="137" selection-end-column="100" />
+            <state relative-caret-position="-2093">
+              <caret line="131" column="30" lean-forward="false" selection-start-line="131" selection-start-column="30" selection-end-line="131" selection-end-column="30" />
               <folding>
                 <element signature="e#25#34#0" expanded="true" />
               </folding>
@@ -101,8 +101,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../QRReader/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="148" column="76" lean-forward="true" selection-start-line="148" selection-start-column="76" selection-end-line="148" selection-end-column="76" />
+            <state relative-caret-position="416">
+              <caret line="146" column="34" lean-forward="false" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="34" />
               <folding>
                 <element signature="e#23#33#0" expanded="true" />
               </folding>
@@ -124,8 +124,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pau</find>
-      <find>number</find>
       <find>inser</find>
       <find>get</find>
       <find>self.pm</find>
@@ -152,7 +150,10 @@
       <find>life</find>
       <find>on_check_for_coffee</find>
       <find>StartTimer</find>
+      <find>unload</find>
       <find>QueueMatic/CheckForCoffee</find>
+      <find>audio</find>
+      <find>Finie/ExitApp</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -160,15 +161,15 @@
       <list>
         <option value="$PROJECT_DIR$/../pair_game/pair_game_enu.top" />
         <option value="$PROJECT_DIR$/../../Finie/finie.py" />
-        <option value="$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top" />
         <option value="$PROJECT_DIR$/../../AuthenticationLauncher/main.py" />
         <option value="$PROJECT_DIR$/../main.py" />
         <option value="$PROJECT_DIR$/../../Finie/finie/finie_enu.top" />
-        <option value="$PROJECT_DIR$/../../Keyboard/main.py" />
         <option value="$USER_HOME$/Desktop/QRReaderApp-master/main.py" />
-        <option value="$PROJECT_DIR$/../../QRReader/main.py" />
         <option value="$PROJECT_DIR$/../../QRReader/barcode_detected/barcode_detected_enu.top" />
         <option value="$PROJECT_DIR$/../../QMatic/main.py" />
+        <option value="$PROJECT_DIR$/../../Keyboard/main.py" />
+        <option value="$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top" />
+        <option value="$PROJECT_DIR$/../../QRReader/main.py" />
         <option value="$PROJECT_DIR$/../../Finie/main.py" />
       </list>
     </option>
@@ -721,16 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Keyboard/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="137" column="100" lean-forward="false" selection-start-line="137" selection-start-column="100" selection-end-line="137" selection-end-column="100" />
-          <folding>
-            <element signature="e#25#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../AuthenticationLauncher/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2568">
@@ -771,30 +762,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top">
+    <entry file="file://$PROJECT_DIR$/../../Keyboard/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="34" column="57" lean-forward="false" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="82" />
-          <folding />
+        <state relative-caret-position="-2093">
+          <caret line="131" column="30" lean-forward="false" selection-start-line="131" selection-start-column="30" selection-end-line="131" selection-end-column="30" />
+          <folding>
+            <element signature="e#25#34#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../QRReader/main.py">
+    <entry file="file://$PROJECT_DIR$/../../QMatic/qmatic/qmatic_enu.top">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="148" column="76" lean-forward="true" selection-start-line="148" selection-start-column="76" selection-end-line="148" selection-end-column="76" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="601">
+          <caret line="41" column="23" lean-forward="true" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../QMatic/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="958">
+        <state relative-caret-position="1115">
           <caret line="167" column="54" lean-forward="false" selection-start-line="167" selection-start-column="54" selection-end-line="167" selection-end-column="54" />
           <folding>
             <element signature="e#25#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../QRReader/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="146" column="34" lean-forward="false" selection-start-line="146" selection-start-column="34" selection-end-line="146" selection-end-column="34" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -809,8 +810,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../Finie/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="247" column="54" lean-forward="true" selection-start-line="247" selection-start-column="54" selection-end-line="247" selection-end-column="54" />
+        <state relative-caret-position="-620">
+          <caret line="130" column="30" lean-forward="false" selection-start-line="130" selection-start-column="30" selection-end-line="130" selection-end-column="30" />
           <folding>
             <element signature="e#25#34#0" expanded="true" />
           </folding>

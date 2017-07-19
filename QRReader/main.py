@@ -144,6 +144,7 @@ class QRReader(object):
                     self.memory.insertData("Global/CurrentCustomer", self.customerInfo.jsonify())
                     self.register_face(self.customerInfo.customer_number, self.file_name)
                     # Redirect to next app
+                    self.cleanup()
                     next_app = str(self.memory.getData("Global/RedirectingApp"))
                     try:
                         self.logger.info("Switching to {}".format(next_app))
@@ -253,10 +254,7 @@ class QRReader(object):
         self.hide_screen()
 
         self.logger.info("Cleaned!")
-        try:
-            self.audio.stopMicrophonesRecording()
-        except Exception, e:
-            self.logger.info("Microphone already closed")
+
 
     # App Start / End methods end
 

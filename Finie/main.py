@@ -128,6 +128,7 @@ class Finie(object):
 
     @qi.bind(methodName="on_go_teller", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_teller(self, value):
+        self.wentTeller = True
         self.redirect_pref_name = "empty_app_id"
         self.tts.stopAll()
         number, waiting, service_type = self.ticketData.split("|")
@@ -136,7 +137,7 @@ class Finie(object):
         else:
             self.dialog.setConcept("tellerFinie", "English",["You are next. Please proceed to customer representative booth {}".format(str(value))])
         self.dialog.gotoTag("goToTeller", "finie")
-        self.wentTeller = True
+
 
 
     @qi.bind(methodName="on_speak_with_whisper", paramsType=(qi.String,), returnType=qi.Void)
@@ -263,6 +264,7 @@ class Finie(object):
         self.logger.info("Stopping service...")
         self.cleanup()
         to_app = str(self.pm.getValue("global_variables", self.redirect_pref_name))
+        self.logger.info("Switching to {}".format(to_app))
         self.life.switchFocus(to_app)
 
     @qi.nobind

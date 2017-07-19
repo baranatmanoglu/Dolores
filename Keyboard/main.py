@@ -129,7 +129,7 @@ class Keyboard(object):
             if found:
                 self.memory.insertData("Global/CurrentCustomer", self.customerInfo.jsonify())
                 self.register_face(self.customerInfo.customer_number, self.file_name)
-
+                self.cleanup()
                 next_app = str(self.memory.getData("Global/RedirectingApp"))
                 try:
                     self.logger.info("Switching to {}".format(next_app))
