@@ -273,7 +273,6 @@ function remind(){
 
 
 $(document).ready(function () {
-    showLoading();
     session.subscribeToEvent("Finie/ShowPieChart", visualizePieChart);
     session.subscribeToEvent("Finie/ShowBarChartForBalance", visualizeBarChartForBalance);
     session.subscribeToEvent("Finie/ShowBarChartForIncome", visualizeBarChartForIncome);
