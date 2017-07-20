@@ -1,0 +1,35 @@
+topic: ~feedback()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+
+concept:(introQ) I hope you enjoyed spending time with me. I would be very happy if you give feedback.
+concept:(good) Yay, I am very glad to hear that. Hope to see you again.
+concept:(neutral) Oh. Do you want to leave a voice message? Please tap the microphone icon.
+concept:(bad) \rspd=85\ I am sorry for that. \rspd=85\ What can i do better? \rspd=85\ Please tap the microphone icon to leave a voice message.
+concept:(reminder) Hey, do you want to give feedback about your experience with me?
+concept:(exitting) Ok. See you in another life brother.
+concept:(voicerecorded) I will share your thoughts with my friends. Hope to see you again.
+
+proposal:%feedbackStart ~introQ
+
+u:(e:Feedback/SurveyClicked $Feedback/SurveyClicked==G) ^start(animations/Stand/Emotions/Positive/Excited_1) ~good ^wait(animations/Stand/Emotions/Positive/Excited_1) $Feedback/ExitApp=1
+
+u:(e:Feedback/SurveyClicked $Feedback/SurveyClicked==N) ~neutral
+
+u:(e:Feedback/SurveyClicked $Feedback/SurveyClicked==B) ^run(animations/Stand/Emotions/Negative/Sad_1) ~bad 
+
+
+u:(e:Feedback/Reminder) ~reminder
+
+u:(e:Feedback/NoAction) ~exitting $Feedback/ExitApp=1
+
+u:(e:Feedback/VoiceRecorded) \pau=1000\ ~voicerecorded $Feedback/ExitApp=1

@@ -32,8 +32,8 @@ class Finie(object):
         self.life = self.session.service("ALAutonomousLife")
 
         self.pm = self.session.service("ALPreferenceManager")
-        self.pm.update()
-        self.redirect_pref_name = "main_app_id"
+        
+        self.redirect_pref_name = "feedback_app_id"
         self.tts = self.session.service("ALTextToSpeech")
 
         self.firstAnswer = True

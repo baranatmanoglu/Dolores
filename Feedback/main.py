@@ -5,12 +5,13 @@
 import os
 import sys
 import qi
+import json
+from customerquery import CustomerQuery
 
-
-class PairGame(object):
+class Feedback(object):
     subscriber_list = []
     in_action = False
-    audio_path = ""
+
 
 
 
@@ -27,13 +28,22 @@ class PairGame(object):
         self.create_signals()
 
         self.life = self.session.service("ALAutonomousLife")
-        self.audio = self.session.service("ALAudioPlayer")
 
-        self.audio_path = os.path.dirname(os.path.realpath(__file__)) + "/sounds/"
+        self.pm = self.session.service("ALPreferenceManager")
 
-        self.preferences = self.session.service("ALPreferenceManager")
 
-    
+        self.audio = self.session.service('ALAudioDevice')
+        self.audioFilePath = '/home/nao/recordings/audio/'
+
+        self.customerInfo = CustomerQuery()
+        customer_json = ""
+        try:
+            customer_json = self.memory.getData("Global/CurrentCustomer")
+            self.logger.info("Customer exists in memory: " + self.customerInfo.customer_number)
+        except Exception, e:
+            self.logger.info("Feedback for anonymous user")
+        self.customerInfo.fromjson(customer_json)
+
 
     # Signal related methods starts
 
@@ -42,48 +52,32 @@ class PairGame(object):
         # Create events and subscribe them here
         self.logger.info("Creating events...")
 
-        event_name = "PairGame/PairFound"
+        event_name = "Feedback/SurveyClicked"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
-        event_connection = event_subscriber.signal.connect(self.on_pair_found)
+        event_connection = event_subscriber.signal.connect(self.on_survey_clicked)
+        self.subscriber_list.append([event_subscriber, event_connection])
+
+        event_name = "Feedback/ProcessRecording"
+        self.memory.declareEvent(event_name)
+        event_subscriber = self.memory.subscriber(event_name)
+        event_connection = event_subscriber.signal.connect(self.on_process_recording)
         self.subscriber_list.append([event_subscriber, event_connection])
 
 
-        event_name = "PairGame/PairNotFound"
+        event_name = "Feedback/CheckForAction"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
-        event_connection = event_subscriber.signal.connect(self.on_pair_not_found)
+        event_connection = event_subscriber.signal.connect(self.on_check_for_action)
         self.subscriber_list.append([event_subscriber, event_connection])
 
-        event_name = "PairGame/GameFinished"
-        self.memory.declareEvent(event_name)
-        event_subscriber = self.memory.subscriber(event_name)
-        event_connection = event_subscriber.signal.connect(self.on_game_finished)
-        self.subscriber_list.append([event_subscriber, event_connection])
-
-        event_name = "PairGame/AbortGame"
+        event_name = "Feedback/ExitApp"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_self_exit)
         self.subscriber_list.append([event_subscriber, event_connection])
 
-        event_name = "PairGame/AnimalTrivia"
-        self.memory.declareEvent(event_name)
-        event_subscriber = self.memory.subscriber(event_name)
-        event_connection = event_subscriber.signal.connect(self.on_animal_trivia)
-        self.subscriber_list.append([event_subscriber, event_connection])
 
-        event_name = "PairGame/PlayAnimalSound"
-        self.memory.declareEvent(event_name)
-        event_subscriber = self.memory.subscriber(event_name)
-        event_connection = event_subscriber.signal.connect(self.on_play_sound)
-        self.subscriber_list.append([event_subscriber, event_connection])
-
-        event_name = "PairGame/CheckForAction"
-        self.memory.declareEvent(event_name)
-        event_subscriber = self.memory.subscriber(event_name)
-        event_connection = event_subscriber.signal.connect(self.on_check_for_action)
-        self.subscriber_list.append([event_subscriber, event_connection])
 
     @qi.nobind
     def disconnect_signals(self):
@@ -101,59 +95,35 @@ class PairGame(object):
 
     # Event CallBacks Starts
 
-    @qi.nobind
-    def on_play_sound(self, value):
-        self.logger.info("Playing sound for {}".format(self.animal))
-        try:
-            
-            self.audio.playFile(self.audio_path + "" + self.animal + ".wav", 1.0, 0.0)
-        except Exception,e:
-            self.logger.info("Exception while playing sound: {}".format(e))
-   
-    @qi.nobind
-    def on_pair_found(self,value):
-        self.logger.info("New pair found {}".format(str(value)))
-        ratio,self.animal = str(value).split(";")
-        if(ratio == "G"):
-            self.dialog.gotoTag("say_good", "pair_game")
-        else:
-            self.dialog.gotoTag("say_normal", "pair_game")
-
-    @qi.nobind
-    def on_animal_trivia(self, value):
-        self.logger.info("Animal: {}".format(self.animal))
-        self.dialog.gotoTag(self.animal, "pair_game")
-
-
-    @qi.nobind
-    def on_pair_not_found(self, value):
-        self.logger.info("No pair found..")
-        self.dialog.gotoTag("say_no_pair", "pair_game")
-
-    @qi.nobind
-    def on_game_finished(self, value):
-        self.logger.info("Game finished")
-        self.dialog.gotoTag("game_end", "pair_game")
-        
-    @qi.nobind
+    @qi.bind(methodName="on_check_for_action", paramsType=(qi.String,), returnType=qi.Void)
     def on_check_for_action(self, value):
         self.logger.info(str(value))
-        if value == "reminder":
-            self.memory.raiseEvent("PairGame/Reminder",1)
-        elif value == "endit":
-            self.memory.raiseEvent("PairGame/NoAction",1)
+        if not self.in_action:
+            if value == "reminder":
+                self.memory.raiseEvent("Feedback/Reminder", 1)
+            elif value == "endit":
+                self.memory.raiseEvent("Feedback/NoAction", 1)
+
+    @qi.bind(methodName="on_survey_clicked", paramsType=(qi.String,), returnType=qi.Void)
+    def on_survey_clicked(self, value):
+        self.logger.info(str(value))
+        self.in_action = True
+
+    @qi.bind(methodName="on_process_recording", paramsType=(qi.String,), returnType=qi.Void)
+    def on_process_recording(self, value):
+        self.logger.info(str(value))
+        if str(value) == "S":
+            self.start_record()
+        else:
+            self.stop_record()
+            self.memory.raiseEvent("Feedback/VoiceRecorded",1)
 
 
 
-
-    
-
+        
     @qi.nobind
     def on_self_exit(self, value):
         self.on_exit()
-
-
-
 
 
     # Event CallBacks Ends
@@ -191,17 +161,18 @@ class PairGame(object):
         self.logger.info("Loading dialog")
         self.dialog = self.session.service("ALDialog")
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        topic_path = os.path.realpath(os.path.join(dir_path, "pair_game", "pair_game_enu.top"))
+        topic_path = os.path.realpath(os.path.join(dir_path, "feedback", "feedback_enu.top"))
         self.logger.info("File is: {}".format(topic_path))
         try:
             self.loaded_topic = self.dialog.loadTopic(topic_path)
             self.dialog.activateTopic(self.loaded_topic)
             self.dialog.subscribe(self.service_name)
             self.logger.info("Dialog loaded!")
+            self.dialog.gotoTag("feedbackStart","feedback")
         except Exception, e:
             self.logger.info("Error while loading dialog: {}".format(e))
-        self.dialog.gotoTag("game_start","pair_game")
-       
+        
+
 
     @qi.nobind
     def stop_dialog(self):
@@ -228,7 +199,7 @@ class PairGame(object):
         # external NAOqi scripts should use ALServiceManager.stopService if they need to stop it.
         self.logger.info("Stopping service...")
         self.cleanup()
-        to_app = str(self.preferences.getValue("global_variables", "main_app_id"))
+        to_app = str(self.pm.getValue("global_variables", "empty_app_id"))
         self.life.switchFocus(to_app)
 
     @qi.nobind
@@ -252,10 +223,33 @@ class PairGame(object):
         self.start_dialog()
 
 
+
+
     # App Start/End Methods Ends
 
 
-   
+
+    @qi.bind(methodName="start_record", paramsType=(qi.String,), returnType=qi.Void)
+    def start_record(self):
+
+        # folder_path='/home/nao/recordings/audio/'
+        # file_name=str(uuid.uuid4().hex)+'.ogg'
+        # audioName=folder_path+file_name
+        try:
+            filename = "feedback"
+            self.logger.info("Audio record has been started file path:".format(self.audioFilePath))
+            if self.customerInfo.customer_number != "":
+                filename = self.customerInfo.customer_number
+            fullpath = self.audioFilePath + filename + ".wav"
+            self.logger.info("Audio record has been started file path: {}".format(fullpath))
+            self.audio.startMicrophonesRecording(fullpath)
+        except Exception,e:
+            self.logger.info("Exception while starting recording; {}".format(e))
+
+    @qi.bind(methodName="stop_record", paramsType=(qi.String,), returnType=qi.Void)
+    def stop_record(self):
+        self.audio.stopMicrophonesRecording()
+
 
 
 if __name__ == "__main__":
@@ -263,7 +257,7 @@ if __name__ == "__main__":
     # run : python main.py --qi-url 123.123.123.123
     app = qi.Application(sys.argv)
     app.start()
-    service_instance = PairGame(app)
+    service_instance = Feedback(app)
     service_id = app.session.registerService(service_instance.service_name, service_instance)
     service_instance.start_app()
     app.run()

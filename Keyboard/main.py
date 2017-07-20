@@ -36,7 +36,7 @@ class Keyboard(object):
 
 
         self.preferences = self.session.service("ALPreferenceManager")
-        self.preferences.update()
+
         self.connect_to_preferences()
 
 

@@ -39,7 +39,7 @@ class QueueMatic(object):
         self.ticketInfo = Qmatic()
 
         self.pm = self.session.service("ALPreferenceManager")
-        self.pm.update()
+
         customer_json = ""
         try:
             customer_json = self.memory.getData("Global/CurrentCustomer")

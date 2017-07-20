@@ -27,14 +27,14 @@ li {
 
 .item {
     float: left;
-    width: 198px;
-    height: 198px;
+    width: 300px;
+    height: 120px;
     background: #fff;
     border: 1px solid #f9f9f9;
     border-radius: 5px;
-    margin: 45px 0px 45px 250px;
-    font-size:80px;
-    text-align:center;
+    margin: 45px 0px 45px 200px;
+    font-size:60px;
+    padding-left: 20px;
     color:black;
 }
 
@@ -53,5 +53,10 @@ li {
 
 .clearl{
     clear: left;
+}
+
+.button-text
+{
+    font-size:30px;padding-left: 15px;
 }
 

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="finie-1200" version="0.0.0">
+<package uuid="feedback-b55032" version="0.0.0">
  <names>
-  <name lang="en_US">Finie</name>
+  <name lang="en_US">Feedback</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>
@@ -14,9 +14,12 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
+  <dialogContent typeVersion="1.0" topicName="feedback">
+   <topic path="feedback/feedback_enu.top" language="en_US"/>
+  </dialogContent>
  </contents>
  <services>
-  <service execStart="main.py" autorun="false" name="Finie"/>
+  <service execStart="main.py" autorun="false" name="Feedback"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

@@ -232,7 +232,6 @@ class QRReader(object):
         self.logger.info("Starting app...")
         self.show_screen()
         self.start_dialog()
-        self.preferences.update()
         self.connect_to_preferences()
         self.logger.info("Started!")
 

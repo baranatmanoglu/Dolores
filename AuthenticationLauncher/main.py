@@ -29,7 +29,7 @@ class AuthenticationLauncher(object):
         self.life = self.session.service("ALAutonomousLife")
 
         self.pm = self.session.service("ALPreferenceManager")
-        self.pm.update()
+
 
         self.amoves = self.session.service("ALAutonomousMoves")
         self.bawareness = self.session.service("ALBasicAwareness")
