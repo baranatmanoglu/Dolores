@@ -44,23 +44,23 @@ u:(e:Authentication/NoAction) ~exitting $Authentication/ExitApp=1
 
 
 proposal:%authenticationStart ^start(animations/Stand/Reactions/TouchHead_4)
-    ~proposeqr \pau=1500\
-    ^wait(animations/Stand/Reactions/TouchHead_4)
+    ~proposeqr
+    ^wait(animations/Stand/Reactions/TouchHead_4) \pau=500\
     ^nextProposal
 
 proposal: ^start(animations/Stand/Gestures/This_1)
-    ~proposenfc \pau=1000\
-    ^wait(animations/Stand/Gestures/This_1)
+    ~proposenfc
+    ^wait(animations/Stand/Gestures/This_1) \pau=500\
     ^nextProposal
     
 proposal: ^start(animations/Stand/Gestures/ShowTablet_1)
-    ~proposekeyboard \pau=1000\
-    ^wait(animations/Stand/Gestures/ShowTablet_1)
+    ~proposekeyboard
+    ^wait(animations/Stand/Gestures/ShowTablet_1) \pau=500\
     ^nextProposal
 
-proposal: ^start(animations/Stand/Gestures/BowShort_1)
-    ~proposelistener \pau=1000\
-    ^wait(animations/Stand/Gestures/BowShort_1) $Authentication/EnableBasics=1 ^gotoReactivate(askForInput)
+proposal: ^start(animations/Stand/Reactions/TouchHead_4)
+    ~proposelistener
+    ^wait(animations/Stand/Reactions/TouchHead_4) $Authentication/EnableBasics=1 ^gotoReactivate(askForInput)
     
 proposal: %askForInput
     u1:(~keyboardinput) $Authentication/GoKeyboard=1

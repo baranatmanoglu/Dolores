@@ -10,23 +10,24 @@ language: enu
 # Replying to speech
 #u:(~hello) ~hello
 
-concept:(intro) ["You've selected qr. You can generate your qr code using ish chep."]
-concept:(user) ["You can tell me that you are ready whenever you want"]
-concept:(ready) ["You can use my tablet to align your qr correctly. Let me see your code now."]
+concept:(intro) You can generate qr code using your mobile phone. Tell me when you are ready.
+concept:(getready) {I am}[ready yes ok]
+concept:(ready) ^start(animations/Stand/Reactions/TouchHead_4)Please hold the QR against my head camera. You can use my tablet to align your qr correctly. Let me see your code now. ^wait(animations/Stand/Reactions/TouchHead_4)
 concept:(reminder) ["Hey, you still haven't showed me your code"]
 concept:(exit) ["Ok. See you in another life brother"]
 concept:(nocustomer) ["I couldn't find any record from the qr you showed. "]
 
 
 
-proposal: %start ~intro $QRReader/WaitUserInput=1
-
-u:(e:QRReader/WaitUserInput) ~user
-    u1:(ready)  ~ready $QRReader/StartTimer=1
+proposal: %start ~intro $BD/Said=0
+    u1:(~getready)  ~ready $QRReader/StartTimer=1
 
 u:(e:QRReader/Reminder) ~reminder
 u:(e:QRReader/NoAction)  ~exit $QRReader/ExitApp=1
 u:(e:QRReader/NoCustomer)  ^goto(noCustomerFound)
-u:(e:BarcodeReader/BarcodeDetected) I scanned your QR.
+u:(e:BarcodeReader/BarcodeDetected $BD/Said==0) $BD/Said=1 I scanned your QR.
+
+
+
 
 proposal: %noCustomerFound  ~nocustomer $QRReader/ExitApp=1

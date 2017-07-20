@@ -9,6 +9,7 @@ import time
 from datetime import datetime
 from customerquery import CustomerQuery
 from kairos_face import enroll
+from threading import Lock
 
 
 
@@ -39,6 +40,8 @@ class QRReader(object):
         # Memory
         self.memory = self.session.service("ALMemory")
         self.logger.info("Initializing - ALMemory")
+
+        self.lock = Lock()
 
 
 
@@ -132,8 +135,10 @@ class QRReader(object):
 
     @qi.nobind
     def on_barcode_detected(self, value):
+        self.lock.acquire()
         if not self.barcode_detected:
             self.barcode_detected = True
+            self.lock.release()
             self.logger.info("Barcode detected...")
             try:
                 encoded_info = str(value[0][0]).replace(" ", "")
@@ -155,13 +160,14 @@ class QRReader(object):
                     self.memory.raiseEvent("QRReader/NoCustomer", 1)
             except Exception, e:
                 self.logger.info("Error while querying customer: {}".format(e))
-
+        else:
+            self.lock.release()
 
 
 
     @qi.nobind
     def on_self_exit(self, value):
-        self.on_exit()
+        self.stop_app()
 
     # Event CallBacks End
 
@@ -237,11 +243,10 @@ class QRReader(object):
 
     @qi.nobind
     def stop_app(self):
-        # To be used if internal methods need to stop the service from inside.
-        # external NAOqi scripts should use ALServiceManager.stopService if they need to stop it.
         self.logger.info("Stopping service...")
-        self.application.stop()
-        self.logger.info("Stopped!")
+        self.cleanup()
+        to_app = str(self.preferences.getValue("global_variables", "main_app_id"))
+        self.life.switchFocus(to_app)
 
     @qi.nobind
     def cleanup(self):

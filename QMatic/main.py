@@ -162,7 +162,8 @@ class QueueMatic(object):
     def on_check_for_coffee(self, value):
         time.sleep(2.0)
         self.logger.info("Waiting time: {}".format(self.ticketInfo.waiting_time))
-        if self.ticketInfo.waiting_time >= 0:
+        time_limit = int(self.pm.getValue("queuematic","wait_limit_for_coffee"))
+        if self.ticketInfo.waiting_time >= time_limit:
             self.cleanup()
             to_app = str(self.pm.getValue("queuematic", "coffee_app"))
             self.logger.info("Switching to coffee app.")
