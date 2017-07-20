@@ -84,6 +84,11 @@ function showNumPad()
 }
 
 
+function exit()
+{
+   session.raiseEvent("QueueMatic/ExitApp",1); 
+}
+
 $(document).ready(function () {
 
 

@@ -327,3 +327,26 @@ body {
     50% { -webkit-opacity: 0.0; }
     100% { -webkit-opacity: 1.0; }
 }
+
+
+.leaveapp
+{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 10px;
+    left: 1120px;
+}
+#exit
+{
+    background: #e27378;
+    border: 5px solid #e27378;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 5%;
+    text-align: center;
+    line-height: 80px;
+    font-size: 80px;
+    color: snow;
+}

@@ -12,7 +12,10 @@ session.subscribeToEvent("QRReader/StartTimer", function() {
     });
 })
 
-
+function exit()
+{
+    session.raiseEvent("QRReader/ExitApp",1);
+}
 
 var c=document.getElementById("borders");
 var ctx=c.getContext("2d");

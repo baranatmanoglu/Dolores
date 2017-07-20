@@ -50,7 +50,9 @@ function enterPressed() {
     session.raiseEvent("Keyboard/NumberEntered", current);
 }
 
-
+function exit(){
+    session.raiseEvent("Keyboard/ExitApp", 1);
+}
 
 
 

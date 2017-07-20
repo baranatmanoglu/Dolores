@@ -28,6 +28,11 @@ function generatePieChartArray(accountLabels, accountValues) {
     return response;
 }
 
+function exit()
+{
+   session.raiseEvent("Finie/ExitApp", 1); 
+}
+
 function drawPieChart() {
 
 

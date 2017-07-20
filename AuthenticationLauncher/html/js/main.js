@@ -67,7 +67,10 @@ function blowOutAll() {
     blowOutNumpad();
 }
 
-
+function exit()
+{
+    session.raiseEvent("Authentication/ExitApp", 1);
+}
 
 
 

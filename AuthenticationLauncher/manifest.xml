@@ -15,11 +15,11 @@
    <permissions/>
   </behaviorContent>
   <dialogContent typeVersion="1.0" topicName="authentication">
-   <topic language="en_US" path="authentication/authentication_enu.top"/>
+   <topic path="authentication/authentication_enu.top" language="en_US"/>
   </dialogContent>
  </contents>
  <services>
-  <service autorun="false" execStart="main.py" name="AuthenticationLauncher"/>
+  <service execStart="main.py" autorun="false" name="AuthenticationLauncher"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

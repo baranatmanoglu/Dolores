@@ -108,6 +108,7 @@ class Feedback(object):
     def on_survey_clicked(self, value):
         self.logger.info(str(value))
         self.in_action = True
+        self.memory.raiseEvent("Feedback/SetRecordDuration", str(self.pm.getValue("feedback", "record_duration")))
 
     @qi.bind(methodName="on_process_recording", paramsType=(qi.String,), returnType=qi.Void)
     def on_process_recording(self, value):

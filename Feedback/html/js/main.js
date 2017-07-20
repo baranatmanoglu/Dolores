@@ -7,22 +7,28 @@ function surveyClicked(value) {
 
 $(document).ready(function () {
 
-
+    session.subscribeToEvent("Feedback/SetRecordDuration",setDuration);
 });
 
 var micState = 'off'
-var timeOut;
+var timeOutId;
+var recordDuration;
+function setDuration(val)
+{
+    recordDuration = parseInt(val) * 1000;
+}
+
 function micClicked() {
     if (micState == 'off') {
         micState = 'on'; 
         $("#record").addClass("microphone-glow");
         $("#warning").css("visibility","visible");
-        timeOut = setTimeout("micClicked()",5000);
+        timeOutId = setTimeout("micClicked()",recordDuration);
         session.raiseEvent("Feedback/ProcessRecording","S");
     }
     
     else{
-        clearTimeout(timeOut);
+        clearTimeout(timeOutId);
         micState = 'off';
         
         $("#record").removeClass("microphone-glow");
