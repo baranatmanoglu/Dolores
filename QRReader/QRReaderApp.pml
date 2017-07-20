@@ -37,6 +37,7 @@
         <File name="main" src="html/js/main.js" />
         <File name="qimessaging_helper" src="html/js/qimessaging_helper.js" />
         <File name="videoutils" src="html/js/videoutils.js" />
+        <File name="pepper" src="html/css/pepper.css" />
     </Resources>
     <Topics>
         <Topic name="barcode_detected_enu" src="barcode_detected/barcode_detected_enu.top" topicName="barcode_detected" language="en_US" />

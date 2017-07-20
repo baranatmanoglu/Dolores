@@ -19,7 +19,7 @@ concept:(reminder) Hey, do you want to give feedback about your experience with 
 concept:(exitting) Ok. See you in another life brother.
 concept:(voicerecorded) I will share your thoughts with my friends. Hope to see you again.
 
-proposal:%feedbackStart ~introQ
+u:(e:Feedback/ReadyToGo) ~introQ
 
 u:(e:Feedback/SurveyClicked $Feedback/SurveyClicked==G) ^start(animations/Stand/Emotions/Positive/Excited_1) ~good ^wait(animations/Stand/Emotions/Positive/Excited_1) $Feedback/ExitApp=1
 

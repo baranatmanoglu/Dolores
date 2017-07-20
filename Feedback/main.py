@@ -169,7 +169,7 @@ class Feedback(object):
             self.dialog.activateTopic(self.loaded_topic)
             self.dialog.subscribe(self.service_name)
             self.logger.info("Dialog loaded!")
-            self.dialog.gotoTag("feedbackStart","feedback")
+            self.memory.raiseEvent("Feedback/ReadyToGo",1)
         except Exception, e:
             self.logger.info("Error while loading dialog: {}".format(e))
         
