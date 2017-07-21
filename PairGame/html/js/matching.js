@@ -12,7 +12,9 @@ var attempts = 0;
 var tilesFound = 0;
 var animalNames = new Array('bear', 'elephant', 'giraffe', 'kangroo', 'lion', 'penguin', 'racoon', 'zebra');
 var lastTouched = null;
-var checked =1;
+var checked = 1;
+var introTile1, introTile2;
+var introSet1 = false;
 function getRandomImageForTile() {
 
     var iRandomImage = Math.floor((Math.random() * tileAllocation.length)),
@@ -43,7 +45,15 @@ function createTile(iCounter) {
     curTile.setFlipMethod(flips[Math.floor((Math.random() * 3) + 1)]);
     curTile.setBackContentImage("images/" + animalNames[iRandomImage] + ".png");
     curTile.setFileName(animalNames[iRandomImage]);
-
+    if (animalNames[iRandomImage] == 'elephant') {
+        if(!introSet1){
+            introTile1 = curTile; 
+            introSet1 = true;
+        }
+        else{
+            introTile2 = curTile;
+        }
+    }
     return curTile;
 }
 
@@ -71,7 +81,7 @@ function initTiles() {
 
     initState();
 
-    // Randomly create twenty tiles and render to board
+    // Randomly create 16 tiles and render to board
     for (iCounter = 0; iCounter < totalTiles; iCounter++) {
 
         curTile = createTile(iCounter);
@@ -80,6 +90,8 @@ function initTiles() {
 
         tiles.push(curTile);
     }
+    introTile1.flip();
+    introTile2.flip();
 }
 
 function hideTiles(callback) {
@@ -91,7 +103,6 @@ function hideTiles(callback) {
         tiles[iCounter].revertFlip();
 
     }
-
     callback();
 }
 
@@ -137,7 +148,7 @@ function hideMatched() {
 }
 
 function checkMatch() {
-
+    checked = 1;
     lastTouched = new Date().getTime();
     if (iFlippedTile === null) {
 
@@ -181,7 +192,8 @@ function checkFinalState() {
 }
 
 function onPeekComplete() {
-
+    lastTouched = new Date().getTime();
+    setInterval("checkTimer()", 1000);
     $('div.tile').click(function () {
 
         iTileBeingFlippedId = this.id.substring("tile".length);
@@ -201,10 +213,10 @@ function onPeekStart() {
 }
 
 function startGame() {
-    initTiles();
+
     setTimeout("revealTiles(function() { onPeekStart(); })", iInterval);
-    lastTouched = new Date().getTime();
-    setInterval("checkTimer()", 1000);
+
+
 }
 
 function checkTimer() {
@@ -219,9 +231,9 @@ function checkTimer() {
 
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    if (seconds > 30) {
+    if (seconds > 5) {
         lastTouched = new Date().getTime();
-        
+
         if (checked == 1)
             session.raiseEvent("PairGame/CheckForAction", "reminder");
         else if (checked == 2)
@@ -237,7 +249,7 @@ function showPrize() {
 
 $(document).ready(function () {
 
-    
+    initTiles();
     session.subscribeToEvent("PairGame/ShuffleCards", startGame);
     session.subscribeToEvent("PairGame/ShowPrize", showPrize);
     session.subscribeToEvent("PairGame/HideTriviaScreen", hideMatched);

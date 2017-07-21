@@ -14,12 +14,9 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="pair_game">
-   <topic language="en_US" path="pair_game/pair_game_enu.top"/>
-  </dialogContent>
  </contents>
  <services>
-  <service autorun="false" execStart="main.py" name="PairGame"/>
+  <service name="PairGame" autorun="false" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

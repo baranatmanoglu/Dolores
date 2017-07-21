@@ -33,7 +33,8 @@ class PairGame(object):
 
         self.preferences = self.session.service("ALPreferenceManager")
 
-    
+        self.show_screen()
+        self.animal = "elephant"
 
     # Signal related methods starts
 
@@ -248,7 +249,7 @@ class PairGame(object):
     @qi.nobind  # Starting the app  # @TODO: insert whatever the app should do to start
     def start_app(self):
         self.logger.info("Starting App.")
-        self.show_screen()
+
         self.start_dialog()
 
 
