@@ -13,12 +13,10 @@ language: enu
 
 concept:(finieStartProposal) You can ask me about your balance, income, transactions, spending history, spend advice, locations of ATMs and pay day. 
 concept:(finieThinking) ["ok, thinking."]
-concept:(noOneSpeak) ["I couldn't get you."]
+concept:(noOneSpeak) ["You can talk to me."]
 concept:(stillThere) ["Great."]
 concept:(nextTime) ["Ok. Hope to see you again."]
-concept:(finieAskAgain) ["Would you like to ask more questions?"]
-concept:(finieContinue) ["Good. What else do you want to know?"]
-concept:(exit) I want to [Exit Leave Abort Stop]
+concept:(exit) I want to [Exit Leave Abort Stop Quit]
 concept:(yes) Yes
 concept:(no) No
 dynamic:tellerFinie
@@ -27,45 +25,45 @@ concept:(offerYes) Great. Let me start the process.
 concept:(offerNo) Oh, Ok.
 concept:(later) * [later "another time"]
 concept:(offerLater) Ok. You can apply any time through IshCep.
+concept:(whisper) This is a confidential information. I will whisper it to you. Come closer.
+concept:(tryagain) Hey, I think I had a glitch. Can you ask me again?
+concept:(nexttimeerror) I am sorry but I can not go on. Please go on with a different feature.
 
-
-u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieAskAgain)
+u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieContinue)
 
 u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offerFinie
-    u1:(~yes) ~offerYes $Finie/ClearScreen=1 ^gotoReactivate(finieAskAgain)
-    u1:(~no) ~offerNo $Finie/ClearScreen=1 ^gotoReactivate(finieAskAgain)
-    u1:(~later) ~offerLater $Finie/ClearScreen=1 ^gotoReactivate(finieAskAgain)
-    u1:(e:Dialog/NoOneSpeak10) ^gotoReactivate(finieAskAgain)
+    u1:(~yes) ~offerYes $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
+    u1:(~no) ~offerNo $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
+    u1:(~later) ~offerLater $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
+    u1:(e:Dialog/NoOneSpeak10) ^gotoReactivate(finieContinue)
 
-u:(e:Finie/AcceptOffer) ~offerYes ^gotoReactivate(finieAskAgain)
-u:(e:Finie/DeclineOffer) ~offerNo ^gotoReactivate(finieAskAgain)
-u:(e:Finie/RemindOffer) ~offerLater ^gotoReactivate(finieAskAgain)
+u:(e:Finie/AcceptOffer) ~offerYes ^gotoReactivate(finieContinue)
+u:(e:Finie/DeclineOffer) ~offerNo ^gotoReactivate(finieContinue)
+u:(e:Finie/RemindOffer) ~offerLater ^gotoReactivate(finieContinue)
 
 u:(~exit) ~nextTime $Finie/ExitApp=1
 
-proposal:%finieAskAgain ~finieAskAgain
-    u1:(~yes) ^gotoReactivate(finieContinue)
-    u1:(~no) ~nextTime $Finie/ExitApp=1
-    u1:(e:Dialog/NoOneSpeak20) ~nextTime $Finie/ExitApp=1
+u:(e:Finie/FinieHasNoAnswer $Finie/FinieHasNoAnswer==0) ~tryagain ^gotoReactivate(finieContinue)
 
-proposal:%finieContinue ~finieContinue
+u:(e:Finie/FinieHasNoAnswer $Finie/FinieHasNoAnswer==1) ~nexttimeerror $Finie/ExitApp=1
+
+
+proposal:%finieContinue  $Finie/Said=0
     u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
     u1:(~exit) ~nextTime $Finie/ExitApp=1
-    u1:(e:Dialog/NoOneSpeak10) ~noOneSpeak^gotoReactivate(finieContinue2)
+    u1:(e:Dialog/NoOneSpeak10 $Finie/Said==0) $Finie/Said=1 ~noOneSpeak ^stayInScope
+    u1:(e:Dialog/NoOneSpeak10 $Finie/Said==1) ~nextTime $Finie/ExitApp=1
     
-proposal:%finieContinue2 
-    u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
-    u1:(~exit) ~nextTime $Finie/ExitApp=1
-    u1:(e:Dialog/NoOneSpeak10) ~nextTime $Finie/ExitApp=1
 
-proposal:%finieStart ~finieStartProposal $Finie/ReadyToGo=1
-    u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
-    u1:(~exit) ~nextTime $Finie/ExitApp=1
-    u1:(e:Dialog/NoOneSpeak10) ~noOneSpeak ^gotoReactivate(finieStart2)
 
-proposal:%finieStart2
+proposal:%finieStart $Finie/Said=0 ~finieStartProposal $Finie/ReadyToGo=1
     u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
     u1:(~exit) ~nextTime $Finie/ExitApp=1
-    u1:(e:Dialog/NoOneSpeak10) ~nextTime $Finie/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak10 $Finie/Said==0) $Finie/Said=1 ~noOneSpeak ^stayInScope
+    u1:(e:Dialog/NoOneSpeak10 $Finie/Said==1) ~nextTime $Finie/ExitApp=1
+
+
 
 proposal:%goToTeller ~tellerFinie \pau=3000\ $Finie/ExitApp=1
+
+proposal:%finieWhisper ~whisper $Finie/PlayWhisper=1

@@ -187,7 +187,7 @@ var otherIntervalId;
 function showTicketData(input) {
     
     
-    hideLoading();
+    
     $("#ticket").css("visibility", "visible");
     var data = input.split("|");
 
@@ -243,7 +243,7 @@ function clearBlink() {
 
 function showLoading() {
     $("#loading_container").css("visibility", "visible");
-    
+    hideListening();
     hidePieChart();
 }
 
@@ -276,6 +276,17 @@ function remind(){
     hidePieChart();
 }
 
+function showListening()
+{
+    $("#bars").css("visibility", "visible");
+    $("#bubbles").css("visibility", "hidden");
+    hidePieChart();
+}
+
+function hideListening()
+{
+    $("#bars").css("visibility", "hidden");
+}
 
 $(document).ready(function () {
     session.subscribeToEvent("Finie/ShowPieChart", visualizePieChart);
@@ -286,6 +297,9 @@ $(document).ready(function () {
     session.subscribeToEvent("Finie/ShowLoading", showLoading);
     session.subscribeToEvent("Finie/HideLoading", hideLoading);
     session.subscribeToEvent("Finie/ClearScreen", hidePieChart);
-
+    session.subscribeToEvent("Finie/ReadyToGo", showListening);
+    session.subscribeToEvent("Finie/Said", showListening);
+    session.subscribeToEvent("Finie/TellResponse", hideListening);
+    session.subscribeToEvent("Finie/TellResponseWithOffer", hideListening);
 
 });

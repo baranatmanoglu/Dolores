@@ -4,7 +4,7 @@
 }
 
 body {
-    font: 71%/1.5 Verdana, Sans-Serif;
+    font: Verdana, Sans-Serif;
     background: #eee;
     width: 1280px;
     height: 800px;
@@ -81,7 +81,6 @@ body {
     margin: 20px 0px 0px 330px;
     padding: 0;
     list-style: none;
-    
 }
 
 #numpadOut {
@@ -91,10 +90,13 @@ body {
 }
 
 #donutchart {
+    top: 150px;
+    left: 0px;
     width: 900px;
     height: 500px;
     margin: 0 auto;
     visibility: hidden;
+    position: absolute;
 }
 
 #offer {
@@ -106,8 +108,8 @@ body {
     position: absolute;
 }
 
-.image{
-    margin:100px 0px 0px 340px;
+.image {
+    margin: 100px 0px 0px 340px;
 }
 
 #keyboard li {
@@ -121,16 +123,15 @@ body {
     border-radius: 5px;
 }
 
-.greenb{
+.greenb {
     background: #99ff99;
 }
 
-.redb{
+.redb {
     background: #ff9999;
 }
 
-.blueb
-{
+.blueb {
     background: #99ffff;
 }
 
@@ -312,33 +313,32 @@ body {
     transform: rotate(360deg);
 }
 
-
-
-
 .blink_me {
     -webkit-animation: blinker 1s linear infinite;
     color: red;
 }
 
-
-
-@-webkit-keyframes blinker {  
-    0% { -webkit-opacity: 1.0; }
-    50% { -webkit-opacity: 0.0; }
-    100% { -webkit-opacity: 1.0; }
+@-webkit-keyframes blinker {
+    0% {
+        -webkit-opacity: 1.0;
+    }
+    50% {
+        -webkit-opacity: 0.0;
+    }
+    100% {
+        -webkit-opacity: 1.0;
+    }
 }
 
-
-.leaveapp
-{
+.leaveapp {
     width: 100px;
     height: 100px;
     position: absolute;
     top: 10px;
     left: 1120px;
 }
-#exit
-{
+
+#exit {
     background: #e27378;
     border: 5px solid #e27378;
     position: relative;
@@ -350,3 +350,155 @@ body {
     font-size: 80px;
     color: snow;
 }
+
+#bars {
+    height: 100px;
+    left: 50%;
+    margin: -30px 0 0 -20px;
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    visibility: hidden;
+}
+
+.bar {
+    bottom: 5px;
+    height: 3px;
+    position: absolute;
+    width: 15px;
+    -webkit-animation: sound 0ms -800ms linear infinite alternate;
+}
+
+@-webkit-keyframes sound {
+    0% {
+        -webkit-opacity: .35;
+        height: 10px;
+    }
+    100% {
+        -webkit-opacity: 1;
+        height: 50px;
+    }
+}
+
+.bar:nth-child(1) {
+    background: #9400D3;
+    left: 1px;
+    -webkit-animation-duration: 474ms;
+}
+
+.bar:nth-child(2) {
+    background: #4B0082;
+    left: 17px;
+    -webkit-animation-duration: 433ms;
+}
+
+.bar:nth-child(3) {
+    background: #0000FF;
+    left: 33px;
+    -webkit-animation-duration: 407ms;
+}
+
+.bar:nth-child(4) {
+    background: #00FF00;
+    left: 49px;
+    -webkit-animation-duration: 458ms;
+}
+
+.bar:nth-child(5) {
+    background: #FFFF00;
+    left: 65px;
+    -webkit-animation-duration: 400ms;
+}
+
+.bar:nth-child(6) {
+    background: #FF7F00;
+    left: 81px;
+    -webkit-animation-duration: 427ms;
+}
+
+.bar:nth-child(7) {
+    background: #FF0000;
+    left: 97px;
+    -webkit-animation-duration: 441ms;
+}
+
+.bar:nth-child(8) {
+    background: #9400D3;
+    left: 113px;
+    -webkit-animation-duration: 419ms;
+}
+
+.bar:nth-child(9) {
+    background: #4B0082;
+    left: 129px;
+    -webkit-animation-duration: 487ms;
+}
+
+.bar:nth-child(10) {
+    background: #0000FF;
+    left: 145px;
+    -webkit-animation-duration: 442ms;
+}
+
+
+
+
+/* THE TRIANGLE
+------------------------------------------------------------------------------------------------------------------------------- */
+
+
+.triangle-isosceles {
+    position: relative;
+    padding: 15px;
+    margin: 10px 0px 30px;
+    color: #000;
+    background: #01b3c3;
+    border-radius: 10px;
+    font-size: 24px;
+    height: 75px;
+}
+
+
+/* Variant : for top positioned triangle
+------------------------------------------ */
+
+.triangle-isosceles.top {
+    background: #01b3c3;
+    margin-left: 200px;
+}
+
+
+/* creates triangle */
+
+.triangle-isosceles:after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    /* value = - border-top-width - border-bottom-width */
+    left: 50px;
+    /* controls horizontal position */
+    border-width: 15px 15px 0;
+    /* vary these values to change the angle of the vertex */
+    border-style: solid;
+    border-color: #01b3c3 transparent;
+    /* reduce the damage in FF3.0 */
+    display: block;
+    width: 0;
+}
+
+
+/* Variant : top
+------------------------------------------ */
+
+.triangle-isosceles.top:after {
+    top: -15px;
+    /* value = - border-top-width - border-bottom-width */
+    right: 50px;
+    /* controls horizontal position */
+    bottom: auto;
+    left: auto;
+    border-width: 0 15px 15px;
+    /* vary these values to change the angle of the vertex */
+    border-color: #01b3c3 transparent;
+}
+
