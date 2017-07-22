@@ -17,7 +17,7 @@
   </behaviorContent>
  </contents>
  <services>
-  <service execStart="main.py" autorun="false" name="QRReader"/>
+  <service name="QRReader" autorun="false" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

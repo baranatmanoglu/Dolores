@@ -25,7 +25,7 @@ proposal: %start ~intro $BD/Said=0
 u:(e:QRReader/Reminder) ~reminder
 u:(e:QRReader/NoAction)  ~exit $QRReader/ExitApp=1
 u:(e:QRReader/NoCustomer)  ^goto(noCustomerFound)
-u:(e:BarcodeReader/BarcodeDetected $BD/Said==0) $BD/Said=1 I scanned your QR.
+u:(e:BarcodeReader/BarcodeDetected $BD/Said==0) $BD/Said=1 I scanned your QR. You can now take your phone away.
 
 
 

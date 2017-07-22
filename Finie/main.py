@@ -45,7 +45,7 @@ class Finie(object):
             self.logger.info("Customer exists in memory: " + self.customerInfo.customer_number)
         except Exception,e:
             self.logger.info("Exception getting customer. Finie for anonymous user")
-            #self.on_exit()
+            self.on_exit()
 
         self.customerInfo.fromjson(self.customer_json)
         self.mapCustomerNumber()
