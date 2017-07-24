@@ -10,7 +10,7 @@ from datetime import datetime
 from customerquery import CustomerQuery
 from kairos_face import enroll
 
-class Keyboard(object):
+class Numpad(object):
     subscriber_list = []
     found = False
     trialCount = 1
@@ -66,20 +66,20 @@ class Keyboard(object):
         # Create events and subscribe them here
         self.logger.info("Creating events...")
 
-        event_name = "Keyboard/NumberEntered"
+        event_name = "Numpad/NumberEntered"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_number_entered)
         self.subscriber_list.append([event_subscriber, event_connection])
 
-        event_name = "Keyboard/ExitApp"
+        event_name = "Numpad/ExitApp"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_self_exit)
         self.subscriber_list.append([event_subscriber, event_connection])
 
 
-        event_name = "Keyboard/CheckForAction"
+        event_name = "Numpad/CheckForAction"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_check_for_action)
@@ -109,16 +109,16 @@ class Keyboard(object):
         self.logger.info(str(value))
         if not self.found:
             if value == "reminder":
-                self.memory.raiseEvent("Keyboard/Reminder",1)
+                self.memory.raiseEvent("Numpad/Reminder",1)
             elif value == "endit":
-                self.memory.raiseEvent("Keyboard/NoAction",1)
+                self.memory.raiseEvent("Numpad/NoAction",1)
 
 
 
 
     @qi.nobind
     def on_number_entered(self, value):
-        self.memory.raiseEvent("Keyboard/ShowLoading",1)
+        self.memory.raiseEvent("Numpad/ShowLoading",1)
         try:
             self.logger.info(str(value))
             self.found = False
@@ -137,8 +137,8 @@ class Keyboard(object):
                 except Exception, e:
                     self.logger.info("Error while switching to next app: {} {}".format(next_app, e))
             else:
-                self.memory.raiseEvent("Keyboard/HideLoading", 1)
-                self.memory.raiseEvent("Keyboard/NoCustomer", self.trialCount)
+                self.memory.raiseEvent("Numpad/HideLoading", 1)
+                self.memory.raiseEvent("Numpad/NoCustomer", self.trialCount)
                 self.trialCount += 1
 
         except Exception, e:
@@ -190,7 +190,7 @@ class Keyboard(object):
         self.logger.info("Loading dialog")
         self.dialog = self.session.service("ALDialog")
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        topic_path = os.path.realpath(os.path.join(dir_path, "keyboard", "keyboard_enu.top"))
+        topic_path = os.path.realpath(os.path.join(dir_path, "numpad", "numpad_enu.top"))
         self.logger.info("File is: {}".format(topic_path))
         try:
             self.loaded_topic = self.dialog.loadTopic(topic_path)
@@ -235,9 +235,9 @@ class Keyboard(object):
         # called when your module is stopped
         self.logger.info("Cleaning...")
         # @TODO: insert cleaning functions here
-        self.disconnect_signals()
-        self.stop_dialog()
         self.hide_screen()
+        self.stop_dialog()
+        self.disconnect_signals()
         self.logger.info("Cleaned!")
 
     @qi.bind(methodName="on_exit", returnType=qi.Void)
@@ -282,7 +282,7 @@ if __name__ == "__main__":
     # run : python main.py --qi-url 123.123.123.123
     app = qi.Application(sys.argv)
     app.start()
-    service_instance = Keyboard(app)
+    service_instance = Numpad(app)
     service_id = app.session.registerService(service_instance.service_name, service_instance)
     service_instance.start_app()
     app.run()

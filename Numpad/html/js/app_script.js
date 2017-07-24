@@ -47,11 +47,11 @@ function showTicket(value) {
 
 function enterPressed() {
     var current = $('#numpadOut').text()
-    session.raiseEvent("Keyboard/NumberEntered", current);
+    session.raiseEvent("Numpad/NumberEntered", current);
 }
 
 function exit(){
-    session.raiseEvent("Keyboard/ExitApp", 1);
+    session.raiseEvent("Numpad/ExitApp", 1);
 }
 
 
@@ -77,12 +77,12 @@ $(document).ready(function () {
 
 
 
-    session.raiseEvent("Keyboard/ReadyToGo", 1);
-    session.subscribeToEvent("Keyboard/ShowLoading", showLoading);
-    session.subscribeToEvent("Keyboard/HideLoading", hideLoading);
-    session.subscribeToEvent("Keyboard/CleanScreen", clearScreen);
-    session.subscribeToEvent("Keyboard/Timer", startTimer);
-    session.subscribeToEvent("Keyboard/Reminder", startTimer);
+    session.raiseEvent("Numpad/ReadyToGo", 1);
+    session.subscribeToEvent("Numpad/ShowLoading", showLoading);
+    session.subscribeToEvent("Numpad/HideLoading", hideLoading);
+    session.subscribeToEvent("Numpad/CleanScreen", clearScreen);
+    session.subscribeToEvent("Numpad/Timer", startTimer);
+    session.subscribeToEvent("Numpad/Reminder", startTimer);
 
 
 
@@ -99,15 +99,15 @@ var checkForInput = function () {
 
     if (current.length == 0) {
         if (checked == 1)
-            session.raiseEvent("Keyboard/CheckForAction", "reminder")
+            session.raiseEvent("Numpad/CheckForAction", "reminder")
         else if (checked == 2)
-            session.raiseEvent("Keyboard/CheckForAction", "endit")
+            session.raiseEvent("Numpad/CheckForAction", "endit")
     }
     else{
         setTimeout(checkForInput, 5000);
     }
     if (checked == 10) {
-        session.raiseEvent("Keyboard/CheckForAction", "endit")
+        session.raiseEvent("Numpad/CheckForAction", "endit")
     }
     checked++;
 }

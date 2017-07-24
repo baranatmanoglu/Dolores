@@ -215,11 +215,11 @@ class QueueMatic(object):
 
         #initial dynamic concepts
         if self.customerInfo.name != "":
-            self.dialog.setConcept("introQ", "English", [
+            self.dialog.setConcept("introQueue", "English", [
                 "{}, Can you describe me the transaction you want to make in a few words?".format(
                     self.customerInfo.name)])
         else:
-            self.dialog.setConcept("introQ", "English", [
+            self.dialog.setConcept("introQueue", "English", [
                 "Can you describe me the transaction you want to make in a few words?"])
 
     @qi.nobind

@@ -11,29 +11,29 @@ language: enu
 #u:(~hello) ~hello
 
 concept:(introQR) You can generate qr code using your mobile phone. Tell me when you are ready.
-concept:(getready) {I am}[ready yes ok]
-concept:(ready) ^start(animations/Stand/Reactions/TouchHead_4)Please hold the QR against my head camera. You can use my tablet to align your qr correctly. Let me see your code now. ^wait(animations/Stand/Reactions/TouchHead_4)
-concept:(reminder) ["Hey, you still haven't showed me your code"]
-concept:(exit) ["Ok. See you in another life brother"]
-concept:(nocustomer) ["I couldn't find any record from the qr you showed. "]
-concept:(areready) Are you ready?
+concept:(getreadyQR) {I am}[ready yes ok]
+concept:(readyQR) ^start(animations/Stand/Reactions/TouchHead_4)Please hold the QR against my head camera. You can use my tablet to align your qr correctly. Let me see your code now. ^wait(animations/Stand/Reactions/TouchHead_4)
+concept:(reminderQR) ["Hey, you still haven't showed me your code"]
+concept:(exitQR) ["Ok. See you in another life brother"]
+concept:(nocustomerQR) ["I couldn't find any record from the qr you showed. "]
+concept:(arereadyQR) Are you ready?
 
 
 
-proposal: %start ~introQR $BD/Said=0
-    u1:(~getready)  ~ready $QRReader/StartTimer=1
-    u1:(e:Dialog/NoOneSpeak5) ~areready ^gotoReactivate(start2)
+proposal: %startQR ~introQR $BD/Said=0
+    u1:(~getreadyQR)  ~readyQR $QRReader/StartTimer=1
+    u1:(e:Dialog/NoOneSpeak5) ~arereadyQR ^gotoReactivate(startQR2)
 
-proposal: %start2
-    u1:(~getready)  ~ready $QRReader/StartTimer=1    
+proposal: %startQR2
+    u1:(~getreadyQR)  ~readyQR $QRReader/StartTimer=1    
     u1:(e:Dialog/NoOneSpeak5) $QRReader/StopVideo=1
     
 
-u:(e:QRReader/Reminder) ~reminder
+u:(e:QRReader/Reminder) ~reminderQR
 
-u:(e:QRReader/StopVideo)  ~exit
+u:(e:QRReader/StopVideo)  ~exitQR
 
-u:(e:QRReader/NoCustomer)  ~nocustomer $QRReader/StopVideo=1
+u:(e:QRReader/NoCustomer)  ~nocustomerQR $QRReader/StopVideo=1
 
 u:(e:BarcodeReader/BarcodeDetected $BD/Said==0) $BD/Said=1 I scanned your QR. You can now take your phone away.
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="feedback-b55032" version="0.0.0">
+<package version="0.0.0" uuid="feedback-b55032">
  <names>
   <name lang="en_US">Feedback</name>
  </names>
@@ -14,12 +14,9 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="feedback">
-   <topic path="feedback/feedback_enu.top" language="en_US"/>
-  </dialogContent>
  </contents>
  <services>
-  <service execStart="main.py" autorun="false" name="Feedback"/>
+  <service autorun="false" execStart="main.py" name="Feedback"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

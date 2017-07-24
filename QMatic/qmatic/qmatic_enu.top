@@ -12,15 +12,15 @@ language: enu
 
 
 
-concept:(teller) [Teller Bill "Withdraw Money" Exchange "Deposit Money"]
-concept:(custrep) ["Customer Representative" Application Credit]
-concept:(exitting) ["Ok. See you in another life brother."]
+concept:(tellerQueue) [Teller Bill "Withdraw Money" Exchange "Deposit Money"]
+concept:(custrepQueue) ["Customer Representative" Application Credit]
+concept:(exittingQueue) ["Ok. See you in another life brother."]
 
 
 
 
 dynamic: your_ticket_is_ready
-dynamic: introQ
+dynamic: introQueue
 
 u:(e:QueueMatic/ReadyToGo) ^gotoReactivate(askForInput)
 
@@ -29,11 +29,11 @@ u:(e:QueueMatic/ReadyToGo) ^gotoReactivate(askForInput)
 
 
 
-u:(e:QueueMatic/NoAction) ~exitting $QueueMatic/ExitApp=1
+u:(e:QueueMatic/NoAction) ~exittingQueue $QueueMatic/ExitApp=1
 
 
 u:(e:QueueMatic/ShowTicketNumber) ~your_ticket_is_ready $QueueMatic/CheckForCoffee=1
 
-proposal: %askForInput ~introQ $QueueMatic/StartTimer=1
-    u1:(~teller) Ok $QueueMatic/NumpadInputTeller=1
-    u1:(~custrep) Ok $QueueMatic/NumpadInputCust=1
+proposal: %askForInput ~introQueue $QueueMatic/StartTimer=1
+    u1:(~tellerQueue) Ok $QueueMatic/NumpadInputTeller=1
+    u1:(~custrepQueue) Ok $QueueMatic/NumpadInputCust=1

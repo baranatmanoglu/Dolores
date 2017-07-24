@@ -1,0 +1,40 @@
+topic: ~numpad()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+
+
+
+concept:(introKey) Can you enter your customer number or your citizen id?
+concept:(reminderKey) Hey, can you enter your information?
+concept:(exittingKey) I have to redirect you to previous step.
+concept:(nocustomerKey) I am sorry, I couldn't find any record. Do you want to type again?
+concept:(againKey) Good. Go on.
+concept:(nocustomerexitKey) I am sorry, I couldn't find any record. I am redirecting you to previous step.
+concept:(nocustomerreminderKey) Do you want to type again?
+
+
+u:(e:Numpad/ReadyToGo)  ~introKey $Numpad/Timer=1
+
+u:(e:Numpad/Reminder) ~reminderKey
+
+u:(e:Numpad/NoAction) ~exittingKey $Numpad/ExitApp=1
+
+u:(e:Numpad/NoCustomer $Numpad/NoCustomer==1) ~nocustomerKey  $Numpad/Said=0
+    u1:(yes) ~againKey $Numpad/CleanScreen=1
+    u1:(no) ~exittingKey $Numpad/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak5 $Numpad/Said==0) $Numpad/Said=1 ~nocustomerreminderKey ^stayInScope
+    u1:(e:Dialog/NoOneSpeak5 $Numpad/Said==1) ~exittingKey
+
+
+
+
+u:(e:Numpad/NoCustomer $Numpad/NoCustomer==2) ~nocustomerexitKey $Numpad/ExitApp=1

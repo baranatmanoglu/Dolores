@@ -208,9 +208,9 @@ class Feedback(object):
         # called when your module is stopped
         self.logger.info("Cleaning...")
         # @TODO: insert cleaning functions here
-        self.disconnect_signals()
-        self.stop_dialog()
         self.hide_screen()
+        self.stop_dialog()
+        self.disconnect_signals()
         self.logger.info("Cleaned!")
 
     @qi.bind(methodName="on_exit", returnType=qi.Void)

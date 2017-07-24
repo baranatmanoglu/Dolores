@@ -14,9 +14,6 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="authentication">
-   <topic path="authentication/authentication_enu.top" language="en_US"/>
-  </dialogContent>
  </contents>
  <services>
   <service autorun="false" execStart="main.py" name="AuthenticationLauncher"/>

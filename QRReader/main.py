@@ -43,7 +43,7 @@ class QRReader(object):
 
         self.lock = Lock()
 
-
+        self.dialog = self.session.service("ALDialog")
 
         # Barcode Reader
         self.barcode_reader = self.session.service("ALBarcodeReader")
@@ -202,27 +202,27 @@ class QRReader(object):
     @qi.nobind
     def start_dialog(self):
         self.logger.info("Loading dialog")
-        dialog = self.session.service("ALDialog")
+        
         dir_path = os.path.dirname(os.path.realpath(__file__))
         topic_path = os.path.realpath(os.path.join(dir_path, "barcode_detected", "barcode_detected_enu.top"))
         self.logger.info("File is: {}".format(topic_path))
         try:
-            self.loaded_topic = dialog.loadTopic(topic_path)
-            dialog.activateTopic(self.loaded_topic)
-            dialog.subscribe(self.service_name)
+            self.loaded_topic = self.dialog.loadTopic(topic_path)
+            self.dialog.activateTopic(self.loaded_topic)
+            self.dialog.subscribe(self.service_name)
             self.logger.info("Dialog loaded!")
         except Exception, e:
             self.logger.info("Error while loading dialog: {}".format(e))
-        dialog.gotoTag("start", "barcode_detected")
+        self.dialog.gotoTag("startQR", "barcode_detected")
 
     @qi.nobind
     def stop_dialog(self):
         self.logger.info("Unloading dialog")
         try:
-            dialog = self.session.service("ALDialog")
-            dialog.unsubscribe(self.service_name)
-            dialog.deactivateTopic(self.loaded_topic)
-            dialog.unloadTopic(self.loaded_topic)
+            
+            self.dialog.unsubscribe(self.service_name)
+            self.dialog.deactivateTopic(self.loaded_topic)
+            self.dialog.unloadTopic(self.loaded_topic)
             self.logger.info("Dialog unloaded!")
         except Exception, e:
             self.logger.info("Error while unloading dialog: {}".format(e))
@@ -254,10 +254,9 @@ class QRReader(object):
         # called when your module is stopped
         self.logger.info("Cleaning...")
 
-        self.disconnect_signals()
-        self.stop_dialog()
         self.hide_screen()
-
+        self.stop_dialog()
+        self.disconnect_signals()
         self.logger.info("Cleaned!")
 
 

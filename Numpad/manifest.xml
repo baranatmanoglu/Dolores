@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="keyboard-14b06b">
+<package uuid="numpad-dbe701" version="0.0.0">
  <names>
-  <name lang="en_US">Keyboard</name>
+  <name lang="en_US">Numpad</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>
@@ -11,15 +11,13 @@
  </descriptionLanguages>
  <contents>
   <behaviorContent path="behavior_1">
+   <userRequestable/>
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="keyboard">
-   <topic path="keyboard/keyboard_enu.top" language="en_US"/>
-  </dialogContent>
  </contents>
  <services>
-  <service autorun="false" execStart="main.py" name="Keyboard"/>
+  <service autorun="false" execStart="main.py" name="Numpad"/>
  </services>
  <executableFiles>
   <file path="main.py"/>
