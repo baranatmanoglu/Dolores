@@ -45,17 +45,17 @@ u:(e:Authentication/NoAction) ~exitting $Authentication/ExitApp=1
 
 proposal:%authenticationStart ^start(animations/Stand/Reactions/TouchHead_4)
     ~proposeqr
-    ^wait(animations/Stand/Reactions/TouchHead_4) \pau=500\
+    ^wait(animations/Stand/Reactions/TouchHead_4) \pau=1000\
     ^nextProposal
 
 proposal: ^start(animations/Stand/Gestures/This_1)
     ~proposenfc
-    ^wait(animations/Stand/Gestures/This_1) \pau=500\
+    ^wait(animations/Stand/Gestures/This_1) \pau=1000\
     ^nextProposal
     
 proposal: ^start(animations/Stand/Gestures/ShowTablet_1)
     ~proposekeyboard
-    ^wait(animations/Stand/Gestures/ShowTablet_1) \pau=500\
+    ^wait(animations/Stand/Gestures/ShowTablet_1) \pau=1000\
     ^nextProposal
 
 proposal: ^start(animations/Stand/Reactions/TouchHead_4)
@@ -67,9 +67,7 @@ proposal: %askForInput
     u1:(~nfcinput) $Authentication/GoNFC=1
     u1:(~qrinput) $Authentication/GoQR=1
     u1:(~listenerinput) $Authentication/GoListener=1
-    u1:(e:Dialog/NoOneSpeak20) ~noOneSpeak
-        u2:(~yes) ~stillThere ^gotoReactivate(askForInput)
-        u2:(~no) ~nextTime
+    
 
 
 

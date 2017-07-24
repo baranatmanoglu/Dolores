@@ -110,13 +110,8 @@ class QueueMatic(object):
         
         if not self.in_action:
             if value == "10":
-                if self.customerInfo.name != "":
-                    self.dialog.setConcept("introQ", "English", [
-                        "{}, I could not hear you. Can you describe me the transaction you want to make in a few words?".format(
-                            self.customerInfo.name)])
-                else:
-                    self.dialog.setConcept("introQ", "English", [
-                        "I could not hear you. Can you describe me the transaction you want to make in a few words?"])
+                self.dialog.setConcept("introQ", "English", [
+                        "I couldn't hear you. Can you choose what you want to do?"])
                 self.memory.raiseEvent("QueueMatic/ReadyToGo",1)
             else:
                 self.memory.raiseEvent("QueueMatic/NoAction",1)

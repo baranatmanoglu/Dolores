@@ -35,6 +35,7 @@ function glowQr() {
 function glowListener() {
     $("#listener_id").addClass("glowing-item");
     setTimeout(blowOutListener, 1000);
+    setTimeout(checkForInput, timeout);
 
 }
 
@@ -67,8 +68,7 @@ function blowOutAll() {
     blowOutNumpad();
 }
 
-function exit()
-{
+function exit() {
     session.raiseEvent("Authentication/ExitApp", 1);
 }
 
@@ -84,15 +84,16 @@ $(document).ready(function () {
 
 
 var checked = 1;
-var timeout = 30000;
+var timeout = 5000;
 
 var checkForInput = function () {
-    if (checked == 1)
-        session.raiseEvent("Authentication/CheckForAction", "reminder")
-    else if (checked == 2)
-        session.raiseEvent("Authentication/CheckForAction", "endit")
-    timeout = 7000;
-    checked++;
-}
+    if (checked == 1) {
+        session.raiseEvent("Authentication/CheckForAction", "reminder");
+        checked++;
+        timeout = 10000;
+        setTimeout(checkForInput, timeout);
+    } else if (checked == 2) {
+        session.raiseEvent("Authentication/CheckForAction", "endit");
+    }
 
-setInterval(checkForInput, timeout);
+}

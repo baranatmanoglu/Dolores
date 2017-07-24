@@ -14,7 +14,9 @@ session.subscribeToEvent("QRReader/StartTimer", function() {
 
 function exit()
 {
+    VideoUtils.stopVideo();
     session.raiseEvent("QRReader/ExitApp",1);
+    console.log("Event Raised");
 }
 
 var c=document.getElementById("borders");
@@ -32,9 +34,12 @@ ctx.fillRect(232,50,8,40);
 ctx.fillRect(232,150,8,40);
 ctx.fillRect(200,182,40,8);
 
+
+var theVideoDevice;
 $(document).ready(function(){
+    session.subscribeToEvent("QRReader/StopVideo",exit);
     session.service("ALVideoDevice").then(function(vid) {
-        var theVideoDevice = vid;
+        theVideoDevice = vid;
         VideoUtils.unsubscribeAllHandlers(theVideoDevice, "pepper"+"_camera").then(function() {
             VideoUtils.startVideo(theVideoDevice, "videoBuffer",1, 40, 0)
             $('#loading_video').hide();

@@ -126,9 +126,10 @@ class QRReader(object):
             if seconds == 10:
                 self.logger.info("Raised event: QRReader/Reminder")
                 self.memory.raiseEvent("QRReader/Reminder", 1)
-            if seconds == 20:
+            if seconds == 15:
                 self.logger.info("Raised event: QRReader/NoAction")
-                self.memory.raiseEvent("QRReader/NoAction", 1)
+                self.barcode_detected = True
+                self.memory.raiseEvent("QRReader/StopVideo", 1)
             time.sleep(1)
             seconds += 1
 

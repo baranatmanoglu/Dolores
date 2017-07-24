@@ -34,12 +34,6 @@ u:(e:QueueMatic/NoAction) ~exitting $QueueMatic/ExitApp=1
 
 u:(e:QueueMatic/ShowTicketNumber) ~your_ticket_is_ready $QueueMatic/CheckForCoffee=1
 
-proposal: %askForInput ~introQ
+proposal: %askForInput ~introQ $QueueMatic/StartTimer=1
     u1:(~teller) Ok $QueueMatic/NumpadInputTeller=1
     u1:(~custrep) Ok $QueueMatic/NumpadInputCust=1
-    u1:(e:Dialog/NoOneSpeak10) $QueueMatic/CheckForAction=10 ^gotoReactivate(askForInput2)
-    
-proposal: %askForInput2
-    u1:(~teller) Ok $QueueMatic/NumpadInputTeller=1
-    u1:(~custrep) Ok $QueueMatic/NumpadInputCust=1
-    u1:(e:Dialog/NoOneSpeak10) $QueueMatic/CheckForAction=20 ^gotoReactivate(askForInput)
