@@ -13,23 +13,32 @@ language: enu
 
 
 
-concept:(intro) ["Can you enter your customer number or your citizen id?"]
-concept:(reminder) ["Hey, you haven't entered your information yet. Can you please do that for me?"]
-concept:(exitting) ["Ok. See you in another life brother."]
-concept:(nocustomer) ["I couldn't find any record related to the information you entered. Do you want to type again?"]
+concept:(intro) Can you enter your customer number or your citizen id?
+concept:(reminder) Hey, can you enter your information?
+concept:(exitting) I have to redirect you to previous step.
+concept:(nocustomer) I am sorry, I couldn't find any record. Do you want to type again?
+concept:(again) Good. Go on.
+concept:(nocustomerexit) I am sorry, I couldn't find any record. I am redirecting you to previous step.
+concept:(nocustomerreminder) Do you want to type again?
 
 
-u:(e:Keyboard/ReadyToGo)  ~intro
+u:(e:Keyboard/ReadyToGo)  ~intro $Keyboard/Timer=1
 
 u:(e:Keyboard/Reminder) ~reminder
 
 u:(e:Keyboard/NoAction) ~exitting $Keyboard/ExitApp=1
 
-u:(e:Keyboard/NoCustomer) ^gotoReactivate(noCustomerFound)
-
-proposal:%noCustomerFound ~nocustomer
-    u1:(yes) ~intro $Keyboard/CleanScreen=1
+u:(e:Keyboard/NoCustomer $Keyboard/NoCustomer==1) ~nocustomer  $Keyboard/Said=0
+    u1:(yes) ~again $Keyboard/CleanScreen=1
     u1:(no) ~exitting $Keyboard/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak5 $Keyboard/Said==0) $Keyboard/Said=1 ~nocustomerreminder ^stayInScope
+    u1:(e:Dialog/NoOneSpeak5 $Keyboard/Said==1) ~exitting
+
+    
+    
+    
+u:(e:Keyboard/NoCustomer $Keyboard/NoCustomer==2) ~nocustomerexit $Keyboard/ExitApp=1
+
 
 
 

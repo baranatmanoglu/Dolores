@@ -12,9 +12,9 @@ from kairos_face import enroll
 
 class Keyboard(object):
     subscriber_list = []
-    in_action = False
-    face_detected = False
-
+    found = False
+    trialCount = 1
+    
 
 
 
@@ -107,7 +107,7 @@ class Keyboard(object):
     @qi.nobind
     def on_check_for_action(self, value):
         self.logger.info(str(value))
-        if not self.in_action:
+        if not self.found:
             if value == "reminder":
                 self.memory.raiseEvent("Keyboard/Reminder",1)
             elif value == "endit":
@@ -121,12 +121,12 @@ class Keyboard(object):
         self.memory.raiseEvent("Keyboard/ShowLoading",1)
         try:
             self.logger.info(str(value))
-            found = False
+            self.found = False
             if len(value) == 11:
-                found = self.customerInfo.query_customer(value, "I")
+                self.found = self.customerInfo.query_customer(value, "I")
             else:
-                found = self.customerInfo.query_customer(value, "U")
-            if found:
+                self.found = self.customerInfo.query_customer(value, "U")
+            if self.found:
                 self.memory.insertData("Global/CurrentCustomer", self.customerInfo.jsonify())
                 self.register_face(self.customerInfo.customer_number, self.file_name)
                 self.cleanup()
@@ -138,7 +138,8 @@ class Keyboard(object):
                     self.logger.info("Error while switching to next app: {} {}".format(next_app, e))
             else:
                 self.memory.raiseEvent("Keyboard/HideLoading", 1)
-                self.memory.raiseEvent("Keyboard/NoCustomer", 1)
+                self.memory.raiseEvent("Keyboard/NoCustomer", self.trialCount)
+                self.trialCount += 1
 
         except Exception, e:
             self.logger.info("Error while setting customer number: {}".format(e))

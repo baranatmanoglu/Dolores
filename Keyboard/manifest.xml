@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="keyboard-14b06b" version="0.0.0">
+<package version="0.0.0" uuid="keyboard-14b06b">
  <names>
   <name lang="en_US">Keyboard</name>
  </names>
@@ -14,12 +14,12 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent topicName="keyboard" typeVersion="1.0">
+  <dialogContent typeVersion="1.0" topicName="keyboard">
    <topic path="keyboard/keyboard_enu.top" language="en_US"/>
   </dialogContent>
  </contents>
  <services>
-  <service autorun="false" name="Keyboard" execStart="main.py"/>
+  <service autorun="false" execStart="main.py" name="Keyboard"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

@@ -78,15 +78,21 @@ $(document).ready(function () {
 
 
     session.raiseEvent("Keyboard/ReadyToGo", 1);
-    session.subscribeToEvent("Keyboard/NumpadInput", pressKey);
     session.subscribeToEvent("Keyboard/ShowLoading", showLoading);
     session.subscribeToEvent("Keyboard/HideLoading", hideLoading);
     session.subscribeToEvent("Keyboard/CleanScreen", clearScreen);
+    session.subscribeToEvent("Keyboard/Timer", startTimer);
+    session.subscribeToEvent("Keyboard/Reminder", startTimer);
 
 
 
 });
 var checked = 1;
+
+function startTimer()
+{
+    setTimeout(checkForInput, 5000);
+}
 
 var checkForInput = function () {
     var current = $('#numpadOut').text();
@@ -97,10 +103,12 @@ var checkForInput = function () {
         else if (checked == 2)
             session.raiseEvent("Keyboard/CheckForAction", "endit")
     }
-    if (checked == 3) {
+    else{
+        setTimeout(checkForInput, 5000);
+    }
+    if (checked == 10) {
         session.raiseEvent("Keyboard/CheckForAction", "endit")
     }
     checked++;
 }
 
-setInterval(checkForInput, 15000);
