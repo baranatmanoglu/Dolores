@@ -246,7 +246,7 @@ class QRCodeReader(object):
     def stop_app(self):
         self.logger.info("Stopping service...")
         self.cleanup()
-        to_app = str(self.preferences.getValue("global_variables", "main_app_id"))
+        to_app = str(self.preferences.getValue("global_variables", "auth_launcher_id"))
         self.life.switchFocus(to_app)
 
     @qi.nobind
