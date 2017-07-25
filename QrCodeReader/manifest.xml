@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="qrreaderapp-256d6f">
+<package version="0.0.0" uuid="qrcodereader-c54951">
  <names>
-  <name lang="en_US">QRReaderApp</name>
+  <name lang="en_US">QrCodeReader</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>
@@ -17,7 +17,7 @@
   </behaviorContent>
  </contents>
  <services>
-  <service autorun="false" execStart="main.py" name="QRReader"/>
+  <service autorun="false" name="QRCodeReader" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

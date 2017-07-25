@@ -13,7 +13,7 @@ from threading import Lock
 
 
 
-class QRReader(object):
+class QRCodeReader(object):
     subscriber_list = []
     loaded_topic = ""
     barcode_detected = False
@@ -86,14 +86,14 @@ class QRReader(object):
         self.subscriber_list.append([event_subscriber, event_connection])
         self.logger.info("Subscribed to event: " + event_name)
 
-        event_name = "QRReader/ExitApp"
+        event_name = "QRCodeReader/ExitApp"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_self_exit)
         self.subscriber_list.append([event_subscriber, event_connection])
         self.logger.info("Subscribed to event: " + event_name)
 
-        event_name = "QRReader/StartTimer"
+        event_name = "QRCodeReader/StartTimer"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_user_ready)
@@ -124,12 +124,12 @@ class QRReader(object):
         self.logger.info("User Ready")
         while not self.barcode_detected:
             if seconds == 10:
-                self.logger.info("Raised event: QRReader/Reminder")
-                self.memory.raiseEvent("QRReader/Reminder", 1)
+                self.logger.info("Raised event: QRCodeReader/Reminder")
+                self.memory.raiseEvent("QRCodeReader/Reminder", 1)
             if seconds == 15:
-                self.logger.info("Raised event: QRReader/NoAction")
+                self.logger.info("Raised event: QRCodeReader/NoAction")
                 self.barcode_detected = True
-                self.memory.raiseEvent("QRReader/StopVideo", 1)
+                self.memory.raiseEvent("QRCodeReader/StopVideo", 1)
             time.sleep(1)
             seconds += 1
 
@@ -158,7 +158,7 @@ class QRReader(object):
                     except Exception, e:
                         self.logger.info("Error while switching to next app: {} {}".format(next_app, e))
                 else:
-                    self.memory.raiseEvent("QRReader/NoCustomer", 1)
+                    self.memory.raiseEvent("QRCodeReader/NoCustomer", 1)
             except Exception, e:
                 self.logger.info("Error while querying customer: {}".format(e))
         else:
@@ -204,7 +204,7 @@ class QRReader(object):
         self.logger.info("Loading dialog")
         
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        topic_path = os.path.realpath(os.path.join(dir_path, "barcode_detected", "barcode_detected_enu.top"))
+        topic_path = os.path.realpath(os.path.join(dir_path, "qrcodereader", "qrcodereader_enu.top"))
         self.logger.info("File is: {}".format(topic_path))
         try:
             self.loaded_topic = self.dialog.loadTopic(topic_path)
@@ -213,7 +213,7 @@ class QRReader(object):
             self.logger.info("Dialog loaded!")
         except Exception, e:
             self.logger.info("Error while loading dialog: {}".format(e))
-        self.dialog.gotoTag("startQR", "barcode_detected")
+        self.dialog.gotoTag("startQR", "qrcodereader")
 
     @qi.nobind
     def stop_dialog(self):
@@ -290,7 +290,7 @@ if __name__ == "__main__":
     # run : python main.py --qi-url 123.123.123.123
     app = qi.Application(sys.argv)
     app.start()
-    service_instance = QRReader(app)
+    service_instance = QRCodeReader(app)
     service_id = app.session.registerService(service_instance.service_name, service_instance)
     service_instance.start_app()
     app.run()

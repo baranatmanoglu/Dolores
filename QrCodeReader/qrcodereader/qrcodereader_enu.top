@@ -1,4 +1,4 @@
-topic: ~barcode_detected()
+topic: ~qrcodereader()
 language: enu
 
 # Defining extra concepts out of words or group of words
@@ -20,20 +20,19 @@ concept:(arereadyQR) Are you ready?
 
 
 
-proposal: %startQR ~introQR $BD/Said=0
-    u1:(~getreadyQR)  ~readyQR $QRReader/StartTimer=1
+proposal: %startQR ~introQR $QRCodeReader/Said=0
+    u1:(~getreadyQR)  ~readyQR $QRCodeReader/StartTimer=1
     u1:(e:Dialog/NoOneSpeak5) ~arereadyQR ^gotoReactivate(startQR2)
 
 proposal: %startQR2
-    u1:(~getreadyQR)  ~readyQR $QRReader/StartTimer=1    
-    u1:(e:Dialog/NoOneSpeak5) $QRReader/StopVideo=1
+    u1:(~getreadyQR)  ~readyQR $QRCodeReader/StartTimer=1    
+    u1:(e:Dialog/NoOneSpeak5) $QRCodeReader/StopVideo=1
     
 
-u:(e:QRReader/Reminder) ~reminderQR
+u:(e:QRCodeReader/Reminder) ~reminderQR
 
-u:(e:QRReader/StopVideo)  ~exitQR
+u:(e:QRCodeReader/StopVideo)  ~exitQR
 
-u:(e:QRReader/NoCustomer)  ~nocustomerQR $QRReader/StopVideo=1
+u:(e:QRCodeReader/NoCustomer)  ~nocustomerQR $QRCodeReader/StopVideo=1
 
-u:(e:BarcodeReader/BarcodeDetected $BD/Said==0) $BD/Said=1 I scanned your QR. You can now take your phone away.
-
+u:(e:BarcodeReader/BarcodeDetected $QRCodeReader/Said==0) $QRCodeReader/Said=1 I scanned your QR. You can now take your phone away.

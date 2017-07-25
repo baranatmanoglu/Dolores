@@ -2,7 +2,7 @@
  * Created by berkeyanilmaz on 2017-06-27.
  */
 // Camera
-session.subscribeToEvent("QRReader/StartTimer", function() {
+session.subscribeToEvent("QRCodeReader/StartTimer", function() {
     session.service("ALVideoDevice").then(function(vid) {
         var theVideoDevice = vid;
         VideoUtils.unsubscribeAllHandlers(theVideoDevice, "pepper"+"_camera").then(function() {
@@ -15,7 +15,7 @@ session.subscribeToEvent("QRReader/StartTimer", function() {
 function exit()
 {
     VideoUtils.stopVideo();
-    session.raiseEvent("QRReader/ExitApp",1);
+    session.raiseEvent("QRCodeReader/ExitApp",1);
     console.log("Event Raised");
 }
 
@@ -37,7 +37,7 @@ ctx.fillRect(200,182,40,8);
 
 var theVideoDevice;
 $(document).ready(function(){
-    session.subscribeToEvent("QRReader/StopVideo",exit);
+    session.subscribeToEvent("QRCodeReader/StopVideo",exit);
     session.service("ALVideoDevice").then(function(vid) {
         theVideoDevice = vid;
         VideoUtils.unsubscribeAllHandlers(theVideoDevice, "pepper"+"_camera").then(function() {
