@@ -15,6 +15,7 @@ var lastTouched = null;
 var checked = 1;
 var introTile1, introTile2;
 var introSet1 = false;
+var showingTrivia = false;
 function getRandomImageForTile() {
 
     var iRandomImage = Math.floor((Math.random() * tileAllocation.length)),
@@ -134,6 +135,7 @@ function revealTiles(callback) {
 
 function showMatched(tile) {
 
+    showingTrivia = true;
     $("#bigpictureanimal").attr("src", "images/" + tile.getFileName() + "B.png");
     $("#bigpicture").css("visibility", "visible");
 
@@ -145,6 +147,8 @@ function hideMatched() {
     checkFinalState();
     $("#bigpictureanimal").attr("src", "");
     $("#bigpicture").css("visibility", "hidden");
+    showingTrivia = false;
+    lastTouched = new Date().getTime();
 }
 
 function checkMatch() {
@@ -221,7 +225,8 @@ function startGame() {
 
 function checkTimer() {
 
-    console.log("checking");
+    if(showingTrivia)
+        return;
     // Get todays date and time
     var now = new Date().getTime();
 
