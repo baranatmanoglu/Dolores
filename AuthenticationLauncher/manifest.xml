@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="authenticationlauncher-95365">
+<package uuid="authenticationlauncher-95365" version="0.0.0">
  <names>
   <name lang="en_US">AuthenticationLauncher</name>
  </names>
@@ -16,7 +16,7 @@
   </behaviorContent>
  </contents>
  <services>
-  <service autorun="false" execStart="main.py" name="AuthenticationLauncher"/>
+  <service autorun="false" name="AuthenticationLauncher" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

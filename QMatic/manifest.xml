@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="queuematic-3181f8">
+<package uuid="queuematic-3181f8" version="0.0.0">
  <names>
   <name lang="en_US">QueueMatic</name>
  </names>

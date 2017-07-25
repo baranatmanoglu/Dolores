@@ -20,6 +20,7 @@ concept:(nocustomerKey) I am sorry, I couldn't find any record. Do you want to t
 concept:(againKey) Good. Go on.
 concept:(nocustomerexitKey) I am sorry, I couldn't find any record. I am redirecting you to previous step.
 concept:(nocustomerreminderKey) Do you want to type again?
+concept:(numpadNU) You can simply say Yes or No
 
 
 u:(e:Numpad/ReadyToGo)  ~introKey $Numpad/Timer=1
@@ -33,6 +34,7 @@ u:(e:Numpad/NoCustomer $Numpad/NoCustomer==1) ~nocustomerKey  $Numpad/Said=0
     u1:(no) ~exittingKey $Numpad/ExitApp=1
     u1:(e:Dialog/NoOneSpeak5 $Numpad/Said==0) $Numpad/Said=1 ~nocustomerreminderKey ^stayInScope
     u1:(e:Dialog/NoOneSpeak5 $Numpad/Said==1) ~exittingKey
+    u1:(e:Dialog/NotUnderstood2) ~numpadNU ^stayInScope
 
 
 

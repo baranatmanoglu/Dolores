@@ -110,8 +110,8 @@ class QueueMatic(object):
         
         if not self.in_action:
             if value == "10":
-                self.dialog.setConcept("introQ", "English", [
-                        "I couldn't hear you. Can you choose what you want to do?"])
+                self.dialog.setConcept("introQueue", "English", [
+                        "I couldn't get you. Can you choose what you want to do?"])
                 self.memory.raiseEvent("QueueMatic/ReadyToGo",1)
             else:
                 self.memory.raiseEvent("QueueMatic/NoAction",1)
@@ -216,11 +216,11 @@ class QueueMatic(object):
         #initial dynamic concepts
         if self.customerInfo.name != "":
             self.dialog.setConcept("introQueue", "English", [
-                "{}, Can you describe me the transaction you want to make in a few words?".format(
+                "{}, Please make a choice or tell me what you want to do.".format(
                     self.customerInfo.name)])
         else:
             self.dialog.setConcept("introQueue", "English", [
-                "Can you describe me the transaction you want to make in a few words?"])
+                "Please make a choice or tell me what you want to do."])
 
     @qi.nobind
     def stop_dialog(self):

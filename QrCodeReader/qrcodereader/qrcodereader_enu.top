@@ -17,17 +17,19 @@ concept:(reminderQR) ["Hey, you still haven't showed me your code"]
 concept:(exitQR) ["Ok. See you in another life brother"]
 concept:(nocustomerQR) ["I couldn't find any record from the qr you showed. "]
 concept:(arereadyQR) Are you ready?
+concept:(qrNU) You can simply say I am ready.
 
 
 
 proposal: %startQR ~introQR $QRCodeReader/Said=0
     u1:(~getreadyQR)  ~readyQR $QRCodeReader/StartTimer=1
     u1:(e:Dialog/NoOneSpeak5) ~arereadyQR ^gotoReactivate(startQR2)
+    u1:(e:Dialog/NotUnderstood2) ~qrNU ^stayInScope
 
 proposal: %startQR2
     u1:(~getreadyQR)  ~readyQR $QRCodeReader/StartTimer=1    
     u1:(e:Dialog/NoOneSpeak5) $QRCodeReader/StopVideo=1
-    
+    u1:(e:Dialog/NotUnderstood2) ~qrNU ^stayInScope
 
 u:(e:QRCodeReader/Reminder) ~reminderQR
 

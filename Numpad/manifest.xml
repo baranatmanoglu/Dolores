@@ -17,7 +17,7 @@
   </behaviorContent>
  </contents>
  <services>
-  <service autorun="false" execStart="main.py" name="Numpad"/>
+  <service autorun="false" name="Numpad" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>
