@@ -1,0 +1,28 @@
+topic: ~selfie()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+
+concept: (selfies) ^rand["hey, i love taking a selfie" "okay, let's take a selfie"]
+concept: (ready) ["get your smartphone ready"]
+concept: (question) ["are you ready?"]
+concept: (jokes) ^rand["how do i look" "do i look cute" "i should get a selfie stick" "i m new to social media but i feel like i m going to be famous"]
+concept: (share) ^rand["don't forget to tag me" "you can share your selfie with me" "follow me and share our picture"]
+
+proposal: %begin $Selfie/HideScreen=1 ~selfies ^nextProposal
+proposal: %getready \pau=1000\ ~ready ^nextProposal
+proposal: %askready  \pau=2000\ ~question
+    u1:(yes) okay, i'm posing for you. You can take your selfie once I got my position. Let me put the spotlight on you. $Selfie/Animation=1 \pau=2000\ say cheese
+    u1:(no) okay, waiting for you to get ready. \pau=5000\ ^gotoReactivate(askready)
+proposal: %joke ~jokes \pau=3000\ ^gotoReactivate(end)
+proposal: %end ~share $Selfie/ExitApp=1
+
+

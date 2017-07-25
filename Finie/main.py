@@ -310,6 +310,7 @@ class Finie(object):
         mappings = {'169858813': "100000001",
                     '155295662': "100000004",
                     '100000003':"100000003",
+                    '100000005':"100000005",
                     '':"100000001"}
         self.customerInfo.customer_number = mappings[self.customerInfo.customer_number]
         self.logger.info("Mapped customer number: {}".format(self.customerInfo.customer_number))
