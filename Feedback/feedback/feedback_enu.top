@@ -13,7 +13,7 @@ language: enu
 
 concept:(introFB) I hope you enjoyed spending time with me. I would be very happy if you give feedback.
 concept:(goodFB) Yay, I am very glad to hear that. Hope to see you again.
-concept:(neutralFB) Oh. Do you want to leave a voice message? Please tap the microphone icon.
+concept:(neutralFB) Oh. You can leave a voice message. Please tap the microphone icon.
 concept:(badFB) \rspd=85\ I am sorry for that. \rspd=85\ What can i do better? \rspd=85\ Please tap the microphone icon to leave a voice message.
 concept:(reminderFB) Hey, do you want to give feedback about your experience with me?
 concept:(exittingFB) Ok. See you in another life brother.

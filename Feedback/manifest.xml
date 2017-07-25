@@ -16,7 +16,7 @@
   </behaviorContent>
  </contents>
  <services>
-  <service autorun="false" execStart="main.py" name="Feedback"/>
+  <service autorun="false" name="Feedback" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

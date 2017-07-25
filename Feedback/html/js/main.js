@@ -2,7 +2,7 @@ function surveyClicked(value) {
     if (value != "G")
         $("#recorder").css("visibility", "visible");
     session.raiseEvent("Feedback/SurveyClicked", value);
-    setTimeout(exitWoRecord,recordDuration + 10000);
+    setTimeout(exitWoRecord,6000);
 
 }
 
@@ -47,7 +47,7 @@ function micClicked() {
 }
 
 function exit() {
-    session.raiseEvent("Feedback/ExitApp", 1);
+    session.raiseEvent("Feedback/NoAction", 1);
 }
 
 var checked = 1;
