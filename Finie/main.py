@@ -128,7 +128,6 @@ class Finie(object):
 
     @qi.bind(methodName="on_go_teller", paramsType=(qi.String,), returnType=qi.Void)
     def on_go_teller(self, value):
-        self.tts.setVolume(1.0)
         self.wentTeller = True
         self.redirect_pref_name = "empty_app_id"
         self.tts.stopAll()
@@ -143,13 +142,11 @@ class Finie(object):
 
     @qi.bind(methodName="on_speak_with_whisper", paramsType=(qi.String,), returnType=qi.Void)
     def on_speak_with_whisper(self, value):
-        self.tts.setVolume(0.5)
-        self.memory.raiseEvent("Finie/TellResponse", self.spokenAnswer)
+        self.memory.raiseEvent("Finie/WhisperResponse", self.spokenAnswer)
 
     @qi.bind(methodName="on_human_asked", paramsType=(qi.String,), returnType=qi.Void)
     def on_human_asked(self, value):
         if value:
-            self.tts.setVolume(1.0)
             self.memory.raiseEvent("Finie/ShowLoading",1)
             self.logger.info("Get the input by event: {}".format(value))
             finieHelper = FinieHelper(self.customerInfo.customer_number)

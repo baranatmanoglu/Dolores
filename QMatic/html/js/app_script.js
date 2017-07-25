@@ -86,8 +86,6 @@ $(document).ready(function () {
     $("#numpad_container").css("visibility", "hidden");
     session.raiseEvent("QueueMatic/ReadyToGo", 1);
     session.subscribeToEvent("QueueMatic/NumpadInput", pressKey);
-    session.subscribeToEvent("QueueMatic/NumpadInputTeller", tellerPressed);
-    session.subscribeToEvent("QueueMatic/NumpadInputCust", custRepPressed);
     session.subscribeToEvent("QueueMatic/ShowTicketNumber", showTicket);
     session.subscribeToEvent("QueueMatic/ShowLoading", showLoading);
     session.subscribeToEvent("QueueMatic/HideLoading", hideLoading);

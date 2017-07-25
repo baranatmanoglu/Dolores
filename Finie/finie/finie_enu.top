@@ -31,6 +31,8 @@ concept:(nexttimeerror) I am sorry but I can not go on. Please go on with a diff
 
 u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieContinue)
 
+u:(e:Finie/WhisperResponse) \vol=50\ $Finie/WhisperResponse \vol=80\ ^gotoReactivate(finieContinue)
+
 u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offerFinie
     u1:(~yes) ~offerYes $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
     u1:(~no) ~offerNo $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)

@@ -35,5 +35,5 @@ u:(e:QueueMatic/NoAction) ~exittingQueue $QueueMatic/ExitApp=1
 u:(e:QueueMatic/ShowTicketNumber) ~your_ticket_is_ready $QueueMatic/CheckForCoffee=1
 
 proposal: %askForInput ~introQueue $QueueMatic/StartTimer=1
-    u1:(~tellerQueue) Ok $QueueMatic/NumpadInputTeller=1
-    u1:(~custrepQueue) Ok $QueueMatic/NumpadInputCust=1
+    u1:(~tellerQueue) Ok $QueueMatic/OptionSelected=T
+    u1:(~custrepQueue) Ok $QueueMatic/OptionSelected=C
