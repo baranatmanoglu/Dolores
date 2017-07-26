@@ -62,7 +62,7 @@ class GuideApp(object):
         # Create events and subscribe them here
         self.logger.info("Creating events...")
 
-        event_name = "GuideApp/ExitApp2"
+        event_name = "GuideApp/ExitApp"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_self_exit)
@@ -151,7 +151,6 @@ class GuideApp(object):
     def stop_dialog(self):
         self.logger.info("Unloading dialog")
         try:
-            self.dialog.removeBlockingEvent("GuideApp/ExitApp")
             self.dialog.unsubscribe(self.service_name)
             self.dialog.deactivateTopic(self.loaded_topic)
             self.dialog.clearConcepts()

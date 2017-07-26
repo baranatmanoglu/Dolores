@@ -21,16 +21,16 @@ concept:(descending-sound) \RSPD=85\["When I stop listening to you, you are goin
 concept:(green-eyes) \RSPD=85\["And with that sound, my eyes will turn green."]
 concept:(outro) \RSPD=85\["Now you know me enough to let me help you. With every interaction, I'll get to know you more and your experience will get a lot better. I hope I'll see you more. Let's begin."]
 
-u:(e:GuideApp/ExitApp) Hope to see you again. $GuideApp/ExitApp2=1
 
 
-proposal: %start ~first
-proposal: %oneatatime ~interaction ^nextProposal
-proposal: %distance $GuideApp/ShowFeet=1 ~feet ^nextProposal
-proposal: %speech ~talk ^nextProposal
-proposal: %red-eyes $GuideApp/ShowRedEyes=1 ~red-eyes ^nextProposal
-proposal: %ascendingbip ~ascending-sound ^nextProposal
-proposal: %blueeyes $GuideApp/ShowBlueEyes=1 ~blue-eyes ^nextProposal
-proposal: %descendingbip ~descending-sound ^nextProposal
-proposal: %greeneyes $GuideApp/ShowGreenEyes=1 ~green-eyes ^nextProposal
+
+proposal: %start ~first ^gotoReactivate(oneatatime)
+proposal: %oneatatime ~interaction ^gotoReactivate(distance)
+proposal: %distance $GuideApp/ShowFeet=1 ~feet ^gotoReactivate(speech)
+proposal: %speech ~talk ^gotoReactivate(red-eyes)
+proposal: %red-eyes $GuideApp/ShowRedEyes=1 ~red-eyes ^gotoReactivate(ascendingbip)
+proposal: %ascendingbip ~ascending-sound ^gotoReactivate(blueeyes)
+proposal: %blueeyes $GuideApp/ShowBlueEyes=1 ~blue-eyes ^gotoReactivate(descendingbip)
+proposal: %descendingbip ~descending-sound ^gotoReactivate(greeneyes)
+proposal: %greeneyes $GuideApp/ShowGreenEyes=1 ~green-eyes ^gotoReactivate(beforeswitch)
 proposal: %beforeswitch ~outro $GuideApp/ExitApp=1
