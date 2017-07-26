@@ -20,9 +20,11 @@ concept: (share) ^rand["don't forget to tag me" "you can share your selfie with 
 proposal: %begin $Selfie/HideScreen=1 ~selfies ^nextProposal
 proposal: %getready \pau=1000\ ~ready ^nextProposal
 proposal: %askready  \pau=2000\ ~question
-    u1:(yes) okay, i'm posing for you. You can take your selfie once I got my position. Let me put the spotlight on you. $Selfie/Animation=1 \pau=2000\ say cheese
+    u1:(yes) okay, i'm posing for you. You can take your selfie once I got my position. Let me put the spotlight on you. $Selfie/Animation=1
     u1:(no) okay, waiting for you to get ready. \pau=5000\ ^gotoReactivate(askready)
 proposal: %joke ~jokes \pau=3000\ ^gotoReactivate(end)
 proposal: %end ~share $Selfie/ExitApp=1
+
+
 
 

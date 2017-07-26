@@ -32,7 +32,8 @@ class Selfie(object):
         # Memory
         self.memory = self.session.service("ALMemory")
         self.logger.info("Initializing - ALMemory...")
-
+        
+        self.posture = self.session.service("ALRobotPosture")
 
         # Preferences
         self.preferences = self.session.service("ALPreferenceManager")
@@ -113,8 +114,8 @@ class Selfie(object):
     @qi.nobind
     def on_start_animation(self, value):
         self.logger.info("Event Raised - Selfie/Animation")
-        self.stop_dialog()
-        self.logger.info("Animation Started - Dialog Stopped! ")
+        #self.stop_dialog()
+        #self.logger.info("Animation Started - Dialog Stopped! ")
         self.lights_on()
         self.life.setAutonomousAbilityEnabled("BasicAwareness", False)
         self.logger.info("Animation Started - BasicAwareness off! ")
@@ -122,7 +123,8 @@ class Selfie(object):
     @qi.nobind
     def on_end_animation(self, value):
         self.logger.info("Event Raised - Selfie/EndAnimation")
-        self.start_dialog()
+        
+        #self.start_dialog()
         self.logger.info("Animation Ended - Dialog Started! ")
         self.dialog.gotoTag("joke", "selfie")
 

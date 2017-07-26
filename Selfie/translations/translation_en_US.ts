@@ -14,10 +14,23 @@
             <translation type="obsolete">hello</translation>
         </message>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>i m getting tired, i have to lower my arms now</source>
             <comment>Text</comment>
-            <translation type="unfinished">i m getting tired, i have to lower my arms now</translation>
+            <translation type="obsolete">i m getting tired, i have to lower my arms now</translation>
+        </message>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>I will lower my arms now</source>
+            <comment>Text</comment>
+            <translation type="unfinished">I will lower my arms now</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/Timeline/Warning Arms/keyframe371/Animated Say</name>
+        <message>
+            <source>Hello</source>
+            <comment>Text</comment>
+            <translation type="vanished">Hello</translation>
         </message>
     </context>
     <context>
@@ -31,6 +44,11 @@
             <source>I am tired. I am lowering my arms.</source>
             <comment>Text</comment>
             <translation type="obsolete">I am tired. I am lowering my arms.</translation>
+        </message>
+        <message>
+            <source>I have to lower my arms.</source>
+            <comment>Text</comment>
+            <translation type="obsolete">I have to lower my arms.</translation>
         </message>
     </context>
 </TS>
