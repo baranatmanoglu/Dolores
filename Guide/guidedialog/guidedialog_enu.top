@@ -1,0 +1,36 @@
+topic: ~guidedialog()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+concept:(first) \RSPD=85\["Hi I'm Pepper, the first humanoid robot that can understand and react to human emotions. ish bank hired me to help you with your transactions. Since we have never met before, a training could make your experience a lot better. Let's start with your training"]
+concept:(interaction) \RSPD=85\["First of all, I can only talk to one person at a time. There are two ways to interact with me, you can either tell me what you want or use my tablet. Whichever you are comfortable with"]
+concept:(feet) \RSPD=85\["The feet sticker on the floor marks the optimal distance to interact me."]
+concept:(talk) \RSPD=85\["As your humanoid best friend, one of my favourite jobs is to listen to you. When you are talking to me, you don't have to shout. As long as you speak loud enough for me to hear, I'll be able to understand. To make it easier for me to understand you, say a short sentence in one go."]
+concept:(red-eyes) \RSPD=85\["When I detect the presence of one of my human friends my eyes will turn red"]
+concept:(ascending-sound) \RSPD=85\["When I start listening to you, you are going to hear this sound."]
+concept:(blue-eyes) \RSPD=85\["And with that sound, my eyes will turn blue and start to rotate"]
+concept:(descending-sound) \RSPD=85\["When I stop listening to you, you are going to hear this sound."]
+concept:(green-eyes) \RSPD=85\["And with that sound, my eyes will turn green."]
+concept:(outro) \RSPD=85\["Now you know me enough to let me help you. With every interaction, I'll get to know you more and your experience will get a lot better. I hope I'll see you more. Let's begin."]
+
+u:(e:GuideApp/ExitApp) Hope to see you again. $GuideApp/ExitApp2=1
+
+
+proposal: %start ~first
+proposal: %oneatatime ~interaction ^nextProposal
+proposal: %distance $GuideApp/ShowFeet=1 ~feet ^nextProposal
+proposal: %speech ~talk ^nextProposal
+proposal: %red-eyes $GuideApp/ShowRedEyes=1 ~red-eyes ^nextProposal
+proposal: %ascendingbip ~ascending-sound ^nextProposal
+proposal: %blueeyes $GuideApp/ShowBlueEyes=1 ~blue-eyes ^nextProposal
+proposal: %descendingbip ~descending-sound ^nextProposal
+proposal: %greeneyes $GuideApp/ShowGreenEyes=1 ~green-eyes ^nextProposal
+proposal: %beforeswitch ~outro $GuideApp/ExitApp=1

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="selfieapp-1089c9">
+<package version="0.0.0" uuid="guideapp-535736">
  <names>
-  <name lang="en_US">Selfie</name>
+  <name lang="en_US">GuideApp</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>
@@ -11,13 +11,15 @@
  </descriptionLanguages>
  <contents>
   <behaviorContent path="behavior_1">
-   <userRequestable/>
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
+  <dialogContent typeVersion="1.0" topicName="guidedialog">
+   <topic path="guidedialog/guidedialog_enu.top" language="en_US"/>
+  </dialogContent>
  </contents>
  <services>
-  <service autorun="false" execStart="main.py" name="Selfie"/>
+  <service autorun="false" execStart="main.py" name="GuideApp"/>
  </services>
  <executableFiles>
   <file path="main.py"/>
