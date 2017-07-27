@@ -62,7 +62,7 @@ class GuideApp(object):
         # Create events and subscribe them here
         self.logger.info("Creating events...")
 
-        event_name = "GuideApp/ExitApp"
+        event_name = "Guide/Blocking"
         self.memory.declareEvent(event_name)
         event_subscriber = self.memory.subscriber(event_name)
         event_connection = event_subscriber.signal.connect(self.on_self_exit)
@@ -87,14 +87,16 @@ class GuideApp(object):
 
     @qi.nobind
     def on_self_exit(self, value):
-        self.logger.info("Exiting app")
-        self.cleanup()
-
-        try:
-            self.logger.info("Switching to {}".format(self.next_app))
-            self.life.switchFocus(self.next_app)
-        except Exception, e:
-            self.logger.info("Error while switching apps: {} ".format(e))
+        self.logger.info("Block value {}".format(str(value)))
+        if (str(value) == "1"):
+            self.logger.info("Exiting app")
+            self.cleanup()
+    
+            try:
+                self.logger.info("Switching to {}".format(self.next_app))
+                self.life.switchFocus(self.next_app)
+            except Exception, e:
+                self.logger.info("Error while switching apps: {} ".format(e))
 
     # Event Call Back Methods end
 

@@ -24,13 +24,43 @@ concept:(outro) \RSPD=85\["Now you know me enough to let me help you. With every
 
 
 
-proposal: %start ~first ^gotoReactivate(oneatatime)
-proposal: %oneatatime ~interaction ^gotoReactivate(distance)
-proposal: %distance $GuideApp/ShowFeet=1 ~feet ^gotoReactivate(speech)
-proposal: %speech ~talk ^gotoReactivate(red-eyes)
-proposal: %red-eyes $GuideApp/ShowRedEyes=1 ~red-eyes ^gotoReactivate(ascendingbip)
-proposal: %ascendingbip ~ascending-sound ^gotoReactivate(blueeyes)
-proposal: %blueeyes $GuideApp/ShowBlueEyes=1 ~blue-eyes ^gotoReactivate(descendingbip)
-proposal: %descendingbip ~descending-sound ^gotoReactivate(greeneyes)
-proposal: %greeneyes $GuideApp/ShowGreenEyes=1 ~green-eyes ^gotoReactivate(beforeswitch)
-proposal: %beforeswitch ~outro $GuideApp/ExitApp=1
+proposal: %start  $Guide/Blocking=0 ~first ^gotoReactivate(interaction)
+
+proposal: %interaction $Guide/Next1=1
+ 
+proposal: %feet $Guide/Next2=2
+
+proposal: %talk $Guide/Next3=3
+
+proposal: %red-eyes $Guide/Next4=4
+
+proposal: %ascending-sound $Guide/Next5=5
+
+proposal: %blue-eyes $Guide/Next6=6
+
+proposal: %descending-sound $Guide/Next7=7
+
+proposal: %green-eyes $Guide/Next8=8
+
+proposal: %outro $Guide/Next9=9
+
+proposal: %exitting $Guide/Blocking=1
+
+u:(e:Guide/Next1 $Guide/Blocking==0) ~interaction ^gotoReactivate(feet)
+
+u:(e:Guide/Next2 $Guide/Blocking==0) $GuideApp/ShowFeet=1 ~feet ^gotoReactivate(talk)
+
+u:(e:Guide/Next3 $Guide/Blocking==0) ~talk  ^gotoReactivate(red-eyes)
+
+u:(e:Guide/Next4 $Guide/Blocking==0) $GuideApp/ShowRedEyes=1 ~red-eyes ^gotoReactivate(ascending-sound)
+
+u:(e:Guide/Next5 $Guide/Blocking==0) ~ascending-sound ^gotoReactivate(blue-eyes)
+
+u:(e:Guide/Next6 $Guide/Blocking==0) $GuideApp/ShowBlueEyes=1 ~blue-eyes ^gotoReactivate(descending-sound)
+
+u:(e:Guide/Next7 $Guide/Blocking==0) ~descending-sound ^gotoReactivate(green-eyes)
+
+u:(e:Guide/Next8 $Guide/Blocking==0) $GuideApp/ShowGreenEyes=1 ~green-eyes ^gotoReactivate(outro)
+
+u:(e:Guide/Next9 $Guide/Blocking==0) ~outro ^gotoReactivate(exitting)
+

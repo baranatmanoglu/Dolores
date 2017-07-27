@@ -3,7 +3,10 @@
  */
 
 function exit() {
-    session.raiseEvent("GuideApp/ExitApp", 1);
+    session.service("ALTextToSpeech").then(function (tts) {
+        tts.stopAll();
+    });
+    session.raiseEvent("Guide/Blocking", 1);
 }
 
 //Subscribe to Chat Events
@@ -40,4 +43,3 @@ session.subscribeToEvent("GuideApp/ShowGreenEyes", function () {
     $("#gif-green").css("visibility", "visible");
 
 });
-
