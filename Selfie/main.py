@@ -122,13 +122,14 @@ class Selfie(object):
 
     @qi.nobind
     def on_end_animation(self, value):
+    
         self.logger.info("Event Raised - Selfie/EndAnimation")
-        
+        self.life.setAutonomousAbilityEnabled("BasicAwareness", True)
         #self.start_dialog()
-        self.logger.info("Animation Ended - Dialog Started! ")
+        self.posture.goToPosture("Standing",0.8)
         self.dialog.gotoTag("joke", "selfie")
 
-        self.life.setAutonomousAbilityEnabled("BasicAwareness", True)
+        
         self.logger.info("Animation Ended - BasicAwareness on!")
 
 
