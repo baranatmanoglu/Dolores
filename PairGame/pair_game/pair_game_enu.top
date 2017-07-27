@@ -10,7 +10,7 @@ language: enu
 # Replying to speech
 #u:(~hello) ~hello
 
-concept:(introPair) \rspd=85\ Hey, This game is my favorite memory game. Try to pair the animals by clicking two cards at a time. I will show you all the animals at the beginning. I will also tell which animal is that when you pair one and play the sound of the animal. \pau=200\ $PairGame/PlayAnimalSound=elephant. \pau=3000\ Yes, like this. If you want to quit the game just tell me so whenever you want. Let's start.
+concept:(introPair) \rspd=85\ Hey, This game is my favorite memory game. Try to pair the animals by clicking two cards at a time. I will show you all the animals at the beginning. I will also tell which animal is that when you pair one and play the sound of the animal. \pau=200\ $PairGame/PlayAnimalSound=elephant. \pau=3000\ Yes, just like this. If you want to quit the game, just tell me. Let's start.
 
 concept:(normalPlayer) ^rand[Good "You found a pair" Bravo Cool Yes]
 
@@ -22,7 +22,7 @@ concept:(exit) {I want to} [Exit Stop Finish Leave End Quit] {the game}
 
 concept:(abortGame) Oh, ok. Let's continue another time.
 
-concept:(finalStatement) Congratulations, you have finished the game. Here is your prize. \pau=4000\ $PairGame/AbortGame=1
+concept:(finalStatement) \style=joyful\ Congratulations, you have finished the game. Here is your prize. \style=neutral\ \pau=4000\ $PairGame/AbortGame=1
 
 concept:(bear) This is a bear
 
@@ -47,9 +47,9 @@ concept:(exitting) ["Ok. We can go on later."]
 
 proposal: %game_start ~introPair $PairGame/ShuffleCards=1
 
-proposal: %say_normal ~normalPlayer \pau=1000\ $PairGame/AnimalTrivia=1
+proposal: %say_normal \style=joyful\ ~normalPlayer \style=neutral\ \pau=1000\ $PairGame/AnimalTrivia=1
 
-proposal: %say_good ~goodPlayer \pau=1000\ $PairGame/AnimalTrivia=1
+proposal: %say_good \style=joyful\ ~goodPlayer \style=neutral\ \pau=1000\ $PairGame/AnimalTrivia=1
 
 proposal: %say_no_pair ~noPairFound
 

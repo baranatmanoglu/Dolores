@@ -308,10 +308,11 @@ class Finie(object):
     @qi.nobind
     def mapCustomerNumber(self):
         mappings = {'169858813': "100000001",
-                    '155295662': "100000004",
+                    '20345442':"100000002",
                     '100000003':"100000003",
-                    '100000005':"100000005",
-                    '':"100000001"}
+                    '155295662': "100000004",
+                    '16980497':"100000005",
+                    '100000006':"100000006"}
         self.customerInfo.customer_number = mappings[self.customerInfo.customer_number]
         self.logger.info("Mapped customer number: {}".format(self.customerInfo.customer_number))
 
