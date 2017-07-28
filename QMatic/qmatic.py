@@ -35,7 +35,8 @@ class Qmatic(object):
         #end make request.
 
         self.ticket_number = data["ticketNumber"]
-        self.waiting_time = data["waitingTime"]
+        self.waiting_time = 3
+        #data["waitingTime"]
 
         return
 
