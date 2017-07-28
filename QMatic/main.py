@@ -125,7 +125,7 @@ class QueueMatic(object):
             # Ticket obtained from Qmatic
             self.ticketInfo.get_ticket(self.customerInfo.customer_number, self.customerInfo.segment, value)
             
-ticketData = str(self.ticketInfo.ticket_number) + "|" + str(self.ticketInfo.waiting_time) + "|" + value
+            ticketData = str(self.ticketInfo.ticket_number) + "|" + str(self.ticketInfo.waiting_time) + "|" + value
             self.memory.insertData("Global/QueueData", ticketData)
             self.logger.info("Ticket data inserted in memory: {}".format(ticketData))
             # Event raised for tablet to show the ticket number on the screen.

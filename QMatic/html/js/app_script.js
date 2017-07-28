@@ -112,5 +112,5 @@ var checkForInput = function () {
 }
 
 function startTimer() {
-    setTimeout(checkForInput, 5000);
+    setTimeout(checkForInput, 7000);
 }
