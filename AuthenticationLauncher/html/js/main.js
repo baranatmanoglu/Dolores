@@ -1,23 +1,27 @@
 function goNFC() {
     glowNfc();
+    cutSpeech();
     session.raiseEvent("Authentication/GoNFC", 1);
     blowOutNfc();
 }
 
 function goQR() {
     glowQr();
+    cutSpeech();
     session.raiseEvent("Authentication/GoQR", 1);
     blowOutQr();
 }
 
 function goListener() {
     glowListener();
+    cutSpeech();
     session.raiseEvent("Authentication/GoListener", 1);
     blowOutListener();
 }
 
 function goKeyboard() {
     glowNumpad();
+    cutSpeech();
     session.raiseEvent("Authentication/GoKeyboard", 1);
     blowOutNumpad();
 }
@@ -96,4 +100,10 @@ var checkForInput = function () {
         session.raiseEvent("Authentication/CheckForAction", "endit");
     }
 
+}
+
+function cutSpeech(){
+    session.service("ALTextToSpeech").then(function(tts) {
+    tts.stopAll();
+});
 }

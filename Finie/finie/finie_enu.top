@@ -21,7 +21,7 @@ concept:(yes) Yes
 concept:(no) No
 dynamic:tellerFinie
 dynamic:offerFinie
-concept:(offerYes) Great. I've started the process.
+concept:(offerYes) Great. I've started the process. You can check your balance on your mobile app.
 concept:(offerNo) Oh, Ok.
 concept:(later) * [later "another time"]
 concept:(offerLater) Ok. You can apply any time through IshCep.
@@ -32,7 +32,7 @@ concept:(offerNU) You can simply say Yes or No
 
 u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieContinue)
 
-u:(e:Finie/WhisperResponse) \vol=50\ $Finie/WhisperResponse \vol=80\ ^gotoReactivate(finieContinue)
+u:(e:Finie/WhisperResponse) \vol=60\ $Finie/WhisperResponse \vol=80\ ^gotoReactivate(finieContinue)
 
 u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offerFinie
     u1:(~yes) ~offerYes $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)

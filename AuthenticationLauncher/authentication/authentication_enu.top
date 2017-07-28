@@ -24,7 +24,7 @@ concept:(noOneSpeak) ["I couldn't get you."]
 
 concept:(qrobject) ["Q R" barcode]
 concept:(keyboardobject) [keyboard numpad "customer number"]
-concept:(listenerobject) [sound noise]
+concept:(listenerobject) [sound noise phone]
 concept:(nfcobject) ["N F C" "contactless card" "credit card" card]
 concept:(qrinput) * ~qrobject
 concept:(keyboardinput) * ~keyboardobject
@@ -43,30 +43,36 @@ u:(e:Authentication/Reminder) ~reminder ^gotoReactivate(askForInput)
 u:(e:Authentication/NoAction) ~exitting $Authentication/ExitApp=1
 
 
-proposal:%authenticationStart ^start(animations/Stand/Reactions/TouchHead_4)
+proposal:%authenticationStart $Authentication/Blocking=0 ^start(animations/Stand/Reactions/TouchHead_4)
     ~proposeqr
     ^wait(animations/Stand/Reactions/TouchHead_4) \pau=1000\
-    ^nextProposal
+    ^gotoReactivate(proposalnfc)
 
-proposal: ^start(animations/Stand/Gestures/This_1)
+proposal: %proposalnfc $Authentication/Next1=1
+
+u:(e:Authentication/Next1 $Authentication/Blocking==0) ^start(animations/Stand/Gestures/This_1)
     ~proposenfc
     ^wait(animations/Stand/Gestures/This_1) \pau=1000\
-    ^nextProposal
-    
-proposal: ^start(animations/Stand/Gestures/ShowTablet_1)
+    ^gotoReactivate(proposalkeyboard)
+
+proposal: %proposalkeyboard $Authentication/Next2=1
+
+u:(e:Authentication/Next2 $Authentication/Blocking==0) ^start(animations/Stand/Gestures/ShowTablet_1)
     ~proposekeyboard
     ^wait(animations/Stand/Gestures/ShowTablet_1) \pau=1000\
-    ^nextProposal
+    ^gotoReactivate(proposallistener)
 
-proposal: ^start(animations/Stand/Reactions/TouchHead_4)
+proposal: %proposallistener $Authentication/Next3=1
+
+u:(e:Authentication/Next3 $Authentication/Blocking==0) ^start(animations/Stand/Reactions/TouchHead_4)
     ~proposelistener
     ^wait(animations/Stand/Reactions/TouchHead_4) $Authentication/EnableBasics=1 ^gotoReactivate(askForInput)
     
 proposal: %askForInput
-    u1:(~keyboardinput) $Authentication/GoKeyboard=1
-    u1:(~nfcinput) $Authentication/GoNFC=1
-    u1:(~qrinput) $Authentication/GoQR=1
-    u1:(~listenerinput) $Authentication/GoListener=1
+    u1:(~keyboardinput) Good choice. $Authentication/GoKeyboard=1
+    u1:(~nfcinput) Good choice. $Authentication/GoNFC=1
+    u1:(~qrinput) Good choice. $Authentication/GoQR=1
+    u1:(~listenerinput) Good choice. $Authentication/GoListener=1
     u1:(e:Dialog/NotUnderstood2) ~notunderstoodAuth2 ^stayInScope
     
 

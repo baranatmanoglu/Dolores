@@ -16,7 +16,7 @@
   </behaviorContent>
  </contents>
  <services>
-  <service autorun="false" name="QueueMatic" execStart="main.py"/>
+  <service name="QueueMatic" autorun="false" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>
