@@ -178,7 +178,9 @@ class Finie(object):
                         if intent == "balance":
                             self.memory.raiseEvent("Finie/ShowBarChartForBalance", strVisuals)
                         if intent == "income":
-                            self.memory.raiseEvent("Finie/ShowBarChartForIncome", strVisuals)
+                            self.memory.raiseEvent("Finie/ShowTrxList", strVisuals)
+                        if intent == "txnlist": 
+                            self.memory.raiseEvent("Finie/ShowTrxList", strVisuals)   
                         if intent == "spendadvice":
                             recommend = str(answer_formatted["response"]["accounts"]["recommendation"])
                             if recommend == "no":
@@ -312,7 +314,8 @@ class Finie(object):
                     '100000003':"100000003",
                     '155295662': "100000004",
                     '16980497':"100000005",
-                    '100000006':"100000006"}
+                    '100000006':"100000006",
+                    '':"100000006"}
         self.customerInfo.customer_number = mappings[self.customerInfo.customer_number]
         self.logger.info("Mapped customer number: {}".format(self.customerInfo.customer_number))
 

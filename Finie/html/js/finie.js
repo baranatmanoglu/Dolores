@@ -237,6 +237,41 @@ function checkForOtherCustomer() {
 
 }
 
+
+function visualizeTrxList(input){
+    showTrxList();
+    var jsonData = JSON.parse(input);
+    var trxList = jsonData.transactionList;
+    
+    var date1 = trxList[0][0].split(",");
+    var dm1 = date1[0].split(" ");
+    $("#day1").text(dm1[1]);
+    $("#month1").text(dm1[0]);
+    $("#title1").text(trxList[0][1] + "     " + trxList[0][3]);
+    $("#detail1").text(trxList[0][2]); 
+    
+    var date2 = trxList[1][0].split(",");
+    var dm2 = date2[0].split(" ");
+    $("#day2").text(dm2[1]);
+    $("#month2").text(dm2[0]);
+    $("#title2").text(trxList[1][1] + "     " + trxList[1][3]);
+    $("#detail2").text(trxList[1][2]); 
+    
+    var date3 = trxList[2][0].split(",");
+    var dm3 = date3[0].split(" ");
+    $("#day3").text(dm3[1]);
+    $("#month3").text(dm3[0]);
+    $("#title3").text(trxList[2][1] + "     " + trxList[2][3]);
+    $("#detail3").text(trxList[2][2]); 
+    
+    var date4 = trxList[3][0].split(",");
+    var dm4 = date4[0].split(" ");
+    $("#day4").text(dm4[1]);
+    $("#month4").text(dm4[0]);
+    $("#title4").text(trxList[3][1] + "     " + trxList[3][3]);
+    $("#detail4").text(trxList[3][2]); 
+    
+}
 function clearBlink() {
     $("#otherCustomer").removeClass("blink_me");
 }
@@ -255,8 +290,13 @@ function showPieChart() {
     $("#donutchart").css("visibility", "visible");
 }
 
+function showTrxList() {
+    $("#trx_container").css("visibility", "visible");
+}
+
 function hidePieChart() {
     $("#donutchart").css("visibility", "hidden");
+    $("#trx_container").css("visibility", "hidden");
     $("#offer").css("visibility","hidden");
 }
 
@@ -289,6 +329,7 @@ function hideListening()
 }
 
 $(document).ready(function () {
+    session.subscribeToEvent("Finie/ShowTrxList", visualizeTrxList);
     session.subscribeToEvent("Finie/ShowPieChart", visualizePieChart);
     session.subscribeToEvent("Finie/ShowBarChartForBalance", visualizeBarChartForBalance);
     session.subscribeToEvent("Finie/ShowBarChartForIncome", visualizeBarChartForIncome);
