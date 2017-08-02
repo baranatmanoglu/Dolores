@@ -19,6 +19,17 @@ body {
     left: 0;
 }
 
+#email{
+    top: 150px;
+    left: 0px;
+    width: 1280px;
+    height: 800px;
+    margin: 0 auto;
+    visibility: hidden;
+    position: absolute; 
+    text-align: center;
+}
+
 #ticket_container {
     top: 0;
     left: 0;

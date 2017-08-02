@@ -298,6 +298,7 @@ function hidePieChart() {
     $("#donutchart").css("visibility", "hidden");
     $("#trx_container").css("visibility", "hidden");
     $("#offer").css("visibility","hidden");
+    $("#email").css("visibility","hidden");
 }
 
 
@@ -328,7 +329,17 @@ function hideListening()
     $("#bars").css("visibility", "hidden");
 }
 
+function showEmail()
+{
+    hideLoading();
+    $("#email").css("visibility","visible");
+}
+
+
 $(document).ready(function () {
+    
+    
+    session.subscribeToEvent("Finie/ShowEmail",showEmail);
     session.subscribeToEvent("Finie/ShowTrxList", visualizeTrxList);
     session.subscribeToEvent("Finie/ShowPieChart", visualizePieChart);
     session.subscribeToEvent("Finie/ShowBarChartForBalance", visualizeBarChartForBalance);

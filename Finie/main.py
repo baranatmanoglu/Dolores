@@ -9,6 +9,7 @@ from finie import FinieHelper
 import json
 from customerquery import CustomerQuery
 
+
 class Finie(object):
     subscriber_list = []
     in_action = False
@@ -180,7 +181,10 @@ class Finie(object):
                         if intent == "income":
                             self.memory.raiseEvent("Finie/ShowTrxList", strVisuals)
                         if intent == "txnlist": 
-                            self.memory.raiseEvent("Finie/ShowTrxList", strVisuals)   
+                            self.memory.raiseEvent("Finie/ShowEmail", strVisuals)
+                            return
+
+                            #self.memory.raiseEvent("Finie/ShowTrxList", strVisuals)
                         if intent == "spendadvice":
                             recommend = str(answer_formatted["response"]["accounts"]["recommendation"])
                             if recommend == "no":

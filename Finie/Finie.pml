@@ -21,6 +21,7 @@
         <File name="pepper" src="html/img/pepper.png" />
         <File name="customerquery" src="customerquery.py" />
         <File name="creditoffer" src="html/img/creditoffer.jpg" />
+        <File name="email" src="html/img/email.png" />
     </Resources>
     <Topics>
         <Topic name="finie_enu" src="finie/finie_enu.top" topicName="finie" language="en_US" />

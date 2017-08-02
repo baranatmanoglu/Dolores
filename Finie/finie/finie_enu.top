@@ -29,10 +29,13 @@ concept:(whisper) This is a confidential information. I will whisper it to you. 
 concept:(tryagain) Hey, I think I had a glitch. Can you ask me again?
 concept:(nexttimeerror) I am sorry but I can not go on. Please go on with a different feature.
 concept:(offerNU) You can simply say Yes or No
+concept:(emailSent) I've sent you an e-mail, including your latest transactions.
 
 u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieContinue)
 
 u:(e:Finie/WhisperResponse) \vol=60\ $Finie/WhisperResponse \vol=80\ ^gotoReactivate(finieContinue)
+
+u:(e:Finie/ShowEmail) ~emailSent ^gotoReactivate(finieContinue)
 
 u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offerFinie
     u1:(~yes) ~offerYes $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
