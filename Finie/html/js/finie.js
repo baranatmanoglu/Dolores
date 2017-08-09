@@ -66,6 +66,7 @@ function visualizeBarChartForIncome(input) {
 
 function visualizeBarChartForBalance(input) {
     hideLoading();
+    return;
     var jsonData = JSON.parse(input);
     var dates = jsonData.dateList;
     var balances = jsonData.balanceList[0].data;
@@ -213,10 +214,10 @@ function checkForQueue() {
     var seconds = Math.floor(distance / 1000);
     if (seconds < 60) {
         var tellerId = Math.floor(Math.random() * (10 - 1) + 1);
-        $("#ticketNumber").text(ticketNumber + ">" + tellerId);
+        $("#ticketNumber").text(ticketNumber + ">8");
         $("#ticketNumber").addClass("blink_me");
         clearInterval(intervalId);
-        session.raiseEvent("Finie/GoForTransaction", tellerId);
+        //session.raiseEvent("Finie/GoForTransaction", tellerId);
     }
 
 }
@@ -235,6 +236,12 @@ function checkForOtherCustomer() {
     baseQueueNumber[index]++;
     setTimeout("clearBlink()", 3000);
 
+}
+
+function blinkme()
+{
+    $("#ticketNumber").text(ticketNumber + ">8");
+    $("#ticketNumber").addClass("blink_me");
 }
 
 
@@ -353,5 +360,5 @@ $(document).ready(function () {
     session.subscribeToEvent("Finie/Said", showListening);
     session.subscribeToEvent("Finie/TellResponse", hideListening);
     session.subscribeToEvent("Finie/TellResponseWithOffer", hideListening);
-
+    session.subscribeToEvent("Finie/GoForTransaction",blinkme);
 });

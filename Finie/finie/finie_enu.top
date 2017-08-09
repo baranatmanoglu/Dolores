@@ -31,6 +31,8 @@ concept:(nexttimeerror) I am sorry but I can not go on. Please go on with a diff
 concept:(offerNU) You can simply say Yes or No
 concept:(emailSent) I've sent you an e-mail, including your latest transactions.
 
+
+
 u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieContinue)
 
 u:(e:Finie/WhisperResponse) \vol=60\ $Finie/WhisperResponse \vol=80\ ^gotoReactivate(finieContinue)
@@ -58,6 +60,7 @@ u:(e:Finie/FinieHasNoAnswer $Finie/FinieHasNoAnswer==1) ~nexttimeerror $Finie/Ex
 proposal:%finieContinue  $Finie/Said=0
     u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
     u1:(~exit) ~nextTime $Finie/ExitApp=1
+    u1:(Eren enter queue) $Finie/GoForTransaction=1
     u1:(e:Dialog/NoOneSpeak10 $Finie/Said==0) $Finie/Said=1 ~noOneSpeak ^stayInScope
     u1:(e:Dialog/NoOneSpeak10 $Finie/Said==1) ~nextTime $Finie/ExitApp=1
     

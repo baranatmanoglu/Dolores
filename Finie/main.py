@@ -134,7 +134,7 @@ class Finie(object):
         self.tts.stopAll()
         number, waiting, service_type = self.ticketData.split("|")
         if service_type == "T":
-            self.dialog.setConcept("tellerFinie", "English", ["You are next. Please proceed to teller booth {}".format(str(value))])
+            self.dialog.setConcept("tellerFinie", "English", ["I enjoyed spending time with you, but your queue number is up next. Please proceed to teller booth 8."])
         else:
             self.dialog.setConcept("tellerFinie", "English",["You are next. Please proceed to customer representative booth {}".format(str(value))])
         self.dialog.gotoTag("goToTeller", "finie")

@@ -16,7 +16,7 @@
   </behaviorContent>
  </contents>
  <services>
-  <service execStart="main.py" autorun="false" name="AuthenticationLauncher"/>
+  <service autorun="false" name="AuthenticationLauncher" execStart="main.py"/>
  </services>
  <executableFiles>
   <file path="main.py"/>
