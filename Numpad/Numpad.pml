@@ -29,6 +29,11 @@
         <File name="utils" src="kairos_face/utils.py" />
         <File name="verify" src="kairos_face/verify.py" />
         <File name="main" src="main.py" />
+        <File name="main" src="html/css/main.css" />
+        <File name="bg" src="html/img/bg.png" />
+        <File name="buttonsBg" src="html/img/buttonsBg.png" />
+        <File name="leftArrow" src="html/img/leftArrow.png" />
+        <File name="rightArrow" src="html/img/rightArrow.png" />
     </Resources>
     <Topics>
         <Topic name="numpad_enu" src="numpad/numpad_enu.top" topicName="numpad" language="en_US" />

@@ -8,10 +8,42 @@
     <script src="js/app_script.js"></script>
     <script src="js/numpad.js"></script>
     <link type="text/css" rel="stylesheet" href="css/pepper.css">
+    <link type="text/css" rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <div id="logo_container">
+    <div class="container">
+        <header>
+            <a href="javascript:keyClicked('D');" class="leftButton">Go Back</a>
+            <span class="pageTitle">Please Enter Your Customer Id</span>
+            <a href="javascript:enterPressed();" class="rightButton">Continue</a>
+        </header>
+        <article>
+            <div class="content">
+                <p></p>
+                <div class="inputWrapper">
+                    <input id="numpadOut" type="number" />
+                </div>
+                <p></p>
+            </div>
+            <ul class="numPad">
+                <li onclick="javascript:keyClicked('1');">1</li>
+                <li onclick="javascript:keyClicked('2');">2</li>
+                <li onclick="javascript:keyClicked('3');">3</li>
+                <li onclick="javascript:keyClicked('4');">4</li>
+                <li onclick="javascript:keyClicked('5');">5</li>
+                <li onclick="javascript:keyClicked('6');">6</li>
+                <li onclick="javascript:keyClicked('7');">7</li>
+                <li onclick="javascript:keyClicked('8');">8</li>
+                <li onclick="javascript:keyClicked('9');">9</li>
+                <li onclick="javascript:keyClicked('0');">0</li>
+                <li onclick="javascript:keyClicked('D');">Del</li>
+            </ul>
+        </article>
+        <footer></footer>
+    </div>
+    
+   <!-- <div id="logo_container">
         <img src="img/logo.png">
     </div>
     <div id=value_container>
@@ -39,9 +71,7 @@
     <div class="wrapper">
         <ul id="keyboard">
             <li class="teller clearl" onclick="javascript:enterPressed();">Enter</li>
-            
         </ul>
-
     </div>
 
 
@@ -53,7 +83,7 @@
     </div>
     <div class='leaveapp'>
         <div id="exit" onclick="exit();">x</div>
-    </div>
+    </div>-->
 
 </body>
 

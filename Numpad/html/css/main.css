@@ -1,0 +1,111 @@
+.html {
+    font-family: "tahoma", "arial";
+    color: #ffffff;
+}
+.container {
+    background-image: url("../img/bg.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    width: 1280px;
+    height: 800px;
+    display: block;
+}
+header {
+    padding: 40px;
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+    overflow: auto;
+}
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    border: 3px solid #ffffff;
+    border-radius: 99px;
+    padding: 16px 30px;
+}
+header span {
+    line-height: 78px;
+    font-weight: bold;
+}
+header a.leftButton {
+    background: url(../img/leftArrow.png) no-repeat center left 20px;
+    padding-left: 80px;
+    float: left;
+}
+header a.leftButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+header a.rightButton {
+    background: url(../img/rightArrow.png) no-repeat center right 20px ;
+    padding-right: 80px;
+    float: right;
+}
+header a.rightButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+article {
+    padding: 40px;
+    overflow: auto;
+}
+.content {
+    width: 800px;
+    float: left;
+    text-align: center;
+    padding: 48px 0;
+}
+.content p {
+    color: #ffffff;
+    font-size: 28px;
+    margin: 10px 0 20px 0;
+}
+.content .inputWrapper {
+    background: #ffffff;
+    display: inline-block;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+    -moz-box-shadow:    inset 3px 3px 10px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 3px 3px 10px rgba(0,0,0,0.2);
+    box-shadow:         inset 3px 3px 10px rgba(0,0,0,0.2);
+    margin-bottom: 30px
+}
+.content .inputWrapper input {
+    padding: 22px;
+    width: 500px;
+    font-size: 30px;
+    border: 0;
+    background: transparent;
+    text-align: center;
+    font-weight: bold;
+    color: #2985d2;
+}
+.numPad {
+    width: 325px;
+    font-size: 38px;
+    font-weight: bold;
+    text-align: center;
+    color: #2985d2;
+    float: left;
+}
+.numPad li {
+    background: url(../img/buttonsBg.png) no-repeat 0 0;
+    width: 107px;
+    height: 111px;
+    display: inline-block;
+    float: left;
+    line-height: 98px;
+}
+.numPad li:active {
+    background: url(../img/buttonsBg.png) no-repeat 0 -111px;
+    color: #1765a7;
+    line-height: 96px;
+}
+.numPad li:last-child {
+    background: url(../img/buttonsBg.png) no-repeat -108px 0;
+    width: 214px;
+}
+.numPad li:last-child:active {
+    background: url(../img/buttonsBg.png) no-repeat -108px -111px;
+    line-height: 96px;
+}

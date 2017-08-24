@@ -10,18 +10,20 @@ function keyClicked(value) {
         case "7":
         case "8":
         case "9":
-            var current = $('#numpadOut').text();
+            var current = $('#numpadOut').val();
             if (current.length == 16)
                 return;
             current = current + value;
-            $('#numpadOut').text(current);
+            $('#numpadOut').val(current);
             break;
         case "D":
-            var current = $('#numpadOut').text();
+            var current = $('#numpadOut').val();
+           
             if (current.length == 0)
                 return;
             current = current.substr(0,current.length-1);
-            $('#numpadOut').text(current);
+            $('#numpadOut').val(current);
+            
             break;
         default:
             break;

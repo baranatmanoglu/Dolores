@@ -46,7 +46,7 @@ function showTicket(value) {
 
 
 function enterPressed() {
-    var current = $('#numpadOut').text()
+    var current = $('#numpadOut').val()
     session.raiseEvent("Numpad/NumberEntered", current);
 }
 
@@ -57,11 +57,13 @@ function exit(){
 
 
 function showLoading() {
-    $("#loading_container").css("visibility", "visible");
+    return;
+    //$("#loading_container").css("visibility", "visible");
 }
 
 function hideLoading() {
-    $("#loading_container").css("visibility", "hidden");
+    return;
+    //$("#loading_container").css("visibility", "hidden");
 }
 
 function showNumPad() {
@@ -69,7 +71,7 @@ function showNumPad() {
 }
 
 function clearScreen() {
-   $('#numpadOut').text(""); 
+   $('#numpadOut').val(""); 
 }
 
 
@@ -95,7 +97,7 @@ function startTimer()
 }
 
 var checkForInput = function () {
-    var current = $('#numpadOut').text();
+    var current = $('#numpadOut').val();
 
     if (current.length == 0) {
         if (checked == 1)
