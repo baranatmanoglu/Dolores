@@ -22,6 +22,19 @@
         <File name="customerquery" src="customerquery.py" />
         <File name="creditoffer" src="html/img/creditoffer.jpg" />
         <File name="email" src="html/img/email.png" />
+        <File name="main" src="html/css/main.css" />
+        <File name="IsBank_Logo-White" src="html/img/IsBank_Logo-White.png" />
+        <File name="IsBank_Logo" src="html/img/IsBank_Logo.png" />
+        <File name="bg" src="html/img/bg.png" />
+        <File name="bgNoLogo" src="html/img/bgNoLogo.png" />
+        <File name="bot" src="html/img/bot.png" />
+        <File name="leftArrow" src="html/img/leftArrow.png" />
+        <File name="loading" src="html/img/loading.gif" />
+        <File name="rightArrow" src="html/img/rightArrow.png" />
+        <File name="user" src="html/img/user.png" />
+        <File name="wave" src="html/js/wave.js" />
+        <File name="bartestbig" src="html/img/bartestbig.jpg" />
+        <File name="pietestbig" src="html/img/pietestbig.jpg" />
     </Resources>
     <Topics>
         <Topic name="finie_enu" src="finie/finie_enu.top" topicName="finie" language="en_US" />

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="finie-1200" version="0.0.0">
+<package version="0.0.0" uuid="finie-1200">
  <names>
   <name lang="en_US">Finie</name>
  </names>
@@ -16,7 +16,7 @@
   </behaviorContent>
  </contents>
  <services>
-  <service autorun="false" name="Finie" execStart="main.py"/>
+  <service execStart="main.py" name="Finie" autorun="false"/>
  </services>
  <executableFiles>
   <file path="main.py"/>

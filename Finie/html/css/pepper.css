@@ -19,16 +19,7 @@ body {
     left: 0;
 }
 
-#email{
-    top: 150px;
-    left: 0px;
-    width: 1280px;
-    height: 800px;
-    margin: 0 auto;
-    visibility: hidden;
-    position: absolute; 
-    text-align: center;
-}
+
 
 #ticket_container {
     top: 0;
@@ -89,7 +80,6 @@ body {
 }
 
 #keyboard {
-    margin: 20px 0px 0px 330px;
     padding: 0;
     list-style: none;
 }
@@ -100,15 +90,7 @@ body {
     line-height: 60px;
 }
 
-#donutchart {
-    top: 150px;
-    left: 0px;
-    width: 900px;
-    height: 500px;
-    margin: 0 auto;
-    visibility: hidden;
-    position: absolute;
-}
+
 
 #trx_container {
     top: 150px;
@@ -118,42 +100,6 @@ body {
     margin: 0 auto;
     visibility: hidden;
     position: absolute;
-}
-
-#offer {
-    top: 150px;
-    left: 0px;
-    width: 1250px;
-    height: 650px;
-    visibility: hidden;
-    position: absolute;
-}
-
-.image {
-    margin: 100px 0px 0px 340px;
-}
-
-#keyboard li {
-    float: left;
-    margin: 0px 5px 5px 10px;
-    width: 188px;
-    height: 75px;
-    font-size: 24px;
-    line-height: 75px;
-    text-align: center;
-    border-radius: 5px;
-}
-
-.greenb {
-    background: #99ff99;
-}
-
-.redb {
-    background: #ff9999;
-}
-
-.blueb {
-    background: #99ffff;
 }
 
 #ticket {

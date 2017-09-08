@@ -27,42 +27,42 @@ function goKeyboard() {
 }
 
 function glowNfc() {
-    $("#nfc_item").addClass("glowing-item");
+    $("#nfc_item").addClass("showcase");
     setTimeout(blowOutNfc, 1000);
 }
 
 function glowQr() {
-    $("#qr_item").addClass("glowing-item");
+    $("#qr_item").addClass("showcase");
     setTimeout(blowOutQr, 1000);
 }
 
 function glowListener() {
-    $("#listener_id").addClass("glowing-item");
+    $("#listener_id").addClass("showcase");
     setTimeout(blowOutListener, 1000);
     setTimeout(checkForInput, timeout);
 
 }
 
 function glowNumpad() {
-    $("#numpad_id").addClass("glowing-item");
+    $("#numpad_id").addClass("showcase");
     setTimeout(blowOutNumpad, 1000);
 
 }
 
 function blowOutNfc() {
-    $("#nfc_item").removeClass("glowing-item");
+    $("#nfc_item").removeClass("showcase");
 }
 
 function blowOutQr() {
-    $("#qr_item").removeClass("glowing-item");
+    $("#qr_item").removeClass("showcase");
 }
 
 function blowOutListener() {
-    $("#listener_id").removeClass("glowing-item");
+    $("#listener_id").removeClass("showcase");
 }
 
 function blowOutNumpad() {
-    $("#numpad_id").removeClass("glowing-item");
+    $("#numpad_id").removeClass("showcase");
 }
 
 function blowOutAll() {

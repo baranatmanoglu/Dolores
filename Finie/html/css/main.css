@@ -1,0 +1,283 @@
+.html {
+    font-family: "tahoma", "arial";
+    color: #ffffff;
+}
+.container {
+    background-image: url("../img/bg.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    width: 1280px;
+    height: 800px;
+    display: block;
+}
+header {
+    padding: 40px;
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+    overflow: auto;
+}
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    border: 3px solid #ffffff;
+    border-radius: 99px;
+    padding: 16px 30px;
+}
+header span {
+    line-height: 78px;
+    font-weight: bold;
+}
+header a.leftButton {
+    background: url(../img/leftArrow.png) no-repeat center left 20px;
+    padding-left: 80px;
+    float: left;
+}
+header a.leftButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+header a.rightButton {
+    background: url(../img/rightArrow.png) no-repeat center right 20px ;
+    padding-right: 80px;
+    float: right;
+}
+header a.rightButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+header a.closeButton {
+    float: right;
+    min-width: 160px;
+}
+header a.closeButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+article {
+    padding: 20px 40px;
+    overflow: auto;
+    text-align: center;
+}
+.content {
+    width: 100%;
+    float: left;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+    background: #ffffff;
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 24px;
+}
+
+.nobackground{
+    background: transparent;
+}
+
+.message {
+    width: 70%;
+    margin: 2px 0;
+    position: relative;
+    text-align: left;
+}
+.message img {
+    width: 50px;
+    height: 50px;
+}
+.message.user {
+    float: right;
+}
+.message.user img {
+    right: 0;
+    top: 4px;
+    position: absolute;
+
+}
+.message.user p {
+    background: #eeeeee;
+    position: relative;
+    right: 60px;
+}
+.message.bot {
+    float: left;
+}
+.message.bot img {
+    left: 0;
+    top: 4px;
+    position: absolute;
+}
+.message.bot p {
+    background: #bbe0f6;
+    position: relative;
+    left: 60px;
+}
+.message p {
+    margin: 5px;
+    padding: 15px;
+    border-radius: 10px;
+}
+.scrollWrapper {
+    height: 400px;
+}
+.scroll {
+    height: 380px;
+    padding: 10px;
+    overflow: scroll;
+    position: relative;
+}
+.currentQueue {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px;
+    background: black;
+    width: 200px;
+    margin: 5px 5px 20px 985px;
+    color: red;
+    border-radius: 10px 10px 10px 10px;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    -webkit-transform: translateY(0) translateX(0);
+    -moz-transform: translateY(0) translateX(0);
+    transform: translateY(0) translateX(0);
+}
+.currentQueue.active {
+    font-size: 60px;
+    padding: 20px;
+    width: 600px;
+    margin: 0 auto;
+    border-radius: 10px;
+    text-align: center;
+    display: inline-block;
+    -webkit-transform: translateY(-320px) translateX(0);
+    -moz-transform: translateY(-320px) translateX(0);
+    transform: translateY(-320px) translateX(0);
+}
+.currentQueue {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+/* Hide */
+
+.hidden {
+    visibility: hidden;
+}
+
+/* Hide */
+
+
+/* Loading */
+
+.loading {
+    position: fixed;
+    width: 1280px;
+    height: 800px;
+    z-index: 999;
+    background: rgba(0,0,0,0.95);
+}
+.loading img {
+    position: absolute;
+    top: 50%;
+    margin-left: -100px;
+    left: 50%;
+    margin-top: -100px;
+}
+
+/* Loading */
+
+/* Full IsBank Logo */
+
+.fullLogo {
+    position: fixed;
+    width: 1280px;
+    height: 800px;
+    z-index: 1000;
+    background: rgba(255,255,255,0.95);
+}
+.fullLogo img {
+    position: absolute;
+    width: 800px;
+    top: 50%;
+    margin-left: -400px;
+    left: 50%;
+    margin-top: -150px;
+}
+.fullLogoBlue {
+    position: fixed;
+    width: 1280px;
+    height: 800px;
+    z-index: 1000;
+    background-image: url("../img/bgNoLogo.png");
+}
+.fullLogoBlue img {
+    position: absolute;
+    width: 800px;
+    top: 50%;
+    margin-left: -400px;
+    left: 50%;
+    margin-top: -150px;
+}
+
+/* Full IsBank Logo */
+
+.subcontainer {
+	width: 1162px;
+    top: 0;
+    margin: 0 auto;
+	height: 320px;
+    position: absolute;
+    padding: 50px 0;
+}
+.subcontainer canvas {
+
+}
+
+.subcontainerQR {
+    background: #ffffff;
+	width: 1162px;
+    top: 0;
+    margin: 0 auto;
+	height: 400px;
+    position: absolute;
+    padding: 20px 0;
+}
+
+
+#offer {
+    position: fixed;
+    width: 1280px;
+    height: 800px;
+    z-index: 1000;
+    background-image: url("../img/bgNoLogo.png");
+}
+#offer img {
+    position: absolute;
+    width: 800px;
+    top: 300px;
+    margin-left: -400px;
+    left: 50%;
+    margin-top: -150px;
+    border-radius: 10px;
+}
+#offer .buttons {
+    position: absolute;
+    top: 650px;
+    width: 100%;
+    text-align: center;
+}
+#offer li {
+    font-size: 30px;
+    width: 20%;
+    display: inline-block;
+    color: #ffffff;
+    text-decoration: none;
+    border: 3px solid #ffffff;
+    border-radius: 99px;
+    padding: 16px 30px;
+    margin: 0 20px;
+}
+#offer li:active {
+    background-color: rgba(255,255,255,0.3)
+}

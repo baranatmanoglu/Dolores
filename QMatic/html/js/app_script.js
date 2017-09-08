@@ -35,9 +35,8 @@ function pressKey(number) {
 }
 
 function showTicket(value) {
-    $("#candidate_container").css("visibility", "hidden");
-    $("#ticket_container").css("visibility", "visible");
-    $("#ticket").text(value);
+    $("#queue_container").removeClass("hidden");
+    $("#queuenumber").text(value);
 }
 
 
@@ -64,11 +63,11 @@ function custRepPressed() {
 
 
 function showLoading() {
-    $("#loading_container").css("visibility", "visible");
+    $("#load").removeClass("hidden");
 }
 
 function hideLoading() {
-    $("#loading_container").css("visibility", "hidden");
+    $("#load").addClass("hidden");
 }
 
 function showNumPad() {

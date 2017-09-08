@@ -893,6 +893,13 @@
         <File name="messaging_response" src="twilio/twiml/messaging_response.py" />
         <File name="voice_response" src="twilio/twiml/voice_response.py" />
         <File name="switch" src="html/default/switch.jpg" />
+        <File name="main" src="html/css/main.css" />
+        <File name="bg" src="html/img/bg.png" />
+        <File name="bgNoLogo" src="html/img/bgNoLogo.png" />
+        <File name="buttonsBg" src="html/img/buttonsBg.png" />
+        <File name="leftArrow" src="html/img/leftArrow.png" />
+        <File name="loading" src="html/img/loading.gif" />
+        <File name="rightArrow" src="html/img/rightArrow.png" />
     </Resources>
     <Topics>
         <Topic name="qmatic_enu" src="qmatic/qmatic_enu.top" topicName="qmatic" language="en_US" />

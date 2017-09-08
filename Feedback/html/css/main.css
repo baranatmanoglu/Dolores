@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.html {
+    font-family: "tahoma", "arial";
+    color: #ffffff;
+}
+.container {
+    background-image: url("../img/bgNoLogo.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    width: 1280px;
+    height: 800px;
+    display: block;
+}
+header {
+    padding: 40px;
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+    overflow: auto;
+}
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    border: 3px solid #ffffff;
+    border-radius: 99px;
+    padding: 16px 30px;
+}
+header span {
+    line-height: 78px;
+    font-weight: bold;
+}
+header a.leftButton {
+    background: url(../img/leftArrow.png) no-repeat center left 20px;
+    padding-left: 80px;
+    float: left;
+}
+header a.leftButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+header a.rightButton {
+    background: url(../img/rightArrow.png) no-repeat center right 20px ;
+    padding-right: 80px;
+    float: right;
+}
+header a.rightButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+article {
+    padding: 40px;
+    overflow: auto;
+}
+.content {
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding: 40px 0;
+}
+.feedback {
+    width: 96%;
+    font-size: 38px;
+    margin: 0 auto;
+}
+.feedback li {
+    background: url(../img/buttonsBg.png) no-repeat 0 0;
+    width: 319px;
+    height: 319px;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+}
+.feedback li img {
+    position: absolute;
+    left: 85px;
+    top: 80px;
+}
+.feedback li:active {
+    background: url(../img/buttonsBg.png) no-repeat -319px 0;
+}
+.feedback li:active img {
+    left: 85px;
+    top: 82px;
+    opacity: 0.9;
+}
+.mic {
+    background: url(../img/buttonsBgMic.png) no-repeat 0 0;
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    margin: 25px auto;
+}
+.mic img {
+    margin-top: 38px;
+    opacity: 0.35;
+}
+.mic.active, .mic:active {
+    background: url(../img/buttonsBgMic.png) no-repeat -150px 0;
+}
+.mic.active img, .mic:active img {
+    filter: invert(1);
+    opacity: 1;
+}
+
+/* Hide */
+
+.hidden {
+    visibility: hidden;
+}
+
+/* Hide */

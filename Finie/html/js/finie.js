@@ -3,15 +3,17 @@ var pieChartTuples;
 function visualizePieChart(input) {
 
     hideLoading();
-    var jsonData = JSON.parse(input);
-    var accountLabels = jsonData.accountLabels;
-    var accountValues = jsonData.accountSpends;
-    pieChartTuples = generatePieChartArray(accountLabels, accountValues);
+    //var jsonData = JSON.parse(input);
+    //var accountLabels = jsonData.accountLabels;
+    //var accountValues = jsonData.accountSpends;
+    //pieChartTuples = generatePieChartArray(accountLabels, accountValues);
 
-    google.charts.load("current", {
-        packages: ["corechart"]
-    });
-    google.charts.setOnLoadCallback(drawPieChart);
+    //google.charts.load("current", {
+    //    packages: ["corechart"]
+    //});
+    //google.charts.setOnLoadCallback(drawPieChart);
+    $("#qrImage").attr("src", "img/pietestbig.jpg");
+
     showPieChart();
 }
 
@@ -28,9 +30,12 @@ function generatePieChartArray(accountLabels, accountValues) {
     return response;
 }
 
-function exit()
-{
-   session.raiseEvent("Finie/ExitApp", 1); 
+function exit() {
+    session.raiseEvent("Finie/ExitApp", 1);
+}
+
+function next() {
+    session.raiseEvent("Finie/NextQuestion", 1);
 }
 
 function drawPieChart() {
@@ -52,6 +57,7 @@ var barChartTuples;
 
 function visualizeBarChartForIncome(input) {
     hideLoading();
+
     var jsonData = JSON.parse(input);
     var dates = jsonData.dateList;
     var balances = jsonData.incomeList[0].data;
@@ -66,16 +72,17 @@ function visualizeBarChartForIncome(input) {
 
 function visualizeBarChartForBalance(input) {
     hideLoading();
-    return;
-    var jsonData = JSON.parse(input);
-    var dates = jsonData.dateList;
-    var balances = jsonData.balanceList[0].data;
+    $("#qrImage").attr("src", "img/bartestbig.jpg");
+    //return;
+    //var jsonData = JSON.parse(input);
+    //var dates = jsonData.dateList;
+    //var balances = jsonData.balanceList[0].data;
 
-    barChartTuples = generateBarChartTuples(dates, balances);
-    google.charts.load("current", {
-        packages: ['corechart']
-    });
-    google.charts.setOnLoadCallback(drawBarChart, "Your Balance");
+    //barChartTuples = generateBarChartTuples(dates, balances);
+    //google.charts.load("current", {
+    //    packages: ['corechart']
+    //});
+    //google.charts.setOnLoadCallback(drawBarChart, "Your Balance");
     showPieChart();
 }
 
@@ -128,7 +135,7 @@ var lineChartTuples;
 function visualizeLineChartForAdvice(input) {
     hideLoading();
 
-    $("#offer").css("visibility","visible");
+    $("#offer").removeClass("hidden");
     //var jsonData = JSON.parse(input);
     //var spendingList = jsonData.historyResponse.spendingLists;
     //var spendingTicks = jsonData.historyResponse.spendingTicks;
@@ -186,19 +193,17 @@ var intervalId;
 var otherIntervalId;
 
 function showTicketData(input) {
-    
-    
-    
-    $("#ticket").css("visibility", "visible");
+
+    $("#ticketContainer").removeClass("hidden");
     var data = input.split("|");
 
     eta.setTime(eta.getTime() + (data[1] * 60 * 1000));
     eta.setTime(eta.getTime() - (7 * 60 * 60 * 1000));
 
     var ampm = eta.getHours() >= 12 ? "PM" : "AM";
-    
-    var minutes = eta.getMinutes() < 10 ? "0" +  eta.getMinutes() : eta.getMinutes();
-    $("#waitingTime").text("You'll be served ~" + eta.getHours() + ":" + minutes + " " + ampm);
+
+    var minutes = eta.getMinutes() < 10 ? "0" + eta.getMinutes() : eta.getMinutes();
+
     $("#ticketNumber").text("Your number: " + data[0]);
     ticketNumber = data[0];
     intervalId = setInterval("checkForQueue()", 20000);
@@ -214,10 +219,14 @@ function checkForQueue() {
     var seconds = Math.floor(distance / 1000);
     if (seconds < 60) {
         var tellerId = Math.floor(Math.random() * (10 - 1) + 1);
+        $("#otherCustomer").text("");
         $("#ticketNumber").text(ticketNumber + ">8");
         $("#ticketNumber").addClass("blink_me");
         clearInterval(intervalId);
-        //session.raiseEvent("Finie/GoForTransaction", tellerId);
+        clearInterval(otherIntervalId);
+        $("#ticketContainer").addClass("active");
+        
+        session.raiseEvent("Finie/GoForTransaction", tellerId);
     }
 
 }
@@ -238,63 +247,65 @@ function checkForOtherCustomer() {
 
 }
 
-function blinkme()
-{
+function blinkme() {
     $("#ticketNumber").text(ticketNumber + ">8");
     $("#ticketNumber").addClass("blink_me");
 }
 
 
-function visualizeTrxList(input){
+function visualizeTrxList(input) {
     showTrxList();
     var jsonData = JSON.parse(input);
     var trxList = jsonData.transactionList;
-    
+
     var date1 = trxList[0][0].split(",");
     var dm1 = date1[0].split(" ");
     $("#day1").text(dm1[1]);
     $("#month1").text(dm1[0]);
     $("#title1").text(trxList[0][1] + "     " + trxList[0][3]);
-    $("#detail1").text(trxList[0][2]); 
-    
+    $("#detail1").text(trxList[0][2]);
+
     var date2 = trxList[1][0].split(",");
     var dm2 = date2[0].split(" ");
     $("#day2").text(dm2[1]);
     $("#month2").text(dm2[0]);
     $("#title2").text(trxList[1][1] + "     " + trxList[1][3]);
-    $("#detail2").text(trxList[1][2]); 
-    
+    $("#detail2").text(trxList[1][2]);
+
     var date3 = trxList[2][0].split(",");
     var dm3 = date3[0].split(" ");
     $("#day3").text(dm3[1]);
     $("#month3").text(dm3[0]);
     $("#title3").text(trxList[2][1] + "     " + trxList[2][3]);
-    $("#detail3").text(trxList[2][2]); 
-    
+    $("#detail3").text(trxList[2][2]);
+
     var date4 = trxList[3][0].split(",");
     var dm4 = date4[0].split(" ");
     $("#day4").text(dm4[1]);
     $("#month4").text(dm4[0]);
     $("#title4").text(trxList[3][1] + "     " + trxList[3][3]);
-    $("#detail4").text(trxList[3][2]); 
-    
+    $("#detail4").text(trxList[3][2]);
+
 }
+
 function clearBlink() {
     $("#otherCustomer").removeClass("blink_me");
 }
 
 function showLoading() {
-    $("#loading_container").css("visibility", "visible");
+    $("#load").removeClass("hidden");
     hideListening();
     hidePieChart();
 }
 
 function hideLoading() {
-    $("#loading_container").css("visibility", "hidden");
+    $("#load").addClass("hidden");
+
 }
 
 function showPieChart() {
-    $("#donutchart").css("visibility", "visible");
+    $("#donutchart").removeClass("hidden");
+    $("#nextQuestion").removeClass("hidden");
 }
 
 function showTrxList() {
@@ -302,51 +313,62 @@ function showTrxList() {
 }
 
 function hidePieChart() {
-    $("#donutchart").css("visibility", "hidden");
-    $("#trx_container").css("visibility", "hidden");
-    $("#offer").css("visibility","hidden");
-    $("#email").css("visibility","hidden");
+
+    $("#donutchart").addClass("hidden");
+    //$("#trx_container").css("visibility", "hidden");
+    $("#offer").addClass("hidden");
+    $("#nextQuestion").addClass("hidden");
+    $("#email").addClass("hidden");
 }
 
 
-function accept(){
-    session.raiseEvent("Finie/AcceptOffer",1);
+function accept() {
+    session.raiseEvent("Finie/AcceptOffer", 1);
     hidePieChart();
 }
 
-function decline(){
-    session.raiseEvent("Finie/DeclineOffer",1);
+function decline() {
+    session.raiseEvent("Finie/DeclineOffer", 1);
     hidePieChart();
 }
 
-function remind(){
-    session.raiseEvent("Finie/RemindOffer",1);
+function remind() {
+    session.raiseEvent("Finie/RemindOffer", 1);
     hidePieChart();
 }
 
-function showListening()
-{
-    $("#bars").css("visibility", "visible");
-    $("#bubbles").css("visibility", "hidden");
+function showListening() {
+    $("#container-ios9").removeClass("hidden");
+    $("#questions").addClass("hidden");
     hidePieChart();
+    hideAugmentedLogo();
+    $("#contentHolder").addClass("nobackground");
+
 }
 
-function hideListening()
-{
-    $("#bars").css("visibility", "hidden");
+function hideListening() {
+    $("#container-ios9").addClass("hidden");
+    $("#contentHolder").removeClass("nobackground");
 }
 
-function showEmail()
-{
+function showEmail() {
     hideLoading();
-    $("#email").css("visibility","visible");
+    $("#email").removeClass("hidden");
+}
+
+function showAugmentedLogo() {
+    $("#augmented").removeClass("hidden");
+}
+
+function hideAugmentedLogo() {
+    $("#augmented").addClass("hidden");
 }
 
 
 $(document).ready(function () {
-    
-    
-    session.subscribeToEvent("Finie/ShowEmail",showEmail);
+
+    showTicketData("212|1");
+    session.subscribeToEvent("Finie/ShowEmail", showEmail);
     session.subscribeToEvent("Finie/ShowTrxList", visualizeTrxList);
     session.subscribeToEvent("Finie/ShowPieChart", visualizePieChart);
     session.subscribeToEvent("Finie/ShowBarChartForBalance", visualizeBarChartForBalance);
@@ -360,5 +382,5 @@ $(document).ready(function () {
     session.subscribeToEvent("Finie/Said", showListening);
     session.subscribeToEvent("Finie/TellResponse", hideListening);
     session.subscribeToEvent("Finie/TellResponseWithOffer", hideListening);
-    session.subscribeToEvent("Finie/GoForTransaction",blinkme);
+    session.subscribeToEvent("Finie/GoForTransaction", blinkme);
 });

@@ -7,25 +7,39 @@
 
 <body>
 
-    <div id="preview_canvas" style="top:280px; left:480px; position:absolute;">
-        <canvas id="videoBuffer" width="320px" height="240px">Video player</canvas>
+    <div class="container">
+        <header>
+            <a href="onclick=" exit(); class="leftButton">Go Back</a>
+            <span class="pageTitle">Scan QR</span>
+            <a href="#" class="rightButton hidden">Continue</a>
+        </header>
+        <article>
+            <div class="content">
+                <div class="inner">
+                    <ul class="qr">
+                        <canvas id="videoBuffer" width="320px" height="240px">Video player</canvas>
+                    </ul>
+                </div>
+                <div class="inner">
+                    <canvas id="borders" width="320" height="240">Video player</canvas>
+                </div>
+            </div>
+        </article>
+        <footer></footer>
+    </div>
 
-    </div>
-    <div id="border_canvas" style="top:280px; left:480px; position:absolute;">
-        <canvas id="borders" width="320" height="240">Video player</canvas>
-    </div>
-    
-    <div class='leaveapp'>
-        <div id="exit" onclick="exit();">x</div>
-    </div>
-    
+
+
+
+
+
+
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/qimessaging_helper.js"></script>
     <script src="js/videoutils.js"></script>
     <script src="js/main.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/main.css">
     <link type="text/css" rel="stylesheet" href="css/pepper.css">
-
-
 </body>
 
 </html>

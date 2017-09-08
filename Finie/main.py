@@ -38,7 +38,7 @@ class Finie(object):
         self.tts = self.session.service("ALTextToSpeech")
 
         self.firstAnswer = True
-
+        self.firstQR = True
         self.customerInfo = CustomerQuery()
         self.customer_json = ""
         try:
@@ -173,11 +173,14 @@ class Finie(object):
                 self.memory.raiseEvent("Finie/HideLoading", 1)
                 if not self.wentTeller:
                     offer = False
+                    qr = False
                     if has_answer:
                         if intent == "history":
                             self.memory.raiseEvent("Finie/ShowPieChart",strVisuals)
+                            qr = True    
                         if intent == "balance":
                             self.memory.raiseEvent("Finie/ShowBarChartForBalance", strVisuals)
+                            qr = True
                         if intent == "income":
                             self.memory.raiseEvent("Finie/ShowTrxList", strVisuals)
                         if intent == "txnlist": 
@@ -192,12 +195,20 @@ class Finie(object):
                                 self.memory.raiseEvent("Finie/ShowLineChartForAdvice", strVisuals)
                                 offer = True
                         if not offer:
-                            if self.firstAnswer and intent != "location" and intent != "outofscope":
+                            if self.firstAnswer and intent != "location" and intent != "outofscope" and intent!= "balance" and intent != "history":
                                 self.dialog.gotoTag("finieWhisper", "finie")
 
                                 self.firstAnswer = False
                             else:
-                                self.memory.raiseEvent("Finie/TellResponse", self.spokenAnswer)
+                                if not qr:
+                                    self.memory.raiseEvent("Finie/TellResponse", self.spokenAnswer)
+                                else:
+                                    if self.firstQR:
+                                        self.firstQR = False
+                                        self.dialog.setConcept("arFinie", "English", ["Please open your mobile app and scan the code. I have a magic for you."])
+                                    else:
+                                        self.dialog.setConcept("arFinie", "English", ["Please use your phone again to see your answer."])
+                                    self.memory.raiseEvent("Finie/TellResponseWithAR", self.spokenAnswer)
                         else:
                             self.memory.raiseEvent("Finie/TellResponseWithOffer", self.spokenAnswer)
                     else:

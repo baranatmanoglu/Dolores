@@ -8,10 +8,43 @@
     <script src="js/app_script.js"></script>
     <script src="js/numpad.js"></script>
     <link type="text/css" rel="stylesheet" href="css/pepper.css">
+    <link type="text/css" rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <div id="logo_container">
+    <div id="load" class="loading hidden">
+        <img src="img/loading.gif" />
+    </div>
+   <div class="container">
+        <header>
+            <a href="javascript:exit();" class="leftButton">Go Back</a>
+            <span class="pageTitle">Queuematic</span>
+            <a href="#" class="rightButton hidden">Continue</a>
+        </header>
+        <article>
+            <div class="content">
+                <div class="btnContainer">
+                    <div class="btn">
+                        <a href="javascript:tellerPressed();">Teller</a>
+                    </div>
+                    <p>Bill Payment <br />
+                    Money Transfer <br />
+                    Exchange</p>
+                </div>
+                <div class="btnContainer">
+                    <div class="btn">
+                        <a href="javascript:custRepPressed();">Customer Rep.</a>
+                    </div>
+                    <p>Credit Applications <br />
+                    Insurance <br />
+                    Credit Card Applications</p>
+                </div>
+            </div>
+            <div id="queue_container" class="currentQueue active hidden"><p id="queuenumber">QUEUE: 279-2</p></div>
+        </article>
+        <footer></footer>
+    </div>
+    <!--<div id="logo_container">
         <img src="img/logo.png">
     </div>
 
@@ -42,7 +75,7 @@
     
     <div class='leaveapp'>
         <div id="exit" onclick="exit();">x</div>
-    </div>
+    </div>-->
 </body>
 
 </html>

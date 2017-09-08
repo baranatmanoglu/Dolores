@@ -1,6 +1,6 @@
 function surveyClicked(value) {
     if (value != "G")
-        $("#recorder").css("visibility", "visible");
+        $("#record").removeClass("hidden");
     session.raiseEvent("Feedback/SurveyClicked", value);
     setTimeout(exitWoRecord,6000);
 
@@ -31,7 +31,7 @@ function exitWoRecord()
 function micClicked() {
     if (micState == 'off') {
         micState = 'on';
-        $("#record").addClass("microphone-glow");
+        $("#record").addClass("active");
         $("#warning").css("visibility", "visible");
         timeOutId = setTimeout("micClicked()", recordDuration);
         session.raiseEvent("Feedback/ProcessRecording", "S");
@@ -39,7 +39,7 @@ function micClicked() {
         clearTimeout(timeOutId);
         micState = 'off';
 
-        $("#record").removeClass("microphone-glow");
+        $("#record").removeClass("active");
         $("#warning").css("visibility", "hidden");
         session.raiseEvent("Feedback/ProcessRecording", "E");
     }

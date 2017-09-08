@@ -38,6 +38,11 @@
         <File name="verify" src="kairos_face/verify.py" />
         <File name="verify" src="kairos_face/verify.pyc" />
         <File name="main" src="main.py" />
+        <File name="main" src="html/css/main.css" />
+        <File name="bg" src="html/img/bg.png" />
+        <File name="leftArrow" src="html/img/leftArrow.png" />
+        <File name="qr" src="html/img/qr.png" />
+        <File name="rightArrow" src="html/img/rightArrow.png" />
     </Resources>
     <Topics>
         <Topic name="qrcodereader_enu" src="qrcodereader/qrcodereader_enu.top" topicName="qrcodereader" language="en_US" />

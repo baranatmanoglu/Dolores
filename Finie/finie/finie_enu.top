@@ -12,7 +12,7 @@ language: enu
 
 
 concept:(finieStartProposal) You can ask me about your balance, income, transactions, spending history, spending advice, locations of ATMs and pay day. 
-concept:(finieThinking) ["ok, thinking."]
+concept:(finieThinking) ^rand["Let me see." "Just a second." "Let me get it for you." "Let me think."]
 concept:(noOneSpeak) ["You can talk to me."]
 concept:(stillThere) ["Great."]
 concept:(nextTime) ["Ok. Hope to see you again."]
@@ -21,6 +21,7 @@ concept:(yes) Yes
 concept:(no) No
 dynamic:tellerFinie
 dynamic:offerFinie
+dynamic: arFinie
 concept:(offerYes) Great. I've started the process. You can check your balance on your mobile app.
 concept:(offerNo) Oh, Ok.
 concept:(later) * [later "another time"]
@@ -30,14 +31,20 @@ concept:(tryagain) Hey, I think I had a glitch. Can you ask me again?
 concept:(nexttimeerror) I am sorry but I can not go on. Please go on with a different feature.
 concept:(offerNU) You can simply say Yes or No
 concept:(emailSent) I've sent you an e-mail, including your latest transactions.
-
+concept:(nextQuestion) ["I have another question." "Lets's continue." "Let's go on." "Go on." "Continue"]
 
 
 u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieContinue)
 
+u:(e:Finie/NextQuestion) ^gotoReactivate(finieContinue)
+    
 u:(e:Finie/WhisperResponse) \vol=60\ $Finie/WhisperResponse \vol=80\ ^gotoReactivate(finieContinue)
 
 u:(e:Finie/ShowEmail) ~emailSent ^gotoReactivate(finieContinue)
+
+u:(e:Finie/TellResponseWithAR) ~arFinie
+    u1:(~nextQuestion) ^gotoReactivate(finieContinue)
+    u1:(~exit) ~nextTime $Finie/ExitApp=1
 
 u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offerFinie
     u1:(~yes) ~offerYes $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
