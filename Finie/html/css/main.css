@@ -63,7 +63,7 @@ article {
     text-align: center;
     position: relative;
     padding: 20px;
-    background: #ffffff;
+    
     box-sizing: border-box;
     border-radius: 10px;
     font-size: 24px;
@@ -235,7 +235,7 @@ article {
 }
 
 .subcontainerQR {
-    background: #ffffff;
+    
 	width: 1162px;
     top: 0;
     margin: 0 auto;
@@ -280,4 +280,21 @@ article {
 }
 #offer li:active {
     background-color: rgba(255,255,255,0.3)
+}
+
+.iscep {
+    position: fixed;
+    width: 1280px;
+    height: 800px;
+    z-index: 1000;
+    background-image: url("../img/bgNoLogo.png");
+}
+.iscep img {
+    position: absolute;
+    width: 350px;
+    top: 200px;
+    margin-left: -175px;
+    left: 50%;
+    margin-top: -150px;
+    border-radius: 10px;
 }

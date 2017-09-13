@@ -11,7 +11,7 @@ language: enu
 #u:(~hello) ~hello
 
 
-concept:(finieStartProposal) You can ask me about your balance, income, transactions, spending history, spending advice, locations of ATMs and pay day. 
+concept:(finieStartProposal) You can ask me anything about your financial status and our services.
 concept:(finieThinking) ^rand["Let me see." "Just a second." "Let me get it for you." "Let me think."]
 concept:(noOneSpeak) ["You can talk to me."]
 concept:(stillThere) ["Great."]
@@ -22,6 +22,7 @@ concept:(no) No
 dynamic:tellerFinie
 dynamic:offerFinie
 dynamic: arFinie
+dynamic: finieAskMLd
 concept:(offerYes) Great. I've started the process. You can check your balance on your mobile app.
 concept:(offerNo) Oh, Ok.
 concept:(later) * [later "another time"]
@@ -31,8 +32,15 @@ concept:(tryagain) Hey, I think I had a glitch. Can you ask me again?
 concept:(nexttimeerror) I am sorry but I can not go on. Please go on with a different feature.
 concept:(offerNU) You can simply say Yes or No
 concept:(emailSent) I've sent you an e-mail, including your latest transactions.
-concept:(nextQuestion) ["I have another question." "Lets's continue." "Let's go on." "Go on." "Continue"]
-
+concept:(nextQuestion) ["I have another question." "Lets's continue." "Let's go on."]
+concept:(authenticationrequired) I need to know you before answering your question.
+concept:(afterauthentication) Now we can go on
+concept:(aftermlauthentication) Now I can send you the magic link
+concept:(getConfirmationML) To send the magic link, I need to know you. Would you like to authenticate first?
+concept:(confirmationYes) ["Ok. Let's authenticate you"]
+concept:(confirmationNo) ["No problem. Maybe next time."]
+concept:(mlnotsent) I couldn't send the link. We can go on.
+concept:(mlsent) I've created the magic link for the transaction you asked. You can logon to your mobile banking application to make your transaction easily.
 
 u:(e:Finie/TellResponse) $Finie/TellResponse ^gotoReactivate(finieContinue)
 
@@ -42,7 +50,7 @@ u:(e:Finie/WhisperResponse) \vol=60\ $Finie/WhisperResponse \vol=80\ ^gotoReacti
 
 u:(e:Finie/ShowEmail) ~emailSent ^gotoReactivate(finieContinue)
 
-u:(e:Finie/TellResponseWithAR) ~arFinie
+u:(e:Finie/TellResponseWithAR) ~arFinie $Finie/ShowQR=$Finie/TellResponseWithAR
     u1:(~nextQuestion) ^gotoReactivate(finieContinue)
     u1:(~exit) ~nextTime $Finie/ExitApp=1
 
@@ -52,6 +60,9 @@ u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offer
     u1:(~later) ~offerLater $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
     u1:(e:Dialog/NoOneSpeak10) ^gotoReactivate(finieContinue)
     u1:(e:Dialog/NotUnderstood2) ~offerNU ^stayInScope
+
+
+
 
 u:(e:Finie/AcceptOffer) ~offerYes ^gotoReactivate(finieContinue)
 u:(e:Finie/DeclineOffer) ~offerNo ^gotoReactivate(finieContinue)
@@ -63,6 +74,15 @@ u:(e:Finie/FinieHasNoAnswer $Finie/FinieHasNoAnswer==0) ~tryagain ^gotoReactivat
 
 u:(e:Finie/FinieHasNoAnswer $Finie/FinieHasNoAnswer==1) ~nexttimeerror $Finie/ExitApp=1
 
+u:(e:Finie/AuthenticationRequired) ~authenticationrequired $Finie/RedirectAuthentication=1
+
+
+proposal:%finieAskML ~finieAskMLd
+    u1:(~yes) ~getConfirmationML
+        u2:(~yes) ~confirmationYes $Finie/RedirectAuthenticationForML=1
+        u2:(~no) ~confirmationNo ^gotoReactivate(finieContinue)
+    u1:(~no) ~confirmationNo ^gotoReactivate(finieContinue)
+    u1:(~exit) $Finie/ExitApp=1
 
 proposal:%finieContinue  $Finie/Said=0
     u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
@@ -73,14 +93,21 @@ proposal:%finieContinue  $Finie/Said=0
     
 
 
-proposal:%finieStart $Finie/Said=0 ~finieStartProposal $Finie/ReadyToGo=1
+proposal:%finieStart $Finie/SaidS=0 ~finieStartProposal $Finie/ReadyToGo=1
     u1:(_*)  ~finieThinking $Finie/StartSpeak=$1
     u1:(~exit) ~nextTime $Finie/ExitApp=1
-    u1:(e:Dialog/NoOneSpeak10 $Finie/Said==0) $Finie/Said=1 ~noOneSpeak ^stayInScope
-    u1:(e:Dialog/NoOneSpeak10 $Finie/Said==1) ~nextTime $Finie/ExitApp=1
+    u1:(e:Dialog/NoOneSpeak10 $Finie/SaidS==0) $Finie/SaidS=1 ~noOneSpeak ^stayInScope
+    u1:(e:Dialog/NoOneSpeak10 $Finie/SaidS==1) ~nextTime $Finie/ExitApp=1
 
 
+proposal:%finieStartAfterAuth  ~afterauthentication $Finie/ProcessAfterAuth=1
+
+proposal:%finieStartAfterMLAuth ~aftermlauthentication $Finie/SendMagicLink=1
 
 proposal:%goToTeller ~tellerFinie \pau=3000\ $Finie/ExitApp=1
 
 proposal:%finieWhisper ~whisper $Finie/PlayWhisper=1
+
+proposal:%MlSent ~mlsent ^gotoReactivate(finieContinue)
+
+proposal:%MlNotSent ~mlnotsent ^gotoReactivate(finieContinue)

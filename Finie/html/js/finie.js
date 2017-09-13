@@ -3,6 +3,7 @@ var pieChartTuples;
 function visualizePieChart(input) {
 
     hideLoading();
+    $("#questions").addClass("hidden");
     //var jsonData = JSON.parse(input);
     //var accountLabels = jsonData.accountLabels;
     //var accountValues = jsonData.accountSpends;
@@ -31,7 +32,7 @@ function generatePieChartArray(accountLabels, accountValues) {
 }
 
 function exit() {
-    session.raiseEvent("Finie/ExitApp", 1);
+    session.raiseEvent("Finie/ExitToMainApp", 1);
 }
 
 function next() {
@@ -84,6 +85,18 @@ function visualizeBarChartForBalance(input) {
     //});
     //google.charts.setOnLoadCallback(drawBarChart, "Your Balance");
     showPieChart();
+}
+
+function showQR(input){
+   hideLoading();
+    if(input=="B"){
+        $("#qrImage").attr("src", "img/pietestbig.jpg");
+    }
+    else{
+        $("#qrImage").attr("src", "img/bartestbig.jpg");
+    }
+    $("#donutchart").removeClass("hidden");
+    $("#nextQuestion").removeClass("hidden");
 }
 
 function generateBarChartTuples(dates, balances) {
@@ -149,7 +162,10 @@ function visualizeLineChartForAdvice(input) {
     //showPieChart();
 }
 
-
+function showMagicLink(){
+    hideLoading();
+    $("#magiclink").removeClass("hidden");
+}
 
 function generateLineChartTuples(spendingList, spendingTicks, spendingLabels) {
     var response = new Array(spendingTicks.length);
@@ -294,12 +310,14 @@ function clearBlink() {
 
 function showLoading() {
     $("#load").removeClass("hidden");
+    $("#questions").addClass("hidden");
     hideListening();
     hidePieChart();
 }
 
 function hideLoading() {
     $("#load").addClass("hidden");
+    hideQuestions();
 
 }
 
@@ -317,6 +335,7 @@ function hidePieChart() {
     $("#donutchart").addClass("hidden");
     //$("#trx_container").css("visibility", "hidden");
     $("#offer").addClass("hidden");
+    $("#magiclink").addClass("hidden");
     $("#nextQuestion").addClass("hidden");
     $("#email").addClass("hidden");
 }
@@ -364,10 +383,17 @@ function hideAugmentedLogo() {
     $("#augmented").addClass("hidden");
 }
 
+function showQuestions(){
+    $("#questions").removeClass("hidden");
+}
+
+function hideQuestions(){
+    $("#questions").addClass("hidden");
+}
 
 $(document).ready(function () {
 
-    showTicketData("212|1");
+    
     session.subscribeToEvent("Finie/ShowEmail", showEmail);
     session.subscribeToEvent("Finie/ShowTrxList", visualizeTrxList);
     session.subscribeToEvent("Finie/ShowPieChart", visualizePieChart);
@@ -383,4 +409,9 @@ $(document).ready(function () {
     session.subscribeToEvent("Finie/TellResponse", hideListening);
     session.subscribeToEvent("Finie/TellResponseWithOffer", hideListening);
     session.subscribeToEvent("Finie/GoForTransaction", blinkme);
+    session.subscribeToEvent("Finie/AuthenticationRequired",hideListening);
+    session.subscribeToEvent("Finie/ShowQR",showQR);
+    session.subscribeToEvent("Finie/ShowMagicLink",showMagicLink);
+    session.subscribeToEvent("Finie/SendMagicLink",showMagicLink);
+    
 });
