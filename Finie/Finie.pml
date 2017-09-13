@@ -33,6 +33,7 @@
         <File name="rightArrow" src="html/img/rightArrow.png" />
         <File name="user" src="html/img/user.png" />
         <File name="wave" src="html/js/wave.js" />
+        <File name="iscep" src="html/img/iscep.png" />
         <File name="bartestbig" src="html/img/bartestbig.jpg" />
         <File name="pietestbig" src="html/img/pietestbig.jpg" />
     </Resources>

@@ -1,0 +1,85 @@
+.html {
+    font-family: "tahoma", "arial";
+    color: #ffffff;
+}
+.container {
+    background-image: url("../img/bg.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    width: 1280px;
+    height: 800px;
+    display: block;
+}
+header {
+    padding: 40px;
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+    overflow: auto;
+}
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    border: 3px solid #ffffff;
+    border-radius: 99px;
+    padding: 16px 30px;
+}
+header span {
+    line-height: 78px;
+    font-weight: bold;
+}
+header a.leftButton {
+    background: url(../img/leftArrow.png) no-repeat center left 20px;
+    padding-left: 80px;
+    float: left;
+}
+header a.leftButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+header a.rightButton {
+    background: url(../img/rightArrow.png) no-repeat center right 20px ;
+    padding-right: 80px;
+    float: right;
+}
+header a.rightButton:active {
+    background-color: rgba(255,255,255,0.3)
+}
+article {
+    padding: 40px;
+    overflow: auto;
+}
+.content {
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding: 0;
+}
+.qr {
+    width: 100%;
+    font-size: 38px;
+    margin: 0 auto;
+    padding: 0;
+}
+.qr li {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    margin: 0 5px;
+    position: relative;
+}
+
+/* Hide */
+
+.hidden {
+    visibility: hidden;
+}
+
+/* Hide */
+
+.inner{
+    width: 100%;
+    position: absolute; 
+    margin: 0 auto;
+    padding: 0;
+}

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <package version="0.0.0" uuid="qrcodereader-c54951">
  <names>
-  <name lang="en_US">QrCodeReader</name>
+  <name lang="en_US">QrReader</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>

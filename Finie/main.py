@@ -438,8 +438,8 @@ class Finie(object):
         self.stop_app()
 
     @qi.bind(methodName="on_exit_to_main", returnType=qi.Void)
-    def on_exit_to_main(self):
-        self.redirect_pref_name = "empty_app_id"
+    def on_exit_to_main(self,value):
+        self.redirect_pref_name = "main_app_id"
         self.stop_app()
 
     @qi.nobind  # Starting the app  # @TODO: insert whatever the app should do to start
