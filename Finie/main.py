@@ -50,10 +50,12 @@ class Finie(object):
             self.customerInfo.fromjson(self.customer_json)
             self.magic_link_customer_number = self.customerInfo.customer_number
             self.mapCustomerNumber()
+
         except Exception,e:
             self.logger.info("Exception getting customer. Finie for anonymous user")
             self.customerInfo.customer_number = "100000001"
             self.user_authenticated = False
+
 
 
         self.ticketData = ""
@@ -379,6 +381,11 @@ class Finie(object):
             self.dialog.activateTopic(self.loaded_topic)
             self.dialog.subscribe(self.service_name)
             self.logger.info("Dialog loaded!")
+            if self.user_authenticated:
+                self.dialog.setConcept("nextTimeFinie", "English", ["Ok " + self.customerInfo.name + ". Have a good one."])
+            else:
+                self.dialog.setConcept("nextTimeFinie", "English", ["Ok. Have a good one."])
+
         except Exception, e:
             self.logger.info("Error while loading dialog: {}".format(e))
         if self.question == "":

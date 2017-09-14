@@ -54,8 +54,8 @@ class FinieHelper(object):
                 'Content-type': 'application/json'
             }
             payload = {"question": value}
-
-            response = requests.post(finie_settings._sm_endpoint, data=json.dumps(payload), headers=auth_headers)
+            url = finie_settings._sm_endpoint + "?question={}".format(value)
+            response = requests.get(url, headers=auth_headers,timeout = finie_settings._timeout)
             self.logger.info("Response: {}".format(response.text))
             json_response = response.json()
 

@@ -12,24 +12,14 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="440" column="34" lean-forward="false" selection-start-line="440" selection-start-column="34" selection-end-line="440" selection-end-column="34" />
+            <state relative-caret-position="259">
+              <caret line="384" column="104" lean-forward="false" selection-start-line="384" selection-start-column="104" selection-end-line="384" selection-end-column="104" />
               <folding>
                 <element signature="e#25#34#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../QrCodeReader/manifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="29" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -67,8 +57,8 @@
       <file leaf-file-name="finie_enu.top" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finie/finie_enu.top">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="617">
-              <caret line="104" column="75" lean-forward="false" selection-start-line="104" selection-start-column="56" selection-end-line="104" selection-end-column="75" />
+            <state relative-caret-position="198">
+              <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -99,8 +89,8 @@
       <file leaf-file-name="finie.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finie.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
-              <caret line="134" column="75" lean-forward="false" selection-start-line="134" selection-start-column="75" selection-end-line="134" selection-end-column="75" />
+            <state relative-caret-position="416">
+              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -108,7 +98,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="finie_settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="finie_settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/finie_settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
@@ -122,9 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>faq</find>
-      <find>IHaveAQuestion</find>
-      <find>link</find>
       <find>tryagain</find>
       <find>Faq/MLQuestion</find>
       <find>Finie/StartSpeak</find>
@@ -148,10 +135,13 @@
       <find>redirect_pref_name</find>
       <find>redire</find>
       <find>exit</find>
-      <find>Finie/SendMagicLink</find>
       <find>ShowMagicLink</find>
       <find>main</find>
       <find>empty</find>
+      <find>setco</find>
+      <find>Finie/SendMagicLink</find>
+      <find>start_di</find>
+      <find>nextTime</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -162,11 +152,11 @@
         <option value="$PROJECT_DIR$/../QMatic/qmatic.py" />
         <option value="$USER_HOME$/Desktop/doloresFaqApp-master/FaqRobotApp/Faq/Faq_enu.top" />
         <option value="$PROJECT_DIR$/finie_settings.py" />
+        <option value="$PROJECT_DIR$/../QRReader/manifest.xml" />
+        <option value="$PROJECT_DIR$/../QrCodeReader/manifest.xml" />
         <option value="$PROJECT_DIR$/finie.py" />
         <option value="$PROJECT_DIR$/finie/finie_enu.top" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/../QRReader/manifest.xml" />
-        <option value="$PROJECT_DIR$/../QrCodeReader/manifest.xml" />
       </list>
     </option>
   </component>
@@ -626,16 +616,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/finie.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="134" column="75" lean-forward="false" selection-start-line="134" selection-start-column="75" selection-end-line="134" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/doloresFaqApp-master/FaqRobotApp/Faq/Faq_enu.top">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="536">
@@ -662,29 +642,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/finie/finie_enu.top">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="104" column="75" lean-forward="false" selection-start-line="104" selection-start-column="56" selection-end-line="104" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../AuthenticationLauncher/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="247" column="70" lean-forward="false" selection-start-line="247" selection-start-column="59" selection-end-line="247" selection-end-column="70" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="440" column="34" lean-forward="false" selection-start-line="440" selection-start-column="34" selection-end-line="440" selection-end-column="34" />
-          <folding>
-            <element signature="e#25#34#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -709,6 +671,34 @@
         <state relative-caret-position="216">
           <caret line="9" column="59" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="59" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/finie.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/finie/finie_enu.top">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="384" column="104" lean-forward="false" selection-start-line="384" selection-start-column="104" selection-end-line="384" selection-end-column="104" />
+          <folding>
+            <element signature="e#25#34#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
