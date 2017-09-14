@@ -23,10 +23,10 @@ dynamic:offerFinie
 dynamic: arFinie
 dynamic: finieAskMLd
 dynamic: nextTimeFinie
-concept:(offerYes) Great. I've started the process. You can check your balance on your mobile app.
-concept:(offerNo) Oh, Ok.
+concept:(offerYesFinie) Great. I've started the process. You can check your balance on your mobile app.
+concept:(offerNoFinie) Oh, Ok.
 concept:(later) * [later "another time"]
-concept:(offerLater) Ok. You can apply any time through IshCep.
+concept:(offerLaterFinie) Ok. You can apply any time through IshCep.
 concept:(whisper) This is a confidential information. I will whisper it to you. Come closer.
 concept:(tryagain) Hey, I think I had a glitch. Can you ask me again?
 concept:(nexttimeerror) I am sorry but I can not go on. Please go on with a different feature.
@@ -55,18 +55,18 @@ u:(e:Finie/TellResponseWithAR) ~arFinie $Finie/ShowQR=$Finie/TellResponseWithAR
     u1:(~exit) ~nextTimeFinie $Finie/ExitApp=1
 
 u:(e:Finie/TellResponseWithOffer) $Finie/TellResponseWithOffer \pau=1000\ ~offerFinie
-    u1:(~yes) ~offerYes $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
-    u1:(~no) ~offerNo $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
-    u1:(~later) ~offerLater $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
+    u1:(~yes) ~offerYesFinie $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
+    u1:(~no) ~offerNoFinie $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
+    u1:(~later) ~offerLaterFinie $Finie/ClearScreen=1 ^gotoReactivate(finieContinue)
     u1:(e:Dialog/NoOneSpeak10) ^gotoReactivate(finieContinue)
     u1:(e:Dialog/NotUnderstood2) ~offerNU ^stayInScope
 
 
 
 
-u:(e:Finie/AcceptOffer) ~offerYes ^gotoReactivate(finieContinue)
-u:(e:Finie/DeclineOffer) ~offerNo ^gotoReactivate(finieContinue)
-u:(e:Finie/RemindOffer) ~offerLater ^gotoReactivate(finieContinue)
+u:(e:Finie/AcceptOffer) ~offerYesFinie ^gotoReactivate(finieContinue)
+u:(e:Finie/DeclineOffer) ~offerNoFinie ^gotoReactivate(finieContinue)
+u:(e:Finie/RemindOffer) ~offerLaterFinie ^gotoReactivate(finieContinue)
 
 u:(~exit) ~nextTimeFinie $Finie/ExitApp=1
 
