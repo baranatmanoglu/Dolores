@@ -35,6 +35,8 @@ concept:(no) ["no"]
 concept:(reminder) ["Hey, can you choose how you want to authenticate yourself to me?"]
 concept:(exitting) ["Ok. See you in another life brother."]
 concept:(notunderstoodAuth2) You can simply say I want to tap my credit card. 
+concept:(startProposal) Please open your mobile app and wait for awhile I will do a magic for you. If you want to use other ways to authenticate you can choose from my tablet. Are you ready?
+concept:(found) Wonderful! Now we can continue!
 
 u:(e:Authentication/StartDialog) ^gotoReactivate(authenticationStart)
 
@@ -42,37 +44,23 @@ u:(e:Authentication/Reminder) ~reminder ^gotoReactivate(askForInput)
 
 u:(e:Authentication/NoAction) ~exitting $Authentication/ExitApp=1
 
+u:(e:Authentication/FoundWithSound) ~found
 
-proposal:%authenticationStart $Authentication/Blocking=0 ^start(animations/Stand/Reactions/TouchHead_4)
-    ~proposeqr
-    ^wait(animations/Stand/Reactions/TouchHead_4) \pau=1000\
-    ^gotoReactivate(proposalnfc)
+u:(e:Authentication/GoQR) Good choice. $Authentication/Click=1
+u:(e:Authentication/GoNFC) Good choice. $Authentication/Click=1
+u:(e:Authentication/GoKeyboard) Good choice. $Authentication/Click=1
+u:(e:Authentication/GoListener) Good choice. $Authentication/Click=1
 
-proposal: %proposalnfc $Authentication/Next1=1
-
-u:(e:Authentication/Next1 $Authentication/Blocking==0) ^start(animations/Stand/Gestures/This_1)
-    ~proposenfc
-    ^wait(animations/Stand/Gestures/This_1) \pau=1000\
-    ^gotoReactivate(proposalkeyboard)
-
-proposal: %proposalkeyboard $Authentication/Next2=1
-
-u:(e:Authentication/Next2 $Authentication/Blocking==0) ^start(animations/Stand/Gestures/ShowTablet_1)
-    ~proposekeyboard
-    ^wait(animations/Stand/Gestures/ShowTablet_1) \pau=1000\
-    ^gotoReactivate(proposallistener)
-
-proposal: %proposallistener $Authentication/Next3=1
-
-u:(e:Authentication/Next3 $Authentication/Blocking==0) ^start(animations/Stand/Reactions/TouchHead_4)
-    ~proposelistener
-    ^wait(animations/Stand/Reactions/TouchHead_4) $Authentication/EnableBasics=1 ^gotoReactivate(askForInput)
+proposal:%authenticationStart $Authentication/Blocking=0 ~startProposal 
+        u1:(~yes) great! $Authentication/PlaySound=1
+        u1:(~no) lets wait for a while ^wait(5) ^gotoReactivate(authenticationStart)
+    
     
 proposal: %askForInput
-    u1:(~keyboardinput) Good choice. $Authentication/GoKeyboard=1
-    u1:(~nfcinput) Good choice. $Authentication/GoNFC=1
-    u1:(~qrinput) Good choice. $Authentication/GoQR=1
-    u1:(~listenerinput) Good choice. $Authentication/GoListener=1
+    u1:(~keyboardinput) $Authentication/GoKeyboard=1
+    u1:(~nfcinput)  $Authentication/GoNFC=1
+    u1:(~qrinput) $Authentication/GoQR=1
+    u1:(~listenerinput) $Authentication/GoListener=1
     u1:(e:Dialog/NotUnderstood2) ~notunderstoodAuth2 ^stayInScope
     
 

@@ -1,0 +1,26 @@
+{
+    "name" : "ultrasonic",
+    "version" : 5,
+
+    "encoding" : {
+        "symbol_bits" : 4,
+        "message_length" : 8,
+        "parity_length" : 6
+    },
+
+    "acoustic" : {
+        "base_frequency" : 18200,
+        "interval" : 120,
+        "fft_size" : 2048,
+
+        "frontdoor_note_length" : 0.16,
+        "message_note_length" : 0.08,
+        "envelope_attack" : 0.01,
+        "envelope_release" : 0.01,
+        "portamento" : 0.0,
+        "frontdoor_silence_length" : 0.02,
+        "message_silence_length" : 0.0,
+
+        "frontdoor" : [ 7, 4 ]
+    }
+}
