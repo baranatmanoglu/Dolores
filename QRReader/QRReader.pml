@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Package name="QrCodeReader" format_version="4">
+<Package name="QRReader" format_version="4">
     <Manifest src="manifest.xml" />
     <BehaviorDescriptions>
         <BehaviorDescription name="behavior" src="behavior_1" xar="behavior.xar" />
     </BehaviorDescriptions>
     <Dialogs>
-        <Dialog name="qrcodereader" src="qrcodereader/qrcodereader.dlg" />
+        <Dialog name="qrreader" src="qrreader/qrreader.dlg" />
     </Dialogs>
     <Resources>
         <File name="customerquery" src="customerquery.py" />
+        <File name="main" src="html/css/main.css" />
         <File name="pepper" src="html/css/pepper.css" />
+        <File name="bg" src="html/img/bg.png" />
+        <File name="leftArrow" src="html/img/leftArrow.png" />
+        <File name="qr" src="html/img/qr.png" />
+        <File name="rightArrow" src="html/img/rightArrow.png" />
         <File name="index" src="html/index.html" />
         <File name="jquery-2.1.4.min" src="html/js/jquery-2.1.4.min.js" />
         <File name="main" src="html/js/main.js" />
@@ -38,14 +43,9 @@
         <File name="verify" src="kairos_face/verify.py" />
         <File name="verify" src="kairos_face/verify.pyc" />
         <File name="main" src="main.py" />
-        <File name="main" src="html/css/main.css" />
-        <File name="bg" src="html/img/bg.png" />
-        <File name="leftArrow" src="html/img/leftArrow.png" />
-        <File name="qr" src="html/img/qr.png" />
-        <File name="rightArrow" src="html/img/rightArrow.png" />
     </Resources>
     <Topics>
-        <Topic name="qrcodereader_enu" src="qrcodereader/qrcodereader_enu.top" topicName="qrcodereader" language="en_US" />
+        <Topic name="qrreader_enu" src="qrreader/qrreader_enu.top" topicName="qrreader" language="en_US" />
     </Topics>
     <IgnoredPaths />
     <Translations auto-fill="en_US">

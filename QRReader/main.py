@@ -204,7 +204,7 @@ class QRCodeReader(object):
         self.logger.info("Loading dialog")
         
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        topic_path = os.path.realpath(os.path.join(dir_path, "qrcodereader", "qrcodereader_enu.top"))
+        topic_path = os.path.realpath(os.path.join(dir_path, "qrreader", "qrreader_enu.top"))
         self.logger.info("File is: {}".format(topic_path))
         try:
             self.loaded_topic = self.dialog.loadTopic(topic_path)
